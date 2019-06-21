@@ -1,20 +1,6 @@
 import React from 'react';
 import Plot from 'react-plotly.js';
-import { MDBCard, MDBCardBody, MDBCardTitle, MDBCardText, MDBCardHeader, MDBBtn, MDBContainer } from 'mdbreact'
-
-const ChartContainer = props => {
-    return (
-        <MDBContainer>
-        <MDBCard>
-        <MDBCardHeader>{props.title}</MDBCardHeader>
-        <MDBCardBody className="pl-0 pr-0">
-            {props.children}
-        </MDBCardBody>
-        </MDBCard>
-        </MDBContainer>
-    )
-  }
-  
+import ContentPanel from './ContentPanel' 
 
 class PlotlyChart extends React.Component {
     constructor(props) {
@@ -24,8 +10,8 @@ class PlotlyChart extends React.Component {
 
     render() {
         return (
-            <ChartContainer title={this.props.title} ref="plotContainer" >
-            <Plot className="" 
+            <ContentPanel title={this.props.title} className="pl-0 pr-0">
+            <Plot 
                 data={this.state.data}
                 layout={this.state.layout}
                 frames={this.state.frames}
@@ -33,7 +19,7 @@ class PlotlyChart extends React.Component {
                 onInitialized={(figure) => this.setState(figure)}
                 onUpdate={(figure) => this.setState(figure)}
             />
-            </ChartContainer>
+            </ContentPanel>
         );
     }
 }

@@ -15,14 +15,14 @@ export const ScoreCard = props => {
   var score = props.score == null ? 0 : parseInt(props.score)
   for(var i = 1; i <= 5; i++){
     var star = i <= score ? "amber-text" : "grey-text"
-    stars.push(<i class={"fas fa-star fa-3x " + star}></i>)
+    stars.push(<i className={"fas fa-star fa-3x " + star} key={i} ></i>)
   }
   return(
     <React.Fragment>
       <MDBCard color={color} className="classic-admin-card">
         <MDBCardBody>
-        <div class="float-left">Score</div>
-        <div class="float-right">
+        <div className="float-left">Score</div>
+        <div className="float-right">
           <MDBRow><MDBCol>{stars}</MDBCol></MDBRow>
         </div>
         </MDBCardBody>

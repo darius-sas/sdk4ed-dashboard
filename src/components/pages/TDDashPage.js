@@ -1,10 +1,9 @@
 import React from 'react';
-import Icon from '@material-ui/core/Icon';
-import {PagePanel, ChartContainer} from './sections/PagePanel';
-import { MDBCol, MDBRow } from "mdbreact";
+import {PagePanel} from './sections/PagePanel';
+import { MDBCol, MDBRow} from "mdbreact";
 import {ProgressCard, CountCard, ScoreCard} from './sections/StatusCards'
 import PlotlyChart from './sections/Chart'
-
+import BasicTable from './sections/Table'
 
 const lineChart = [{
   y: [65, 59, 80, 81, 56, 55, 40],
@@ -16,6 +15,13 @@ const lineChart = [{
   margin: {l:20, r:20, t:50, b:50}
 }];
 
+const top5violations = {
+  columns: [
+    {label: "Violation", field: "violation"}, 
+    {label: "Frequency", field: "frequency"},
+    {label: "Occurrences", field: "occurrences"}],
+  rows: [{violation: "Long method", frequency: "30%", occurrences: 54}, {violation: "God Package", frequency: "16%", occurrences: 28},  {violation: "Feature envy", frequency: "10%", occurrences: 17},  {violation: "Commented code", frequency: "5%", occurrences: 10},  {violation: "Possible null pointer", frequency: "3%", occurrences: 5}]
+}
 
 const PrincipalPanel = () => {
   return (
@@ -66,11 +72,27 @@ const PrincipalPanel = () => {
       </PagePanel>
   )}
 
+const InterestPanel = () => {
+  return(
+  <PagePanel header="Technical debt interest" linkTo="/techdebt/interest">
+      <MDBRow className="mb-3">
+          <MDBCol>
+            <BasicTable title="Top 5 Violations" data={top5violations}/>
+          </MDBCol>
+          <MDBCol>
+
+          </MDBCol>
+          <MDBCol></MDBCol>
+      </MDBRow>
+  </PagePanel>
+  )
+}
+
 const TDDashPage =  () => {
   return (
     <React.Fragment>
       <PrincipalPanel/>
-      <PrincipalPanel/>
+      <InterestPanel/>
       <PrincipalPanel/>        
     </React.Fragment>
   )
