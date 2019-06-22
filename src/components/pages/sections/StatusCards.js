@@ -68,7 +68,7 @@ export const ProgressCard = props => {
           <MDBCardBody>
             <div className="float-right"><MDBIcon icon={props.icon} size="3x"/></div>
             <p className="white-text">{props.title}</p>
-            <h4><strong>{props.value}</strong></h4>
+            <h4><strong>{progress}</strong></h4>
           </MDBCardBody>
           <div className="progress">
             <div aria-valuemax="100" 
