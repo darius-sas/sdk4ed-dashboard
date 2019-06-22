@@ -2,8 +2,10 @@ import React from 'react';
 import {PagePanel} from './sections/PagePanel';
 import { MDBCol, MDBRow} from "mdbreact";
 import {ProgressCard, CountCard, ScoreCard} from './sections/StatusCards'
-import PlotlyChart from './sections/Chart'
-import BasicTable from './sections/Table'
+import PlotlyChart from './sections/Chart';
+import BasicTable from './sections/Table';
+import 'whatwg-fetch';
+import { get } from 'http';
 
 const lineChart = [{
   y: [65, 59, 80, 81, 56, 55, 40],
@@ -15,7 +17,7 @@ const lineChart = [{
   margin: {l:20, r:20, t:50, b:50}
 }];
 
-const systemSummary = {qualityScore: 3, coverage: 90, vulnerabilities: {count: 42, critical: 3}, codeSmells: 154, duplCode: 10, bugs: 350, linesOfCode: 8502}
+var systemSummary = { qualityScore: 3, coverage: 90, vulnerabilities: {count: 42, critical: 3}, codeSmells: 154, duplCode: 10, bugs: 350, linesOfCode: 8502 }
 
 const top5violations = {
   columns: [
@@ -25,7 +27,7 @@ const top5violations = {
   rows: [{violation: "Long method", frequency: "30%", occurrences: 54}, {violation: "God Package", frequency: "16%", occurrences: 28},  {violation: "Feature envy", frequency: "10%", occurrences: 17},  {violation: "Commented code", frequency: "5%", occurrences: 10},  {violation: "Possible null pointer", frequency: "3%", occurrences: 5}]
 }
 
-const PrincipalPanel = (props) => {
+const PrincipalPanel = props => {
   return (
       <PagePanel header="Technical debt principal" linkTo="/techdebt/principal">
       <MDBRow className="mb-3">
@@ -40,41 +42,43 @@ const PrincipalPanel = (props) => {
           <MDBCol>
           <MDBRow className="mb-3">
             <MDBCol>
-                  <ScoreCard title="Quality score" color="blue darken-3" score={props.summary.qualityScore}/>
+                  <ScoreCard title="Quality score" color="blue darken-3" score={props.mysummary.qualityScore}/>
             </MDBCol>
             </MDBRow>
             <MDBRow className="mb-3">
             <MDBCol>
-                  <ProgressCard title="Coverage" color="grey darken-3" barColor="green" progress={props.summary.coverage} icon="check-circle" description="Unit tests"/>
+                  <ProgressCard title="Coverage" color="grey darken-3" barColor="green" progress={props.mysummary.coverage} icon="check-circle" description="Unit tests"/>
             </MDBCol>
             <MDBCol>
-                  <CountCard title="Vulnerabilities" color="red darken" icon="lock" value={props.vulnerabilities.count} description={props.vulnerabilities.critical + " of them are critical"}/>
+                  <CountCard title="Vulnerabilities" color="red darken" icon="lock" value={props.mysummary.vulnerabilities.count} description={props.mysummary.vulnerabilities.critical + " of them are critical"}/>
 
             </MDBCol>
             </MDBRow>
 
             <MDBRow className="mb-3">
             <MDBCol>
-                  <CountCard title="Code Smells" color="orange darken-3" value={props.summary.codeSmells} icon="radiation-alt"/>
+                  <CountCard title="Code Smells" color="orange darken-3" value={props.mysummary.codeSmells} icon="radiation-alt"/>
             </MDBCol>
             <MDBCol>
-                  <ProgressCard title="Duplicated Code" color="blue lighten-1" barColor="red" progress={props.summary.duplCode} icon="clone"/>
+                  <ProgressCard title="Duplicated Code" color="blue lighten-1" barColor="red" progress={props.mysummary.duplCode} icon="clone"/>
             </MDBCol>
             </MDBRow>
             <MDBRow>
             <MDBCol>
-                  <CountCard title="Lines of code" color="purple darken-3" value={props.summary.linesOfCode} icon="code"/>
+                  <CountCard title="Lines of code" color="purple darken-3" value={props.mysummary.linesOfCode} icon="code"/>
             </MDBCol>
             <MDBCol>
-                <CountCard title="Bugs" color="grey darken-3" value={props.summary.bugs} icon="bug"/>
+                <CountCard title="Bugs" color="grey darken-3" value={props.mysummary.bugs} icon="bug"/>
             </MDBCol>
             </MDBRow>
           </MDBCol>
       </MDBRow>
       </PagePanel>
-  )}
+)}
 
-const InterestPanel = (props) => {
+const InterestPanel = props => {
+  var result = window.fetch('http://localhost:3001').then(resp => resp.text())
+  
   return(
   <PagePanel header="Technical debt interest" linkTo="/techdebt/interest">
       <MDBRow className="mb-3">
@@ -82,7 +86,6 @@ const InterestPanel = (props) => {
             <BasicTable title="Top 5 Violations" data={props.violations}/>
           </MDBCol>
           <MDBCol>
-
           </MDBCol>
           <MDBCol></MDBCol>
       </MDBRow>
@@ -90,16 +93,13 @@ const InterestPanel = (props) => {
   )
 }
 
-class TDDashPage extends React.Component {
-  render(){
+ const TDDashPage = props => {
     return (
       <React.Fragment>
-        <PrincipalPanel principal={lineChart} summary={systemSummary}/>
+        <PrincipalPanel mysummary={systemSummary} principal={lineChart}/>
         <InterestPanel violations={top5violations}/>
-        <PrincipalPanel/>        
       </React.Fragment>
     )
   }
-}
 
 export default TDDashPage;
