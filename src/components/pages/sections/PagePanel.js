@@ -18,7 +18,7 @@ export const ChartContainer = props => {
 export const PagePanel = props => {
 return (
     <React.Fragment>
-    <MDBCard className="card-body pt-0 pl-0 pr-0" style={{boxShadow: "0px 0px"}}>
+    <MDBCard className="card-body pt-0 pl-0 pr-0 mb-4" style={{boxShadow: "0px 0px"}}>
       <MDBCardHeader color="primary-color" tag="h3">
         <Link to={props.linkTo}>{props.header}</Link> 
       </MDBCardHeader>

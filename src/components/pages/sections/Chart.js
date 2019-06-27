@@ -10,7 +10,7 @@ class PlotlyChart extends React.Component {
 
     render() {
         return (
-            <ContentPanel title={this.props.title} className="pl-0 pr-0">
+            <ContentPanel title={this.props.title} className="pl-0 pr-0 mr-1 ml-1">
             <Plot 
                 data={this.state.data}
                 layout={this.state.layout}

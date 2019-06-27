@@ -6,32 +6,13 @@ import PlotlyChart from './sections/Chart';
 import BasicTable from './sections/Table';
 import 'whatwg-fetch';
 import { get } from 'http';
-
-const lineChart = [{
-  y: [65, 59, 80, 81, 56, 55, 40],
-  x: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
-  type: 'scatter',
-  mode: 'line',
-  marker: {color: 'red'},
-  autosize: true,
-  margin: {l:20, r:20, t:50, b:50}
-}];
-
-var systemSummary = { qualityScore: 3, coverage: 90, vulnerabilities: {count: 42, critical: 3}, codeSmells: 154, duplCode: 10, bugs: 350, linesOfCode: 8502 }
-
-const top5violations = {
-  columns: [
-    {label: "Violation", field: "violation"}, 
-    {label: "Frequency", field: "frequency"},
-    {label: "Occurrences", field: "occurrences"}],
-  rows: [{violation: "Long method", frequency: "30%", occurrences: 54}, {violation: "God Package", frequency: "16%", occurrences: 28},  {violation: "Feature envy", frequency: "10%", occurrences: 17},  {violation: "Commented code", frequency: "5%", occurrences: 10},  {violation: "Possible null pointer", frequency: "3%", occurrences: 5}]
-}
+import { stat } from 'fs';
 
 const PrincipalPanel = props => {
   return (
       <PagePanel header="Technical debt principal" linkTo="/techdebt/principal">
       <MDBRow className="mb-3">
-          <MDBCol sm="6">
+          <MDBCol>
             <PlotlyChart title="Principal over time" 
               data={props.principal}
               layout={{
@@ -77,29 +58,105 @@ const PrincipalPanel = props => {
 )}
 
 const InterestPanel = props => {
-  var result = window.fetch('http://localhost:3001').then(resp => resp.text())
+ // var result = window.fetch('http://localhost:3001').then(resp => resp.text())
   
   return(
   <PagePanel header="Technical debt interest" linkTo="/techdebt/interest">
       <MDBRow className="mb-3">
-          <MDBCol>
+          <MDBCol size="3" mr="1">
             <BasicTable title="Top 5 Violations" data={props.violations}/>
           </MDBCol>
-          <MDBCol>
+          <MDBCol size="6">
+            <PlotlyChart title="Interest accumulated" data={props.interest}
+                         layout={{ width: 650, margin: {l:40, r:40, t:50, b:50}}} />
           </MDBCol>
-          <MDBCol></MDBCol>
+          <MDBCol size="3">
+                <MDBRow className="mb-3">
+                  <MDBCol>
+                  <CountCard title="Breaking point" color="red darken-2" value={props.mysummary.breakpoint} icon="calendar-alt" description={props.mysummary.breakpointDaysLeft + " days left"}/>
+                  </MDBCol>
+                </MDBRow>
+                <MDBRow className="mb-3">
+                  <MDBCol>
+                  <CountCard title="Interest probability" color="green darken-3" value={props.mysummary.interestprob} description={"Ranking " + props.mysummary.interestrank} icon="dollar-sign"/>
+                  </MDBCol>
+                </MDBRow>
+                <MDBRow className="mb-3">
+                  <MDBCol>
+                  </MDBCol>
+                </MDBRow>
+          </MDBCol>
       </MDBRow>
   </PagePanel>
   )
 }
 
- const TDDashPage = props => {
-    return (
-      <React.Fragment>
-        <PrincipalPanel mysummary={systemSummary} principal={lineChart}/>
-        <InterestPanel violations={top5violations}/>
-      </React.Fragment>
-    )
+const NewCodePanel = props =>{
+  return (
+    <PagePanel header="Technical debt new code" linkTo="/techdebt/interest">
+    <MDBRow className="mb-3">
+        <MDBCol size="3" mr="1">
+          <PlotlyChart title="TD density of new code vs existing" data={props.densitycomparison}
+          layout={{width: 300, height:600}} />
+        </MDBCol>
+        <MDBCol size="6">
+          <PlotlyChart title="TD Density of new code over time" data={props.density}
+                      layout={{ width: 650, margin: {l:40, r:40, t:50, b:50}}} />
+        </MDBCol>
+        <MDBCol size="3">
+          <BasicTable title="Top 5 Violations in new code" data={props.violations}/>
+        </MDBCol>
+    </MDBRow>
+    </PagePanel>
+  )
+}
+
+class TDDashPage extends React.Component {
+  constructor(props){
+    super(props);
+    
+    this.state = {
+      systemSummary: null,
+      interestSummary: null,
+      principalOverTimeChart: null,
+      interestOverTimeChart: null,
+      topViolations: null,
+      topViolationsNewCode: null,
+      densityComparisonChart: null,
+      densityOverTimeChart: null
+    }
   }
+
+  componentDidMount(){
+    fetch("http://127.0.0.1:3001")
+    .then(resp => resp.json())
+    .then(resp => {
+      console.log("Data received")
+      this.setState(resp)
+    })
+  }
+
+  render(){
+    if(this.state.systemSummary == null){
+      console.log("State is null")
+      return (<div className="spinner-border text-primary" role="status">
+              <span className="sr-only">Loading...</span>
+              </div>)
+    }else{
+      console.log("State is not null: " + this.state)
+      return(
+          <React.Fragment>
+              <PrincipalPanel mysummary={this.state.systemSummary} 
+                              principal={this.state.principalOverTimeChart}/>
+              <InterestPanel violations={this.state.topViolations} 
+                            mysummary={this.state.interestSummary} interest={this.state.interestOverTimeChart}/>
+              <NewCodePanel violations={this.state.topViolationsNewCode}
+                            densitycomparison={this.state.densityComparisonChart}
+                            density={this.state.densityOverTimeChart}/>
+            </React.Fragment>)
+    }
+  }
+
+}
 
 export default TDDashPage;
