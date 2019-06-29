@@ -57,7 +57,6 @@ const PrincipalPanel = props => {
 )}
 
 const InterestPanel = props => {
- // var result = window.fetch('http://localhost:3001').then(resp => resp.text())
   
   return(
   <PagePanel header="Technical debt interest" linkTo="/techdebt/interest">
