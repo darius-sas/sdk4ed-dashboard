@@ -35,7 +35,7 @@ Their description is the following:
 | API Variable | Description| Domain |
 |--------------|------------|-----------------|
 |`:user-id`    | The id the system uses to identify the user. | Hash-values |
-|`:project`    | The name of the project the user has defined when he/she added the project for definition. | User string |
+|`:project`    | The name of the project the user has defined when he/she added the project for definition. | User-defined string |
 |`:quality`    | The name of the quality to consider. | `[techdebt, energy, security, forecast, refactorings, trade-offs]` |
 |`:panel`      | The name of the analysis type.       | `[principal, interest, consumption, ...]` (Incomplete) |
 |`:issue-id`   | The id the system uses to identify an issue for the provided `:quality` and `:panel` | Integer |
