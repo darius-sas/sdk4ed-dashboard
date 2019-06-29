@@ -109,6 +109,10 @@ const NewCodePanel = props =>{
   )
 }
 
+/**
+ * The technical debt dashboard page. The page is assembled using multiple panels.
+ * The data is retrieved asynchronously.
+ */
 class TDDashPage extends React.Component {
   constructor(props){
     super(props);

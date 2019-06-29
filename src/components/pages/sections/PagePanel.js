@@ -1,31 +1,41 @@
 import React from 'react';
-import { MDBCard, MDBCardBody, MDBCardTitle, MDBCardText, MDBCardHeader, MDBBtn, MDBContainer } from "mdbreact";
-import { NavLink,Link } from 'react-router-dom';
+import PropTypes from 'prop-types'
+import { MDBCard, MDBCardBody, MDBCardHeader} from "mdbreact";
+import { Link } from 'react-router-dom';
 
-export const ChartContainer = props => {
-  return (
-      <MDBContainer>
-      <MDBCard>
-      <MDBCardHeader>{props.title}</MDBCardHeader>
-      <MDBCardBody>
-          {props.children}
-      </MDBCardBody>
+/**
+ * A panel to use as a container for generic content.
+ */
+export class PagePanel extends React.Component {
+  
+  static propTypes = {
+    /**
+     * The link to use when the user clicks on the header of this panel.
+     */
+    linkTo: PropTypes.string,
+
+    /**
+     * The title of this panel.
+     */
+    header: PropTypes.string,
+
+    /**
+     * The content of this panel.
+     */
+    children: PropTypes.element
+  }
+
+  render(){
+    return (
+      <React.Fragment>
+      <MDBCard className="card-body pt-0 pl-0 pr-0 mb-4" style={{boxShadow: "0px 0px"}}>
+        <MDBCardHeader color="primary-color" tag="h3">
+          <Link to={this.props.linkTo}>{this.props.header}</Link> 
+        </MDBCardHeader>
+        <MDBCardBody className="pl-1 pr-1">
+        {this.props.children}
+        </MDBCardBody>
       </MDBCard>
-      </MDBContainer>
-  )
-}
-
-export const PagePanel = props => {
-return (
-    <React.Fragment>
-    <MDBCard className="card-body pt-0 pl-0 pr-0 mb-4" style={{boxShadow: "0px 0px"}}>
-      <MDBCardHeader color="primary-color" tag="h3">
-        <Link to={props.linkTo}>{props.header}</Link> 
-      </MDBCardHeader>
-      <MDBCardBody className="pl-1 pr-1">
-      {props.children}
-      </MDBCardBody>
-    </MDBCard>
-    </React.Fragment>
-);
+      </React.Fragment>)
+  }
 };

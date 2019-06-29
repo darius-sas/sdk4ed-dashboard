@@ -2,10 +2,14 @@ import React from 'react';
 import Plot from 'react-plotly.js';
 import ContentPanel from './ContentPanel' 
 
+/**
+ * A convenience wrapper to a Plot.ly plot.
+ * All props are directly passed as state. See Plot.ly's documentation for more information.
+ */
 class PlotlyChart extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { data: props.data, layout: props.layout, frames: props.frames, config: props.frames };
+        this.state = props;
     }
 
     render() {

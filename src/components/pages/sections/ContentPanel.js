@@ -1,17 +1,41 @@
 import React from 'react';
-import { MDBCard, MDBCardBody, MDBCardTitle, MDBCardText, MDBCardHeader, MDBBtn, MDBContainer } from 'mdbreact'
+import PropTypes from 'prop-types'
+import { MDBCard, MDBCardBody, MDBCardHeader, MDBContainer } from 'mdbreact'
 
-const ContentPanel = props => {
-    return (
-        <MDBContainer>
-        <MDBCard>
-        <MDBCardHeader>{props.title}</MDBCardHeader>
-        <MDBCardBody className={props.className}>
-            {props.children}
-        </MDBCardBody>
-        </MDBCard>
-        </MDBContainer>
-    )
-  }
+
+/**
+ * Generic component to render a panel used to display generic content.
+ */
+class ContentPanel extends React.Component{
+    static propTypes ={
+        /**
+         * The title of the panel.
+         */
+        title: PropTypes.string,
+
+        /**
+         * The classes to pass to the inner CardBody.
+         */
+        className: PropTypes.string,
+
+        /**
+         * The React components to display within the panel.
+         */
+        children: PropTypes.element
+    }
+
+    render(){
+        return (
+            <MDBContainer>
+            <MDBCard>
+            <MDBCardHeader>{this.props.title}</MDBCardHeader>
+            <MDBCardBody className={this.props.className}>
+                {this.props.children}
+            </MDBCardBody>
+            </MDBCard>
+            </MDBContainer>
+        )
+    }
+}
   
 export default ContentPanel;
