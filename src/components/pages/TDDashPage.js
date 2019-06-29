@@ -5,8 +5,7 @@ import {ProgressCard, CountCard, ScoreCard} from './sections/StatusCards'
 import PlotlyChart from './sections/Chart';
 import BasicTable from './sections/Table';
 import 'whatwg-fetch';
-import { get } from 'http';
-import { stat } from 'fs';
+import Loader from './sections/Loading'
 
 const PrincipalPanel = props => {
   return (
@@ -116,14 +115,14 @@ class TDDashPage extends React.Component {
     super(props);
     
     this.state = {
-      systemSummary: null,
-      interestSummary: null,
-      principalOverTimeChart: null,
-      interestOverTimeChart: null,
-      topViolations: null,
-      topViolationsNewCode: null,
-      densityComparisonChart: null,
-      densityOverTimeChart: null
+      systemSummary: null, // Principal-related summary information
+      interestSummary: null, // Interest-related summary information
+      principalOverTimeChart: null, // Chart for principal over time
+      interestOverTimeChart: null, // Chart for interest over time
+      topViolations: null, // The top violations wrt frequency
+      topViolationsNewCode: null, // The top violations wrt frequency in new code
+      densityComparisonChart: null, // Chart of the density of TD in new and existing code
+      densityOverTimeChart: null // Chart of the density over time
     }
   }
 
@@ -139,9 +138,7 @@ class TDDashPage extends React.Component {
   render(){
     if(this.state.systemSummary == null){
       console.log("State is null")
-      return (<div className="spinner-border text-primary" role="status">
-              <span className="sr-only">Loading...</span>
-              </div>)
+      return (<Loader/>)
     }else{
       console.log("State is not null: " + this.state)
       return(
