@@ -6,6 +6,8 @@ The dashboard relies on [React](https://reactjs.org/) for building dynamic web p
 
 Charts and plots will be visualized with [Plot.ly](https://plot.ly/plotly-js-scientific-d3-charting-library/) which provides support for React and a series of other programming languages, including Python and R.
 
+Documentation for these frameworks can be found directly on their site. The components defined in the project are documented through JSDoc.
+
 All of these libraries are provided under MIT License and thus free to use in the SDK4ED project.
 
 # Repository organization
