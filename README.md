@@ -24,5 +24,25 @@ Directories and files:
 # SDK4ED APIs
 See [here](./api-design.md) for the API design.
 
+# Installation instruction (For developers)
+To deplot the application you have to first install all the dependencies used. Next you can start the server and a web page should open on your favorite browser.
+```
+npm install
+npm start
+```
+
+To fully be able to test the application you will need to run the dummy data server:
+```
+nodejs ./src/DummyDataServer.js
+```
+Now you can navigate to the TD dashboard.
+
+
+In case you are on Linux and you have issue with seeing the updates you make in your webpage, the run
+```
+./file-limit.sh
+```
+from the main project directory.
+
 # LICENSE
 TODO
