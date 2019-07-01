@@ -140,10 +140,8 @@ class TDDashPage extends React.Component {
 
   render(){
     if(this.state.systemSummary == null){
-      console.log("State is null")
       return (<Loader/>)
     }else{
-      console.log("State is not null: " + this.state)
       return(
           <React.Fragment>
               <PrincipalPanel mysummary={this.state.systemSummary} 
