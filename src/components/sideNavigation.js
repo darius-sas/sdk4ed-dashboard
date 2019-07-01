@@ -28,7 +28,7 @@ const TopNavigation = () => {
                         Energy
                     </MDBListGroupItem>
                 </NavLink>
-                <NavLink to="/dependability" activeClassName="activeClass">
+                <NavLink to="/security" activeClassName="activeClass">
                     <MDBListGroupItem>
                         <MDBIcon icon="chart-line" className="mr-3"/>
                         Security 
