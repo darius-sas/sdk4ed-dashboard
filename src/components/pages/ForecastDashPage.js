@@ -547,7 +547,7 @@ function returnNewRealDataObject(new_data) {
 }
 
 function showRandomForest(){  
-    console.log('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')
+    
 } 
 
 const ConfigurationPanel = props => {
@@ -563,13 +563,13 @@ const ConfigurationPanel = props => {
                             Algorithm
                         </MDBDropdownToggle>
                         <MDBDropdownMenu basic>
-                            <MDBDropdownItem>MLR</MDBDropdownItem>
-                            <MDBDropdownItem>Lasso</MDBDropdownItem>
-                            <MDBDropdownItem>Ridge</MDBDropdownItem>
-                            <MDBDropdownItem>SVR(linear)</MDBDropdownItem>
-                            <MDBDropdownItem>SVR(rbf)</MDBDropdownItem>
-                            <MDBDropdownItem onClick={showRandomForest()}>Random Forest</MDBDropdownItem>
-                            <MDBDropdownItem>ARIMA</MDBDropdownItem>
+                            <MDBDropdownItem onClick={(param) => props.myupdateForecastedData(props.myapache_kafka_data.linear_regression._1_step_ahead)}>MLR</MDBDropdownItem>
+                            <MDBDropdownItem onClick={(param) => props.myupdateForecastedData(props.myapache_kafka_data.lasso_regression._1_step_ahead)}>Lasso</MDBDropdownItem>
+                            <MDBDropdownItem onClick={(param) => props.myupdateForecastedData(props.myapache_kafka_data.ridge_regression._1_step_ahead)}>Ridge</MDBDropdownItem>
+                            <MDBDropdownItem onClick={(param) => props.myupdateForecastedData(props.myapache_kafka_data.svr_linear_regression._1_step_ahead)}>SVR(linear)</MDBDropdownItem>
+                            <MDBDropdownItem onClick={(param) => props.myupdateForecastedData(props.myapache_kafka_data.svr_rbf_regression._1_step_ahead)}>SVR(rbf)</MDBDropdownItem>
+                            <MDBDropdownItem onClick={(param) => props.myupdateForecastedData(props.myapache_kafka_data.random_forest_regression._1_step_ahead)}>Random Forest</MDBDropdownItem>
+                            <MDBDropdownItem onClick={(param) => props.myupdateForecastedData(props.myapache_kafka_data.arima_regression._1_step_ahead)}>ARIMA</MDBDropdownItem>
                         </MDBDropdownMenu>
                     </MDBDropdown>
                 </MDBCardBody>
@@ -666,6 +666,7 @@ class ForecastDashPage extends React.Component {
         super(props);
         
         this.state = {
+            apache_kafka_data: apache_kafka_json,
             ground_truth_data: apache_kafka_json.ground_truth,
             ground_truth_data2: apache_kafka_json.ground_truth2,
             forecasted_data: apache_kafka_json.linear_regression._1_step_ahead,
@@ -674,15 +675,15 @@ class ForecastDashPage extends React.Component {
     
     componentDidMount(){
         // Code for fetching data
-        //var _this = this;
-        //setInterval(function(){
-            //var newState = {
-            //    forecasted_data: apache_kafka_json.lasso_regression._3_months.forecast
-            //}
-            //
-            //_this.setState(newState);
-        //}, 5000);
     }
+    
+    updateForecastedData = (new_forecasted_data) => {
+        var _this = this;
+        var newState = {
+            forecasted_data: new_forecasted_data
+        }
+        _this.setState(newState);
+    };
 
     render(){
         // Code for rendering the dashboard
@@ -692,6 +693,11 @@ class ForecastDashPage extends React.Component {
             return(
                 <React.Fragment>
                     <ConfigurationPanel
+                        myground_truth_data={this.state.ground_truth_data} 
+                        myground_truth_data2={this.state.ground_truth_data2} 
+                        myforecasted_data={this.state.forecasted_data}
+                        myapache_kafka_data={this.state.apache_kafka_data}
+                        myupdateForecastedData={this.updateForecastedData}
                     />
                     <TDEvolutionPanel 
                         myground_truth_data={this.state.ground_truth_data} 
