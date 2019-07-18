@@ -1,7 +1,7 @@
 import React from 'react';
 import {PagePanel} from './sections/PagePanel';
 import { MDBCol, MDBCard, MDBCardBody, MDBCardHeader, MDBRow } from 'mdbreact';
-import { MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem } from "mdbreact";
+import { MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem, MDBFormInline } from "mdbreact";
 import Loader from './sections/Loading'
 import { Line, Doughnut, Radar } from 'react-chartjs-2';
 
@@ -555,7 +555,7 @@ function returnNewRealDataObject(new_data) {
         borderColor               : 'rgba(84,130,53,1)',
         backgroundColor           : 'rgba(84,130,53,0.05)',
         // point
-        pointRadius               : 0,
+        pointRadius               : 0.3,
         pointHitRadius            : 4,
         pointBackgroundColor      : 'rgba(84,130,53,1)',
         pointBorderColor          : 'rgba(84,130,53,1)',
@@ -573,22 +573,43 @@ const ConfigurationPanel = props => {
         <MDBRow className="mb-4">
             <MDBCol md="12" lg="4" className="mb-12">
                 <MDBCard className="mb-12">
+                <MDBCardHeader>Project</MDBCardHeader>
+                <MDBCardBody>
+                    <MDBFormInline className="md-form m-0">
+                        <MDBDropdown>
+                            <MDBDropdownToggle caret color="primary">
+                                Project
+                            </MDBDropdownToggle>
+                            <MDBDropdownMenu basic>
+                                <MDBDropdownItem>Apache Kafka</MDBDropdownItem>                                
+                            </MDBDropdownMenu>
+                        </MDBDropdown>
+                        <h4 style={{color:'#548235'}}>Apache Kafka</h4>
+                    </MDBFormInline>
+                </MDBCardBody>
+                </MDBCard>
+            </MDBCol>
+            <MDBCol md="12" lg="4" className="mb-12">
+                <MDBCard className="mb-12">
                 <MDBCardHeader>Forecasting Algorithm</MDBCardHeader>
                 <MDBCardBody>
-                    <MDBDropdown>
-                        <MDBDropdownToggle caret color="primary">
-                            Algorithm
-                        </MDBDropdownToggle>
-                        <MDBDropdownMenu basic>
-                            <MDBDropdownItem onClick={(param) => props.myupdateForecastedData('linear_regression',undefined)}>MLR</MDBDropdownItem>
-                            <MDBDropdownItem onClick={(param) => props.myupdateForecastedData('lasso_regression',undefined)}>Lasso</MDBDropdownItem>
-                            <MDBDropdownItem onClick={(param) => props.myupdateForecastedData('ridge_regression',undefined)}>Ridge</MDBDropdownItem>
-                            <MDBDropdownItem onClick={(param) => props.myupdateForecastedData('svr_linear_regression',undefined)}>SVR(linear)</MDBDropdownItem>
-                            <MDBDropdownItem onClick={(param) => props.myupdateForecastedData('svr_rbf_regression',undefined)}>SVR(rbf)</MDBDropdownItem>
-                            <MDBDropdownItem onClick={(param) => props.myupdateForecastedData('random_forest_regression',undefined)}>Random Forest</MDBDropdownItem>
-                            <MDBDropdownItem onClick={(param) => props.myupdateForecastedData('arima_regression',undefined)}>ARIMA</MDBDropdownItem>
-                        </MDBDropdownMenu>
-                    </MDBDropdown>
+                    <MDBFormInline className="md-form m-0">
+                        <MDBDropdown>
+                            <MDBDropdownToggle caret color="primary">
+                                Algorithm
+                            </MDBDropdownToggle>
+                            <MDBDropdownMenu basic>
+                                <MDBDropdownItem onClick={(param) => props.myupdateForecastedData('linear_regression',undefined)}>MLR</MDBDropdownItem>
+                                <MDBDropdownItem onClick={(param) => props.myupdateForecastedData('lasso_regression',undefined)}>Lasso</MDBDropdownItem>
+                                <MDBDropdownItem onClick={(param) => props.myupdateForecastedData('ridge_regression',undefined)}>Ridge</MDBDropdownItem>
+                                <MDBDropdownItem onClick={(param) => props.myupdateForecastedData('svr_linear_regression',undefined)}>SVR(linear)</MDBDropdownItem>
+                                <MDBDropdownItem onClick={(param) => props.myupdateForecastedData('svr_rbf_regression',undefined)}>SVR(rbf)</MDBDropdownItem>
+                                <MDBDropdownItem onClick={(param) => props.myupdateForecastedData('random_forest_regression',undefined)}>Random Forest</MDBDropdownItem>
+                                <MDBDropdownItem onClick={(param) => props.myupdateForecastedData('arima_regression',undefined)}>ARIMA</MDBDropdownItem>
+                            </MDBDropdownMenu>
+                        </MDBDropdown>
+                        <h4 style={{color:'#548235'}}>{props.mycurrentAlgorithm}</h4>
+                    </MDBFormInline> 
                 </MDBCardBody>
                 </MDBCard>
             </MDBCol>
@@ -596,47 +617,31 @@ const ConfigurationPanel = props => {
                 <MDBCard className="mb-12">
                 <MDBCardHeader>Forecasting Horizon</MDBCardHeader>
                 <MDBCardBody>
-                    <MDBDropdown>
-                        <MDBDropdownToggle caret color="primary">
-                            Horizon
-                        </MDBDropdownToggle>
-                        <MDBDropdownMenu basic>
-                            <MDBDropdownItem onClick={(param) => props.myupdateForecastedData(undefined,'_1_week')}>1 week</MDBDropdownItem>
-                            <MDBDropdownItem onClick={(param) => props.myupdateForecastedData(undefined,'_1_month')}>1 month</MDBDropdownItem>
-                            <MDBDropdownItem onClick={(param) => props.myupdateForecastedData(undefined,'_2_months')}>2 months</MDBDropdownItem>
-                            <MDBDropdownItem onClick={(param) => props.myupdateForecastedData(undefined,'_3_months')}>3 months</MDBDropdownItem>
-                            <MDBDropdownItem onClick={(param) => props.myupdateForecastedData(undefined,'_4_months')}>4 months</MDBDropdownItem>
-                            <MDBDropdownItem onClick={(param) => props.myupdateForecastedData(undefined,'_5_months')}>5 months</MDBDropdownItem>
-                            <MDBDropdownItem onClick={(param) => props.myupdateForecastedData(undefined,'_6_months')}>6 months</MDBDropdownItem>
-                            <MDBDropdownItem onClick={(param) => props.myupdateForecastedData(undefined,'_7_months')}>7 months</MDBDropdownItem>
-                            <MDBDropdownItem onClick={(param) => props.myupdateForecastedData(undefined,'_8_months')}>8 months</MDBDropdownItem>
-                            <MDBDropdownItem onClick={(param) => props.myupdateForecastedData(undefined,'_9_months')}>9 months</MDBDropdownItem>
-                            <MDBDropdownItem onClick={(param) => props.myupdateForecastedData(undefined,'_10_months')}>10 months</MDBDropdownItem>
-                            <MDBDropdownItem onClick={(param) => props.myupdateForecastedData(undefined,'_11_months')}>11 months</MDBDropdownItem>
-                            <MDBDropdownItem onClick={(param) => props.myupdateForecastedData(undefined,'_12_months')}>12 months</MDBDropdownItem>
-                            <MDBDropdownItem divider />
-                            <MDBDropdownItem onClick={(param) => props.myupdateForecastedData(undefined,'_1_step_ahead')}>1 step ahead test</MDBDropdownItem>
-                        </MDBDropdownMenu>
-                    </MDBDropdown>
-                </MDBCardBody>
-                </MDBCard>
-            </MDBCol>
-            <MDBCol md="12" lg="4" className="mb-12">
-                <MDBCard className="mb-12">
-                <MDBCardHeader>Train-Test Split</MDBCardHeader>
-                <MDBCardBody>
-                    <MDBDropdown>
-                        <MDBDropdownToggle caret color="primary">
-                            Test Size
-                        </MDBDropdownToggle>
-                        <MDBDropdownMenu basic>
-                            <MDBDropdownItem>50%</MDBDropdownItem>
-                            <MDBDropdownItem>60%</MDBDropdownItem>
-                            <MDBDropdownItem>70%</MDBDropdownItem>
-                            <MDBDropdownItem>80%</MDBDropdownItem>
-                            <MDBDropdownItem>90%</MDBDropdownItem>
-                        </MDBDropdownMenu>
-                    </MDBDropdown>
+                    <MDBFormInline className="md-form m-0">
+                        <MDBDropdown>
+                            <MDBDropdownToggle caret color="primary">
+                                Horizon
+                            </MDBDropdownToggle>
+                            <MDBDropdownMenu basic>
+                                <MDBDropdownItem onClick={(param) => props.myupdateForecastedData(undefined,'_1_week')}>1 week</MDBDropdownItem>
+                                <MDBDropdownItem onClick={(param) => props.myupdateForecastedData(undefined,'_1_month')}>1 month</MDBDropdownItem>
+                                <MDBDropdownItem onClick={(param) => props.myupdateForecastedData(undefined,'_2_months')}>2 months</MDBDropdownItem>
+                                <MDBDropdownItem onClick={(param) => props.myupdateForecastedData(undefined,'_3_months')}>3 months</MDBDropdownItem>
+                                <MDBDropdownItem onClick={(param) => props.myupdateForecastedData(undefined,'_4_months')}>4 months</MDBDropdownItem>
+                                <MDBDropdownItem onClick={(param) => props.myupdateForecastedData(undefined,'_5_months')}>5 months</MDBDropdownItem>
+                                <MDBDropdownItem onClick={(param) => props.myupdateForecastedData(undefined,'_6_months')}>6 months</MDBDropdownItem>
+                                <MDBDropdownItem onClick={(param) => props.myupdateForecastedData(undefined,'_7_months')}>7 months</MDBDropdownItem>
+                                <MDBDropdownItem onClick={(param) => props.myupdateForecastedData(undefined,'_8_months')}>8 months</MDBDropdownItem>
+                                <MDBDropdownItem onClick={(param) => props.myupdateForecastedData(undefined,'_9_months')}>9 months</MDBDropdownItem>
+                                <MDBDropdownItem onClick={(param) => props.myupdateForecastedData(undefined,'_10_months')}>10 months</MDBDropdownItem>
+                                <MDBDropdownItem onClick={(param) => props.myupdateForecastedData(undefined,'_11_months')}>11 months</MDBDropdownItem>
+                                <MDBDropdownItem onClick={(param) => props.myupdateForecastedData(undefined,'_12_months')}>12 months</MDBDropdownItem>
+                                <MDBDropdownItem divider />
+                                <MDBDropdownItem onClick={(param) => props.myupdateForecastedData(undefined,'_1_step_ahead')}>1 step ahead test</MDBDropdownItem>
+                            </MDBDropdownMenu>
+                        </MDBDropdown>
+                        <h4 style={{color:'#548235'}}>{props.mycurrentHorizon}</h4>
+                    </MDBFormInline>
                 </MDBCardBody>
                 </MDBCard>
             </MDBCol>
@@ -735,6 +740,8 @@ class ForecastDashPage extends React.Component {
                 <React.Fragment>
                     <ConfigurationPanel
                         myupdateForecastedData={this.updateForecastedData}
+                        mycurrentAlgorithm={this.currentAlgorithm}
+                        mycurrentHorizon={this.currentHorizon}
                     />
                     <TDEvolutionPanel 
                         myground_truth_data={this.state.ground_truth_data} 
