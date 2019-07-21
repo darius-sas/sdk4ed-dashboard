@@ -3,6 +3,8 @@ import logo from "../assets/logo.png";
 import { MDBListGroup, MDBListGroupItem, MDBIcon } from 'mdbreact';
 import { NavLink } from 'react-router-dom';
 
+const sdk4ed_style={background: '#467a39', color: 'white'}
+
 const TopNavigation = () => {
     return (
         <div className="sidebar-fixed position-fixed">
