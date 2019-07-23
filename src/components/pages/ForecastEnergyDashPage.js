@@ -385,7 +385,7 @@ const ConfigurationPanel = props => {
                                 Project
                             </MDBDropdownToggle>
                             <MDBDropdownMenu basic>
-                                <MDBDropdownItem>Apache Kafka</MDBDropdownItem>                                
+                                <MDBDropdownItem>Sbeamer Gabps</MDBDropdownItem>                                
                             </MDBDropdownMenu>
                         </MDBDropdown>
                         <h4 style={{color:'#548235'}}>Sbeamer Gabps</h4>
