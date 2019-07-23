@@ -15,6 +15,20 @@ const server = http.createServer((req, res) => {
         rows: [
             {violation: "Long method", frequency: "30%", occurrences: 54}, {violation: "God Package", frequency: "16%", occurrences: 28},  {violation: "Feature envy", frequency: "10%", occurrences: 17},  {violation: "Commented code", frequency: "5%", occurrences: 10},  {violation: "Possible null pointer", frequency: "3%", occurrences: 5}]}
 
+    const top5Hotspots = {
+        columns: [
+            {label: "Hot-spot", field: "hotspot"}, 
+            {label: "CPU-cycles", field: "cpyusage"}],
+        rows: [
+            {hotspot: "1st (Lines:167-191)", cpyusage: "29%"}, {hotspot: "2nd (Lines:659-675)", cpyusage: "15%"},  {hotspot: "3rd (Lines:522-555)", cpyusage: "12%"},  {hotspot: "4th (Lines:1898-1924)", cpyusage: "9%"},  {hotspot: "5th (Lines:382-395)", cpyusage: "4%"}]}
+
+    const top5HotspotsGPU = {
+        columns: [
+            {label: "Hot-spot", field: "hotspot"}, 
+            {label: "Energy Gain", field: "energygain"}],
+        rows: [
+            {hotspot: "1st", energygain: ">10x"}, {hotspot: "2nd", energygain: "0"},  {hotspot: "3rd", energygain: "0"},  {hotspot: "4th", energygain: "0"},  {hotspot: "5th", energygain: "<10x"}]}
+
     const data = {
         principalOverTimeChart: [{
         y: [65, 59, 80, 81, 56, 55, 40],
@@ -55,11 +69,19 @@ const server = http.createServer((req, res) => {
 
         systemSummary: { qualityScore: 3, coverage: 90, vulnerabilities: {count: 42, critical: 3}, codeSmells: 154, duplCode: 10, bugs: 350, linesOfCode: 8502 },
 
+        energyIndicatorsSummary: { branchmiss: 11, cpucycles: 3158456, cachemiss:12, Icachemiss:4 , memoryaccesses: 154000, duplCode: 10, dataraces: 1, linesOfCode: 8502 },
+
+        acelerationIndicatorsSummary: { ilp: 1125, ilpRate: 28, cachemiss: 12, mem: 38, cont: 12, int: 20, fp: 40, div: 18, coldmiss: 9, stride:6},
+
         interestSummary: {breakpoint: dt.toDateString(), breakpointDaysLeft:7, interestprob: 30, interestrank:5},
 
         topViolations: top5violations,
 
-        topViolationsNewCode:top5violations
+        topViolationsNewCode:top5violations,
+
+        topHotspots: top5Hotspots,
+
+        topHotspotsGPU: top5HotspotsGPU
     }
 
   res.statusCode = 200;
