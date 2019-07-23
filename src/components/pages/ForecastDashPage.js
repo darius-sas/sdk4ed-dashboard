@@ -1,13 +1,14 @@
 import React from 'react';
-import {PagePanel} from './sections/PagePanel';
+//import {PagePanel} from './sections/PagePanel';
 import { MDBCol, MDBCard, MDBCardBody, MDBCardHeader, MDBRow } from 'mdbreact';
 import { MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem, MDBFormInline } from "mdbreact";
-import Loader from './sections/Loading'
-import { Line, Doughnut, Radar } from 'react-chartjs-2';
+//import Loader from './sections/Loading'
+import { Line } from 'react-chartjs-2';
 
 // Hardcoded values. When deployed to production these values should be fetched from APIs in componentDidMount() method
 // Ground Truth data
 const apache_kafka_json = {
+    'name': 'Apache Kafka',
     'ground_truth': [{x: '2015-10-30', y: 23401.0}, {x: '2015-11-06', y: 24604.0}, {x: '2015-11-13', y: 23700.0}, {x: '2015-11-20', y: 23782.0}, {x: '2015-11-27', y: 23791.0}, {x: '2015-12-04', y: 23852.0}, {x: '2015-12-11', y: 24047.0}, {x: '2015-12-18', y: 24064.0}, {x: '2015-12-25', y: 23945.0}, {x: '2016-01-01', y: 23945.0}, {x: '2016-01-08', y: 25711.0}, {x: '2016-01-15', y: 25798.0}, {x: '2016-01-22', y: 26780.0}, {x: '2016-01-29', y: 27793.0}, {x: '2016-02-05', y: 27891.0}, {x: '2016-02-12', y: 27974.0}, {x: '2016-02-19', y: 28399.0}, {x: '2016-02-26', y: 28568.0}, {x: '2016-03-04', y: 28952.0}, {x: '2016-03-11', y: 29031.0}, {x: '2016-03-18', y: 29555.0}, {x: '2016-03-25', y: 29084.0}, {x: '2016-04-01', y: 29005.0}, {x: '2016-04-08', y: 28763.0}, {x: '2016-04-15', y: 28838.0}, {x: '2016-04-22', y: 30032.0}, {x: '2016-04-29', y: 31718.0}, {x: '2016-05-06', y: 32303.0}, {x: '2016-05-13', y: 32321.0}, {x: '2016-05-20', y: 32303.0}, {x: '2016-05-27', y: 32097.0}, {x: '2016-06-03', y: 32097.0}, {x: '2016-06-10', y: 32111.0}, {x: '2016-06-17', y: 32225.0}, {x: '2016-06-24', y: 32395.0}, {x: '2016-07-01', y: 32440.0}, {x: '2016-07-08', y: 32524.0}, {x: '2016-07-15', y: 34595.0}, {x: '2016-07-22', y: 34696.0}, {x: '2016-07-29', y: 34916.0}, {x: '2016-08-05', y: 34840.0}, {x: '2016-08-12', y: 35061.0}, {x: '2016-08-19', y: 35510.0}, {x: '2016-08-26', y: 35551.0}, {x: '2016-09-02', y: 35551.0}, {x: '2016-09-09', y: 35846.0}, {x: '2016-09-16', y: 36226.0}, {x: '2016-09-23', y: 36581.0}, {x: '2016-09-30', y: 36881.0}, {x: '2016-10-07', y: 36869.0}, {x: '2016-10-14', y: 36940.0}, {x: '2016-10-21', y: 36926.0}, {x: '2016-10-28', y: 36827.0}, {x: '2016-11-04', y: 36827.0}, {x: '2016-11-11', y: 37170.0}, {x: '2016-11-18', y: 37281.0}, {x: '2016-11-25', y: 37312.0}, {x: '2016-12-02', y: 37419.0}, {x: '2016-12-09', y: 37745.0}, {x: '2016-12-16', y: 38497.0}, {x: '2016-12-23', y: 38395.0}, {x: '2016-12-30', y: 38379.0}, {x: '2017-01-06', y: 38632.0}, {x: '2017-01-13', y: 40090.0}, {x: '2017-01-20', y: 40182.0}, {x: '2017-01-27', y: 40479.0}, {x: '2017-02-03', y: 40515.0}, {x: '2017-02-10', y: 40536.0}, {x: '2017-02-17', y: 39181.0}, {x: '2017-02-24', y: 39049.0}, {x: '2017-03-03', y: 38970.0}, {x: '2017-03-10', y: 38972.0}, {x: '2017-03-17', y: 39029.0}, {x: '2017-03-24', y: 39194.0}, {x: '2017-03-31', y: 39609.0}, {x: '2017-04-07', y: 41551.0}, {x: '2017-04-14', y: 42768.0}, {x: '2017-04-21', y: 43044.0}, {x: '2017-04-28', y: 43621.0}, {x: '2017-05-05', y: 44861.0}, {x: '2017-05-12', y: 44768.0}, {x: '2017-05-19', y: 47119.0}, {x: '2017-05-26', y: 46928.0}, {x: '2017-06-02', y: 47454.0}, {x: '2017-06-09', y: 47449.0}, {x: '2017-06-16', y: 47574.0}, {x: '2017-06-23', y: 47555.0}, {x: '2017-06-30', y: 47702.0}, {x: '2017-07-07', y: 47708.0}, {x: '2017-07-14', y: 47783.0}, {x: '2017-07-21', y: 48226.0}, {x: '2017-07-28', y: 49223.0}, {x: '2017-08-04', y: 49223.0}, {x: '2017-08-11', y: 49260.0}, {x: '2017-08-18', y: 49712.0}, {x: '2017-08-25', y: 51156.0}, {x: '2017-09-01', y: 51771.0}, {x: '2017-09-08', y: 54318.0}, {x: '2017-09-15', y: 55474.0}, {x: '2017-09-22', y: 54132.0}, {x: '2017-09-29', y: 54471.0}, {x: '2017-10-06', y: 54644.0}, {x: '2017-10-13', y: 54664.0}, {x: '2017-10-20', y: 54690.0}, {x: '2017-10-27', y: 54677.0}, {x: '2017-11-03', y: 54772.0}, {x: '2017-11-10', y: 54810.0}, {x: '2017-11-17', y: 54936.0}, {x: '2017-11-24', y: 54895.0}, {x: '2017-12-01', y: 55128.0}, {x: '2017-12-08', y: 55395.0}, {x: '2017-12-15', y: 55412.0}, {x: '2017-12-22', y: 55347.0}, {x: '2017-12-29', y: 55332.0}, {x: '2018-01-05', y: 55383.0}, {x: '2018-01-12', y: 55388.0}, {x: '2018-01-19', y: 57600.0}, {x: '2018-01-26', y: 57638.0}, {x: '2018-02-02', y: 59294.0}, {x: '2018-02-09', y: 60123.0}, {x: '2018-02-16', y: 60140.0}, {x: '2018-02-23', y: 60260.0}, {x: '2018-03-02', y: 60262.0}, {x: '2018-03-09', y: 60279.0}, {x: '2018-03-16', y: 60486.0}, {x: '2018-03-23', y: 60509.0}, {x: '2018-03-30', y: 60629.0}, {x: '2018-04-06', y: 60874.0}, {x: '2018-04-13', y: 61157.0}, {x: '2018-04-20', y: 61735.0}, {x: '2018-04-27', y: 61681.0}, {x: '2018-05-04', y: 62402.0}, {x: '2018-05-11', y: 59435.0}, {x: '2018-05-18', y: 59424.0}, {x: '2018-05-25', y: 61800.0}, {x: '2018-06-01', y: 62219.0}, {x: '2018-06-08', y: 61283.0}, {x: '2018-06-15', y: 61356.0}, {x: '2018-06-22', y: 61277.0}, {x: '2018-06-29', y: 61334.0}, {x: '2018-07-06', y: 61373.0}, {x: '2018-07-13', y: 61373.0}, {x: '2018-07-20', y: 61330.0}, {x: '2018-07-27', y: 61305.0}, {x: '2018-08-03', y: 61226.0}, {x: '2018-08-10', y: 61199.0}, {x: '2018-08-17', y: 61668.0}, {x: '2018-08-24', y: 61710.0}, {x: '2018-08-31', y: 62166.0}, {x: '2018-09-07', y: 62166.0}],
     'linear_regression': {
         '_12_months': {
@@ -417,6 +418,7 @@ const apache_kafka_json = {
     }
 }
 const apache_systemml_json = {
+    'name': 'Apache SystemML',
     'ground_truth': [{x: '2015-10-02', y: 96396.0}, {x: '2015-10-09', y: 97137.0}, {x: '2015-10-16', y: 96677.0}, {x: '2015-10-23', y: 96902.0}, {x: '2015-10-30', y: 97069.0}, {x: '2015-11-06', y: 97194.0}, {x: '2015-11-13', y: 97241.0}, {x: '2015-11-20', y: 97534.0}, {x: '2015-11-27', y: 98004.0}, {x: '2015-12-04', y: 98018.0}, {x: '2015-12-11', y: 98033.0}, {x: '2015-12-18', y: 97940.0}, {x: '2015-12-25', y: 98068.0}, {x: '2016-01-01', y: 97865.0}, {x: '2016-01-08', y: 97592.0}, {x: '2016-01-15', y: 98265.0}, {x: '2016-01-22', y: 98677.0}, {x: '2016-01-29', y: 98734.0}, {x: '2016-02-05', y: 98694.0}, {x: '2016-02-12', y: 98561.0}, {x: '2016-02-19', y: 98081.0}, {x: '2016-02-26', y: 98111.0}, {x: '2016-03-04', y: 98274.0}, {x: '2016-03-11', y: 99049.0}, {x: '2016-03-18', y: 99035.0}, {x: '2016-03-25', y: 99286.0}, {x: '2016-04-01', y: 99171.0}, {x: '2016-04-08', y: 100416.0}, {x: '2016-04-15', y: 100202.0}, {x: '2016-04-22', y: 100150.0}, {x: '2016-04-29', y: 100475.0}, {x: '2016-05-06', y: 100413.0}, {x: '2016-05-13', y: 101810.0}, {x: '2016-05-20', y: 103491.0}, {x: '2016-05-27', y: 103501.0}, {x: '2016-06-03', y: 103703.0}, {x: '2016-06-10', y: 103781.0}, {x: '2016-06-17', y: 105886.0}, {x: '2016-06-24', y: 106949.0}, {x: '2016-07-01', y: 107016.0}, {x: '2016-07-08', y: 107604.0}, {x: '2016-07-15', y: 110463.0}, {x: '2016-07-22', y: 111967.0}, {x: '2016-07-29', y: 114190.0}, {x: '2016-08-05', y: 113335.0}, {x: '2016-08-12', y: 113706.0}, {x: '2016-08-19', y: 113331.0}, {x: '2016-08-26', y: 113656.0}, {x: '2016-09-02', y: 114017.0}, {x: '2016-09-09', y: 114102.0}, {x: '2016-09-16', y: 113697.0}, {x: '2016-09-23', y: 113747.0}, {x: '2016-09-30', y: 113891.0}, {x: '2016-10-07', y: 113997.0}, {x: '2016-10-14', y: 114071.0}, {x: '2016-10-21', y: 114073.0}, {x: '2016-10-28', y: 114073.0}, {x: '2016-11-04', y: 114145.0}, {x: '2016-11-11', y: 114226.0}, {x: '2016-11-18', y: 114946.0}, {x: '2016-11-25', y: 114946.0}, {x: '2016-12-02', y: 114951.0}, {x: '2016-12-09', y: 114240.0}, {x: '2016-12-16', y: 113468.0}, {x: '2016-12-23', y: 113483.0}, {x: '2016-12-30', y: 113493.0}, {x: '2017-01-06', y: 113918.0}, {x: '2017-01-13', y: 114194.0}, {x: '2017-01-20', y: 114811.0}, {x: '2017-01-27', y: 115033.0}, {x: '2017-02-03', y: 115450.0}, {x: '2017-02-10', y: 115831.0}, {x: '2017-02-17', y: 114835.0}, {x: '2017-02-24', y: 114420.0}, {x: '2017-03-03', y: 116254.0}, {x: '2017-03-10', y: 117170.0}, {x: '2017-03-17', y: 118916.0}, {x: '2017-03-24', y: 118319.0}, {x: '2017-03-31', y: 118671.0}, {x: '2017-04-07', y: 119756.0}, {x: '2017-04-14', y: 119931.0}, {x: '2017-04-21', y: 120379.0}, {x: '2017-04-28', y: 123011.0}, {x: '2017-05-05', y: 123299.0}, {x: '2017-05-12', y: 124913.0}, {x: '2017-05-19', y: 125049.0}, {x: '2017-05-26', y: 124166.0}, {x: '2017-06-02', y: 126301.0}, {x: '2017-06-09', y: 122707.0}, {x: '2017-06-16', y: 122930.0}, {x: '2017-06-23', y: 123517.0}, {x: '2017-06-30', y: 123669.0}, {x: '2017-07-07', y: 123884.0}, {x: '2017-07-14', y: 123955.0}, {x: '2017-07-21', y: 124137.0}, {x: '2017-07-28', y: 124189.0}, {x: '2017-08-04', y: 125560.0}, {x: '2017-08-11', y: 125597.0}, {x: '2017-08-18', y: 125603.0}, {x: '2017-08-25', y: 126011.0}, {x: '2017-09-01', y: 125053.0}, {x: '2017-09-08', y: 125337.0}, {x: '2017-09-15', y: 126718.0}, {x: '2017-09-22', y: 126923.0}, {x: '2017-09-29', y: 126998.0}, {x: '2017-10-06', y: 126834.0}, {x: '2017-10-13', y: 124996.0}, {x: '2017-10-20', y: 124727.0}, {x: '2017-10-27', y: 125479.0}, {x: '2017-11-03', y: 125536.0}, {x: '2017-11-10', y: 124864.0}, {x: '2017-11-17', y: 124978.0}, {x: '2017-11-24', y: 124962.0}, {x: '2017-12-01', y: 125121.0}, {x: '2017-12-08', y: 125084.0}, {x: '2017-12-15', y: 125173.0}, {x: '2017-12-22', y: 125160.0}, {x: '2017-12-29', y: 124262.0}, {x: '2018-01-05', y: 118448.0}, {x: '2018-01-12', y: 118119.0}, {x: '2018-01-19', y: 118608.0}, {x: '2018-01-26', y: 118840.0}, {x: '2018-02-02', y: 119135.0}, {x: '2018-02-09', y: 118932.0}, {x: '2018-02-16', y: 119059.0}, {x: '2018-02-23', y: 119299.0}, {x: '2018-03-02', y: 119995.0}, {x: '2018-03-09', y: 120244.0}, {x: '2018-03-16', y: 120105.0}, {x: '2018-03-23', y: 118446.0}, {x: '2018-03-30', y: 117839.0}, {x: '2018-04-06', y: 117803.0}, {x: '2018-04-13', y: 117709.0}, {x: '2018-04-20', y: 117505.0}, {x: '2018-04-27', y: 117319.0}, {x: '2018-05-04', y: 117508.0}, {x: '2018-05-11', y: 117992.0}, {x: '2018-05-18', y: 117902.0}, {x: '2018-05-25', y: 117900.0}, {x: '2018-06-01', y: 119634.0}, {x: '2018-06-08', y: 119836.0}, {x: '2018-06-15', y: 119943.0}, {x: '2018-06-22', y: 120153.0}, {x: '2018-06-29', y: 120260.0}, {x: '2018-07-06', y: 120429.0}, {x: '2018-07-13', y: 120696.0}, {x: '2018-07-20', y: 121370.0}, {x: '2018-07-27', y: 121714.0}, {x: '2018-08-03', y: 122568.0}, {x: '2018-08-10', y: 122982.0}],
     'linear_regression': {
         '_12_months': {
@@ -990,10 +992,11 @@ const ConfigurationPanel = props => {
                                 Project
                             </MDBDropdownToggle>
                             <MDBDropdownMenu basic>
-                                <MDBDropdownItem>Apache Kafka</MDBDropdownItem>                                
+                                <MDBDropdownItem onClick={(param) => props.updateProjectData('Apache Kafka')}>Apache Kafka</MDBDropdownItem>
+                                <MDBDropdownItem onClick={(param) => props.updateProjectData('Apache SystemML')}>Apache SystemML</MDBDropdownItem>
                             </MDBDropdownMenu>
                         </MDBDropdown>
-                        <h4 style={{color:'#548235'}}>Apache Kafka</h4>
+                        <h4 style={{color:'#548235'}}>{props.myprojectName}</h4>
                     </MDBFormInline>
                 </MDBCardBody>
                 </MDBCard>
@@ -1008,13 +1011,13 @@ const ConfigurationPanel = props => {
                                 Algorithm
                             </MDBDropdownToggle>
                             <MDBDropdownMenu basic>
-                                <MDBDropdownItem onClick={(param) => props.myupdateForecastedData('linear_regression',undefined)}>MLR</MDBDropdownItem>
-                                <MDBDropdownItem onClick={(param) => props.myupdateForecastedData('lasso_regression',undefined)}>Lasso</MDBDropdownItem>
-                                <MDBDropdownItem onClick={(param) => props.myupdateForecastedData('ridge_regression',undefined)}>Ridge</MDBDropdownItem>
-                                <MDBDropdownItem onClick={(param) => props.myupdateForecastedData('svr_linear_regression',undefined)}>SVR(linear)</MDBDropdownItem>
-                                <MDBDropdownItem onClick={(param) => props.myupdateForecastedData('svr_rbf_regression',undefined)}>SVR(rbf)</MDBDropdownItem>
-                                <MDBDropdownItem onClick={(param) => props.myupdateForecastedData('random_forest_regression',undefined)}>Random Forest</MDBDropdownItem>
-                                <MDBDropdownItem onClick={(param) => props.myupdateForecastedData('arima_regression',undefined)}>ARIMA</MDBDropdownItem>
+                                <MDBDropdownItem onClick={(param) => props.updateForecastedData('linear_regression',undefined)}>MLR</MDBDropdownItem>
+                                <MDBDropdownItem onClick={(param) => props.updateForecastedData('lasso_regression',undefined)}>Lasso</MDBDropdownItem>
+                                <MDBDropdownItem onClick={(param) => props.updateForecastedData('ridge_regression',undefined)}>Ridge</MDBDropdownItem>
+                                <MDBDropdownItem onClick={(param) => props.updateForecastedData('svr_linear_regression',undefined)}>SVR(linear)</MDBDropdownItem>
+                                <MDBDropdownItem onClick={(param) => props.updateForecastedData('svr_rbf_regression',undefined)}>SVR(rbf)</MDBDropdownItem>
+                                <MDBDropdownItem onClick={(param) => props.updateForecastedData('random_forest_regression',undefined)}>Random Forest</MDBDropdownItem>
+                                <MDBDropdownItem onClick={(param) => props.updateForecastedData('arima_regression',undefined)}>ARIMA</MDBDropdownItem>
                             </MDBDropdownMenu>
                         </MDBDropdown>
                         <h4 style={{color:'#548235'}}>{props.mycurrentAlgorithm}</h4>
@@ -1032,21 +1035,21 @@ const ConfigurationPanel = props => {
                                 Horizon
                             </MDBDropdownToggle>
                             <MDBDropdownMenu basic>
-                                <MDBDropdownItem onClick={(param) => props.myupdateForecastedData(undefined,'_1_week')}>1 week</MDBDropdownItem>
-                                <MDBDropdownItem onClick={(param) => props.myupdateForecastedData(undefined,'_1_month')}>1 month</MDBDropdownItem>
-                                <MDBDropdownItem onClick={(param) => props.myupdateForecastedData(undefined,'_2_months')}>2 months</MDBDropdownItem>
-                                <MDBDropdownItem onClick={(param) => props.myupdateForecastedData(undefined,'_3_months')}>3 months</MDBDropdownItem>
-                                <MDBDropdownItem onClick={(param) => props.myupdateForecastedData(undefined,'_4_months')}>4 months</MDBDropdownItem>
-                                <MDBDropdownItem onClick={(param) => props.myupdateForecastedData(undefined,'_5_months')}>5 months</MDBDropdownItem>
-                                <MDBDropdownItem onClick={(param) => props.myupdateForecastedData(undefined,'_6_months')}>6 months</MDBDropdownItem>
-                                <MDBDropdownItem onClick={(param) => props.myupdateForecastedData(undefined,'_7_months')}>7 months</MDBDropdownItem>
-                                <MDBDropdownItem onClick={(param) => props.myupdateForecastedData(undefined,'_8_months')}>8 months</MDBDropdownItem>
-                                <MDBDropdownItem onClick={(param) => props.myupdateForecastedData(undefined,'_9_months')}>9 months</MDBDropdownItem>
-                                <MDBDropdownItem onClick={(param) => props.myupdateForecastedData(undefined,'_10_months')}>10 months</MDBDropdownItem>
-                                <MDBDropdownItem onClick={(param) => props.myupdateForecastedData(undefined,'_11_months')}>11 months</MDBDropdownItem>
-                                <MDBDropdownItem onClick={(param) => props.myupdateForecastedData(undefined,'_12_months')}>12 months</MDBDropdownItem>
+                                <MDBDropdownItem onClick={(param) => props.updateForecastedData(undefined,'_1_week')}>1 week</MDBDropdownItem>
+                                <MDBDropdownItem onClick={(param) => props.updateForecastedData(undefined,'_1_month')}>1 month</MDBDropdownItem>
+                                <MDBDropdownItem onClick={(param) => props.updateForecastedData(undefined,'_2_months')}>2 months</MDBDropdownItem>
+                                <MDBDropdownItem onClick={(param) => props.updateForecastedData(undefined,'_3_months')}>3 months</MDBDropdownItem>
+                                <MDBDropdownItem onClick={(param) => props.updateForecastedData(undefined,'_4_months')}>4 months</MDBDropdownItem>
+                                <MDBDropdownItem onClick={(param) => props.updateForecastedData(undefined,'_5_months')}>5 months</MDBDropdownItem>
+                                <MDBDropdownItem onClick={(param) => props.updateForecastedData(undefined,'_6_months')}>6 months</MDBDropdownItem>
+                                <MDBDropdownItem onClick={(param) => props.updateForecastedData(undefined,'_7_months')}>7 months</MDBDropdownItem>
+                                <MDBDropdownItem onClick={(param) => props.updateForecastedData(undefined,'_8_months')}>8 months</MDBDropdownItem>
+                                <MDBDropdownItem onClick={(param) => props.updateForecastedData(undefined,'_9_months')}>9 months</MDBDropdownItem>
+                                <MDBDropdownItem onClick={(param) => props.updateForecastedData(undefined,'_10_months')}>10 months</MDBDropdownItem>
+                                <MDBDropdownItem onClick={(param) => props.updateForecastedData(undefined,'_11_months')}>11 months</MDBDropdownItem>
+                                <MDBDropdownItem onClick={(param) => props.updateForecastedData(undefined,'_12_months')}>12 months</MDBDropdownItem>
                                 <MDBDropdownItem divider />
-                                <MDBDropdownItem onClick={(param) => props.myupdateForecastedData(undefined,'_1_step_ahead')}>1 step ahead test</MDBDropdownItem>
+                                <MDBDropdownItem onClick={(param) => props.updateForecastedData(undefined,'_1_step_ahead')}>1 step ahead test</MDBDropdownItem>
                             </MDBDropdownMenu>
                         </MDBDropdown>
                         <h4 style={{color:'#548235'}}>{props.mycurrentHorizon}</h4>
@@ -1085,7 +1088,7 @@ const TDForecasterPanel = props => {
 
     const dataLine = {
         datasets: [
-            returnNewRealDataObject(props.myground_truth_data2),
+            returnNewRealDataObject(props.myground_truth_data_zoomed),
             returnNewForecastDataObject(props.myforecasted_data)
         ]
     }
@@ -1104,66 +1107,84 @@ const TDForecasterPanel = props => {
     )
 }
 
-class ForecastDashPage extends React.Component {
+class TDDashPage extends React.Component {
     
     constructor(props){
         super(props);
-        
-        this.currentAlgorithm = 'linear_regression'
-        this.currentHorizon = '_1_step_ahead'
-        
+
         this.state = {
-            json_data: null,
+            projectJson: null,
+            projectName: null,
             ground_truth_data: null,
-            ground_truth_data2: null,
+            ground_truth_data_zoomed: null,
             forecasted_data: null,
+            currentAlgorithm: null,
+            currentHorizon: null,
         }
+    }
+    
+    // Update project 
+    updateProjectData = (projectName) => {
+        var project = null
+        
+        if(projectName === 'Apache Kafka'){
+            project = apache_kafka_json
+        }else if(projectName === 'Apache SystemML'){
+            project = apache_systemml_json
+        }
+        
+        this.setState({
+            projectJson: project,
+            projectName: project.name,
+            ground_truth_data: project.ground_truth,
+            ground_truth_data_zoomed: project['linear_regression']['_1_step_ahead'].real,
+            forecasted_data: project['linear_regression']['_1_step_ahead'].forecast,
+            currentAlgorithm: 'linear_regression',
+            currentHorizon: '_1_step_ahead',
+        })
+    }
+    
+    // Update forecasts 
+    updateForecastedData = (new_algorithm = this.state.currentAlgorithm, new_horizon = this.state.currentHorizon) => {
+        this.setState({
+            ground_truth_data_zoomed: this.state.projectJson[new_algorithm][new_horizon].real,
+            forecasted_data: this.state.projectJson[new_algorithm][new_horizon].forecast,
+            currentAlgorithm: new_algorithm,
+            currentHorizon: new_horizon,
+        })
     }
     
     componentDidMount(){
         // Code for fetching data
-        this.setState({
-            json_data: apache_systemml_json,
-            ground_truth_data: apache_systemml_json.ground_truth,
-            ground_truth_data2: apache_systemml_json[this.currentAlgorithm][this.currentHorizon].real,
-            forecasted_data: apache_systemml_json[this.currentAlgorithm][this.currentHorizon].forecast,
-        })
-    }
-    
-    updateForecastedData = (new_algorithm = this.currentAlgorithm, new_horizon = this.currentHorizon) => {
-        this.setState({
-            forecasted_data: this.state.json_data[new_algorithm][new_horizon].forecast,
-            ground_truth_data2: this.state.json_data[new_algorithm][new_horizon].real
-        })
-                
-        this.currentAlgorithm = new_algorithm
-        this.currentHorizon = new_horizon
+        this.updateProjectData('Apache Kafka')
     }
 
     render(){
         // Code for rendering the dashboard
-        //if(this.state.tdForecasting == null){
-        //    return (<Loader/>)
-        //}else{
+        // if(this.state.projectJson == null){
+        //     return (<Loader/>)
+        // }else{
             return(
                 <React.Fragment>
                     <ConfigurationPanel
-                        myupdateForecastedData={this.updateForecastedData}
-                        mycurrentAlgorithm={this.currentAlgorithm}
-                        mycurrentHorizon={this.currentHorizon}
+                        myprojectName={this.state.projectName}
+                        mycurrentAlgorithm={this.state.currentAlgorithm}
+                        mycurrentHorizon={this.state.currentHorizon}
+                        updateForecastedData={this.updateForecastedData}
+                        updateProjectData={this.updateProjectData}
                     />
                     <TDEvolutionPanel 
                         myground_truth_data={this.state.ground_truth_data} 
                         myforecasted_data={this.state.forecasted_data}
                     />
                     <TDForecasterPanel 
-                        myground_truth_data2={this.state.ground_truth_data2} 
+                        myground_truth_data_zoomed={this.state.ground_truth_data_zoomed} 
                         myforecasted_data={this.state.forecasted_data}
                     />
                 </React.Fragment>
             )
-        //}
+        // }
     }
 }
 
-export default ForecastDashPage;
+export default TDDashPage;

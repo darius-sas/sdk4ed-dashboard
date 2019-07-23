@@ -1,13 +1,14 @@
 import React from 'react';
-import {PagePanel} from './sections/PagePanel';
+//import {PagePanel} from './sections/PagePanel';
 import { MDBCol, MDBCard, MDBCardBody, MDBCardHeader, MDBRow } from 'mdbreact';
 import { MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem, MDBFormInline } from "mdbreact";
-import Loader from './sections/Loading'
-import { Line, Doughnut, Radar } from 'react-chartjs-2';
+//import Loader from './sections/Loading'
+import { Line } from 'react-chartjs-2';
 
 // Hardcoded values. When deployed to production these values should be fetched from APIs in componentDidMount() method
 // Ground Truth data
 const sbeamer_gapbs_json = {
+    'name': 'Sbeamer Gabps',
     'ground_truth': [{x: '2015-12-18', y: 56.65605575}, {x: '2015-12-25', y: 55.68438456}, {x: '2016-01-01', y: 56.8534873}, {x: '2016-01-08', y: 56.21674898}, {x: '2016-01-15', y: 56.76534203}, {x: '2016-01-22', y: 57.41918142}, {x: '2016-01-29', y: 57.12849857}, {x: '2016-02-05', y: 57.10700143}, {x: '2016-02-12', y: 57.094443}, {x: '2016-02-19', y: 57.72177735}, {x: '2016-02-26', y: 57.97469137}, {x: '2016-03-04', y: 53.15720825}, {x: '2016-03-11', y: 55.06926574}, {x: '2016-03-18', y: 53.21700273}, {x: '2016-03-25', y: 54.38603326}, {x: '2016-04-01', y: 51.94004468}, {x: '2016-04-08', y: 53.47330645}, {x: '2016-04-15', y: 55.21227493}, {x: '2016-04-22', y: 51.83569354}, {x: '2016-04-29', y: 54.94009617}, {x: '2016-05-06', y: 53.99484425}, {x: '2016-05-13', y: 53.95165061}, {x: '2016-05-20', y: 52.47652151}, {x: '2016-05-27', y: 54.29550762}, {x: '2016-06-03', y: 53.9147256}, {x: '2016-06-10', y: 54.27173573}, {x: '2016-06-17', y: 52.55814047}, {x: '2016-06-24', y: 51.97915381}, {x: '2016-07-01', y: 51.99759476}, {x: '2016-07-08', y: 52.13970157}, {x: '2016-07-15', y: 51.74062996}, {x: '2016-07-22', y: 52.66712497}, {x: '2016-07-29', y: 51.18397759}, {x: '2016-08-05', y: 51.99940775}, {x: '2016-08-12', y: 52.68117227}, {x: '2016-08-19', y: 52.9132807}, {x: '2016-08-26', y: 53.32692249}, {x: '2016-09-02', y: 52.86367375}, {x: '2016-09-09', y: 53.25246685}, {x: '2016-09-16', y: 54.25198969}, {x: '2016-09-23', y: 53.66702845}, {x: '2016-09-30', y: 51.82701184}, {x: '2016-10-07', y: 52.65048789}, {x: '2016-10-14', y: 53.34679438}, {x: '2016-10-21', y: 52.79605036}, {x: '2016-10-28', y: 53.26380865}, {x: '2016-11-04', y: 52.26519367}, {x: '2016-11-11', y: 52.27799039}, {x: '2016-11-18', y: 52.32929477}, {x: '2016-11-25', y: 51.90950403}, {x: '2016-12-02', y: 52.34462651}, {x: '2016-12-09', y: 52.32007781}, {x: '2016-12-16', y: 52.72028658}, {x: '2016-12-23', y: 53.04836623}, {x: '2016-12-30', y: 53.30884323}, {x: '2017-01-06', y: 54.95435651}, {x: '2017-01-13', y: 53.0029522}, {x: '2017-01-20', y: 50.71445629}, {x: '2017-01-27', y: 50.15945199}, {x: '2017-02-03', y: 51.11973353}],
     'linear_regression': {
         '_5_months': {
@@ -385,10 +386,10 @@ const ConfigurationPanel = props => {
                                 Project
                             </MDBDropdownToggle>
                             <MDBDropdownMenu basic>
-                                <MDBDropdownItem>Sbeamer Gabps</MDBDropdownItem>                                
+                                <MDBDropdownItem onClick={(param) => props.updateProjectData('Sbeamer Gabps')}>Sbeamer Gabps</MDBDropdownItem>
                             </MDBDropdownMenu>
                         </MDBDropdown>
-                        <h4 style={{color:'#548235'}}>Sbeamer Gabps</h4>
+                        <h4 style={{color:'#548235'}}>{props.myprojectName}</h4>
                     </MDBFormInline>
                 </MDBCardBody>
                 </MDBCard>
@@ -403,13 +404,13 @@ const ConfigurationPanel = props => {
                                 Algorithm
                             </MDBDropdownToggle>
                             <MDBDropdownMenu basic>
-                                <MDBDropdownItem onClick={(param) => props.myupdateForecastedData('linear_regression',undefined)}>MLR</MDBDropdownItem>
-                                <MDBDropdownItem onClick={(param) => props.myupdateForecastedData('lasso_regression',undefined)}>Lasso</MDBDropdownItem>
-                                <MDBDropdownItem onClick={(param) => props.myupdateForecastedData('ridge_regression',undefined)}>Ridge</MDBDropdownItem>
-                                <MDBDropdownItem onClick={(param) => props.myupdateForecastedData('svr_linear_regression',undefined)}>SVR(linear)</MDBDropdownItem>
-                                <MDBDropdownItem onClick={(param) => props.myupdateForecastedData('svr_rbf_regression',undefined)}>SVR(rbf)</MDBDropdownItem>
-                                <MDBDropdownItem onClick={(param) => props.myupdateForecastedData('random_forest_regression',undefined)}>Random Forest</MDBDropdownItem>
-                                <MDBDropdownItem onClick={(param) => props.myupdateForecastedData('arima_regression',undefined)}>ARIMA</MDBDropdownItem>
+                                <MDBDropdownItem onClick={(param) => props.updateForecastedData('linear_regression',undefined)}>MLR</MDBDropdownItem>
+                                <MDBDropdownItem onClick={(param) => props.updateForecastedData('lasso_regression',undefined)}>Lasso</MDBDropdownItem>
+                                <MDBDropdownItem onClick={(param) => props.updateForecastedData('ridge_regression',undefined)}>Ridge</MDBDropdownItem>
+                                <MDBDropdownItem onClick={(param) => props.updateForecastedData('svr_linear_regression',undefined)}>SVR(linear)</MDBDropdownItem>
+                                <MDBDropdownItem onClick={(param) => props.updateForecastedData('svr_rbf_regression',undefined)}>SVR(rbf)</MDBDropdownItem>
+                                <MDBDropdownItem onClick={(param) => props.updateForecastedData('random_forest_regression',undefined)}>Random Forest</MDBDropdownItem>
+                                <MDBDropdownItem onClick={(param) => props.updateForecastedData('arima_regression',undefined)}>ARIMA</MDBDropdownItem>
                             </MDBDropdownMenu>
                         </MDBDropdown>
                         <h4 style={{color:'#548235'}}>{props.mycurrentAlgorithm}</h4>
@@ -427,14 +428,14 @@ const ConfigurationPanel = props => {
                                 Horizon
                             </MDBDropdownToggle>
                             <MDBDropdownMenu basic>
-                                <MDBDropdownItem onClick={(param) => props.myupdateForecastedData(undefined,'_1_week')}>1 week</MDBDropdownItem>
-                                <MDBDropdownItem onClick={(param) => props.myupdateForecastedData(undefined,'_1_month')}>1 month</MDBDropdownItem>
-                                <MDBDropdownItem onClick={(param) => props.myupdateForecastedData(undefined,'_2_months')}>2 months</MDBDropdownItem>
-                                <MDBDropdownItem onClick={(param) => props.myupdateForecastedData(undefined,'_3_months')}>3 months</MDBDropdownItem>
-                                <MDBDropdownItem onClick={(param) => props.myupdateForecastedData(undefined,'_4_months')}>4 months</MDBDropdownItem>
-                                <MDBDropdownItem onClick={(param) => props.myupdateForecastedData(undefined,'_5_months')}>5 months</MDBDropdownItem>
+                                <MDBDropdownItem onClick={(param) => props.updateForecastedData(undefined,'_1_week')}>1 week</MDBDropdownItem>
+                                <MDBDropdownItem onClick={(param) => props.updateForecastedData(undefined,'_1_month')}>1 month</MDBDropdownItem>
+                                <MDBDropdownItem onClick={(param) => props.updateForecastedData(undefined,'_2_months')}>2 months</MDBDropdownItem>
+                                <MDBDropdownItem onClick={(param) => props.updateForecastedData(undefined,'_3_months')}>3 months</MDBDropdownItem>
+                                <MDBDropdownItem onClick={(param) => props.updateForecastedData(undefined,'_4_months')}>4 months</MDBDropdownItem>
+                                <MDBDropdownItem onClick={(param) => props.updateForecastedData(undefined,'_5_months')}>5 months</MDBDropdownItem>
                                 <MDBDropdownItem divider />
-                                <MDBDropdownItem onClick={(param) => props.myupdateForecastedData(undefined,'_1_step_ahead')}>1 step ahead test</MDBDropdownItem>
+                                <MDBDropdownItem onClick={(param) => props.updateForecastedData(undefined,'_1_step_ahead')}>1 step ahead test</MDBDropdownItem>
                             </MDBDropdownMenu>
                         </MDBDropdown>
                         <h4 style={{color:'#548235'}}>{props.mycurrentHorizon}</h4>
@@ -473,7 +474,7 @@ const EnergyForecasterPanel = props => {
 
     const dataLine = {
         datasets: [
-            returnNewRealDataObject(props.myground_truth_data2),
+            returnNewRealDataObject(props.myground_truth_data_zoomed),
             returnNewForecastDataObject(props.myforecasted_data)
         ]
     }
@@ -492,40 +493,54 @@ const EnergyForecasterPanel = props => {
     )
 }
 
-class ForecastDashPage extends React.Component {
+class EnergyDashPage extends React.Component {
     
     constructor(props){
         super(props);
-        
-        this.currentAlgorithm = 'linear_regression'
-        this.currentHorizon = '_1_step_ahead'
-        
+
         this.state = {
-            json_data: null,
+            projectJson: null,
+            projectName: null,
             ground_truth_data: null,
-            ground_truth_data2: null,
+            ground_truth_data_zoomed: null,
             forecasted_data: null,
+            currentAlgorithm: null,
+            currentHorizon: null,
         }
+    }
+    
+    // Update project 
+    updateProjectData = (projectName) => {
+        var project = null
+        
+        if(projectName === 'Sbeamer Gabps'){
+            project = sbeamer_gapbs_json
+        }
+        
+        this.setState({
+            projectJson: project,
+            projectName: project.name,
+            ground_truth_data: project.ground_truth,
+            ground_truth_data_zoomed: project['linear_regression']['_1_step_ahead'].real,
+            forecasted_data: project['linear_regression']['_1_step_ahead'].forecast,
+            currentAlgorithm: 'linear_regression',
+            currentHorizon: '_1_step_ahead',
+        })
+    }
+    
+    // Update forecasts 
+    updateForecastedData = (new_algorithm = this.state.currentAlgorithm, new_horizon = this.state.currentHorizon) => {
+        this.setState({
+            ground_truth_data_zoomed: this.state.projectJson[new_algorithm][new_horizon].real,
+            forecasted_data: this.state.projectJson[new_algorithm][new_horizon].forecast,
+            currentAlgorithm: new_algorithm,
+            currentHorizon: new_horizon,
+        })
     }
     
     componentDidMount(){
         // Code for fetching data
-        this.setState({
-            json_data: sbeamer_gapbs_json,
-            ground_truth_data: sbeamer_gapbs_json.ground_truth,
-            ground_truth_data2: sbeamer_gapbs_json[this.currentAlgorithm][this.currentHorizon].real,
-            forecasted_data: sbeamer_gapbs_json[this.currentAlgorithm][this.currentHorizon].forecast,
-        })
-    }
-    
-    updateForecastedData = (new_algorithm = this.currentAlgorithm, new_horizon = this.currentHorizon) => {
-        this.setState({
-            forecasted_data: this.state.json_data[new_algorithm][new_horizon].forecast,
-            ground_truth_data2: this.state.json_data[new_algorithm][new_horizon].real
-        })
-                
-        this.currentAlgorithm = new_algorithm
-        this.currentHorizon = new_horizon
+        this.updateProjectData('Sbeamer Gabps')
     }
 
     render(){
@@ -536,16 +551,18 @@ class ForecastDashPage extends React.Component {
             return(
                 <React.Fragment>
                     <ConfigurationPanel
-                        myupdateForecastedData={this.updateForecastedData}
-                        mycurrentAlgorithm={this.currentAlgorithm}
-                        mycurrentHorizon={this.currentHorizon}
+                        myprojectName={this.state.projectName}
+                        mycurrentAlgorithm={this.state.currentAlgorithm}
+                        mycurrentHorizon={this.state.currentHorizon}
+                        updateForecastedData={this.updateForecastedData}
+                        updateProjectData={this.updateProjectData}
                     />
                     <EnergyEvolutionPanel 
                         myground_truth_data={this.state.ground_truth_data} 
                         myforecasted_data={this.state.forecasted_data}
                     />
                     <EnergyForecasterPanel 
-                        myground_truth_data2={this.state.ground_truth_data2} 
+                        myground_truth_data_zoomed={this.state.ground_truth_data_zoomed} 
                         myforecasted_data={this.state.forecasted_data}
                     />
                 </React.Fragment>
@@ -554,4 +571,4 @@ class ForecastDashPage extends React.Component {
     }
 }
 
-export default ForecastDashPage;
+export default EnergyDashPage;
