@@ -1,7 +1,7 @@
 import React from 'react';
 //import {PagePanel} from './sections/PagePanel';
-import { MDBCol, MDBCard, MDBCardBody, MDBCardHeader, MDBRow } from 'mdbreact';
-import { MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem, MDBFormInline } from "mdbreact";
+import { MDBCol, MDBCard, MDBCardBody, MDBCardHeader, MDBRow, MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem, MDBFormInline, MDBTable, MDBTableBody, MDBTableHead } from 'mdbreact';
+import PropTypes from 'prop-types'
 //import Loader from './sections/Loading'
 import { Line } from 'react-chartjs-2';
 
@@ -932,6 +932,48 @@ const lineChartOptions = {
     }
 }
 
+// Styling options for Table that @overrides BasicTable - Edit only for styling modifications 
+class BasicTable extends React.Component {
+
+    static propTypes = {
+        /**
+         * An object that respects as defined here https://mdbootstrap.com/docs/react/tables/additional/
+         * It contains the data that will be visualized in the table
+         */
+        data: PropTypes.object,
+
+        /**
+         * The title of the table.
+         */
+        title: PropTypes.string
+    }
+
+    render(){
+        var data = this.props.data
+        var rows = []
+        var uniqueId = 0
+        for(var i in data.rows){
+            var row = data.rows[i]
+            var r = []
+            for(var j in data.columns){
+                var field = data.columns[j]['field']
+                r.push(<td key={uniqueId++}>{row[field]}</td>)
+            }
+            rows.push(<tr key={uniqueId++}>{r}</tr>)
+        }
+        var header = []
+        for(var h in data.columns)
+            header.push(<th key={uniqueId++}><b>{data.columns[h]['label']}</b></th>)
+
+        return(
+            <MDBTable striped small bordered responsive hover maxHeight="31vh">
+            <MDBTableHead><tr>{header}</tr></MDBTableHead>
+            <MDBTableBody>{rows}</MDBTableBody>
+            </MDBTable>
+        )
+    }
+}
+
 // Function that constructs Data object of forecasted values - Edit only for styling modifications 
 function returnNewForecastDataObject(new_data) {
     var newDataObject = {
@@ -976,6 +1018,43 @@ function returnNewRealDataObject(new_data) {
         data: new_data
     };
     return newDataObject;
+}
+
+// Function that constructs Table data - Edit only for styling modifications 
+function returnTableData(real, forecasted) {
+    var tableData = []
+    var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    
+    if(real !== null && forecasted !== null){
+        for(var i = 0; i < real.length; i++) {
+            var d = new Date(real[i]['x']).toLocaleDateString("en-US", options)
+            var trend = (((forecasted[i]['y'] - real[0]['y']) / real[0]['y']) * 100).toFixed(2)
+            var trend_icon = null
+            if(trend > 0){
+                trend_icon = "far fa-arrow-alt-circle-up mr-2 red-text"
+            }else{
+                trend_icon = "far fa-arrow-alt-circle-down mr-2 green-text"
+            }
+                
+            tableData.push({
+                'horizon': d,
+                'td_Principal': forecasted[i]['y'],
+                'trend_cur': [<i key="cell1" className={trend_icon} aria-hidden="true"></i>, trend],
+            })
+        }
+    }
+    return tableData
+}
+
+// Function that converts minutes to working days (8 hours) 
+function convertMinutesToDays(new_data) {
+    var data = new_data
+    if(data !== null){
+        for(var i = 0; i < data.length; i++) {
+            data[i]['y'] = data[i]['y']/480
+        }
+    }
+    return data
 }
 
 const ConfigurationPanel = props => {
@@ -1085,6 +1164,24 @@ const TDEvolutionPanel = props => {
 }
 
 const TDForecasterPanel = props => {
+    
+    const tableData = {
+        columns: [
+            {
+                label: "Horizon",
+                field: "horizon"
+            },
+            {
+                label: "Forecasted TD",
+                field: "td_Principal"
+            },
+            {
+                label: "Trend %",
+                field: "trend_cur"
+            }
+        ],
+        rows: returnTableData(props.myground_truth_data_zoomed, props.myforecasted_data)
+    }
 
     const dataLine = {
         datasets: [
@@ -1100,6 +1197,14 @@ const TDForecasterPanel = props => {
                 <MDBCardHeader>Technical Debt Forecasting</MDBCardHeader>
                 <MDBCardBody>
                     <Line data={dataLine} options={lineChartOptions} height={300}/>
+                </MDBCardBody>
+                </MDBCard>
+            </MDBCol>
+            <MDBCol md="12" lg="6" className="mb-12">
+                <MDBCard className="mb-12">
+                <MDBCardHeader>Technical Debt Forecasting Details</MDBCardHeader>
+                <MDBCardBody>
+                    <BasicTable data={tableData}/>
                 </MDBCardBody>
                 </MDBCard>
             </MDBCol>
