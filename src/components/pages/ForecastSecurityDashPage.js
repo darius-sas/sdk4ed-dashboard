@@ -1056,7 +1056,7 @@ const ConfigurationPanel = props => {
                 <MDBCardBody>
                     <MDBFormInline className="md-form m-0">
                         <MDBDropdown>
-                            <MDBDropdownToggle caret color="primary">
+                            <MDBDropdownToggle caret className="white-text" color="  light-green darken-4">
                                 Project
                             </MDBDropdownToggle>
                             <MDBDropdownMenu basic>
@@ -1075,7 +1075,7 @@ const ConfigurationPanel = props => {
                 <MDBCardBody>
                     <MDBFormInline className="md-form m-0">
                         <MDBDropdown>
-                            <MDBDropdownToggle caret color="primary">
+                            <MDBDropdownToggle caret className="white-text" color="  light-green darken-4">
                                 Algorithm
                             </MDBDropdownToggle>
                             <MDBDropdownMenu basic>
@@ -1099,7 +1099,7 @@ const ConfigurationPanel = props => {
                 <MDBCardBody>
                     <MDBFormInline className="md-form m-0">
                         <MDBDropdown>
-                            <MDBDropdownToggle caret color="primary">
+                            <MDBDropdownToggle caret className="white-text" color="  light-green darken-4">
                                 Horizon
                             </MDBDropdownToggle>
                             <MDBDropdownMenu basic>

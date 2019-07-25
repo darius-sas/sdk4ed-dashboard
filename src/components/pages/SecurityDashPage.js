@@ -1,11 +1,8 @@
 import React from 'react';
-import {PagePanel} from './sections/PagePanel';
-import {ScoreCard} from './sections/StatusCards'
-import ContentPanel from './sections/ContentPanel'
-import { MDBCol, MDBCard, MDBCardBody, MDBCardHeader, MDBRow, MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem, MDBContainer, MDBDataTable, MDBTableBody, MDBTableHead } from 'mdbreact';
+import { MDBCol, MDBCard, MDBCardBody, MDBCardHeader, MDBRow, MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem, MDBContainer, MDBDataTable } from 'mdbreact';
 import Loader from './sections/Loading';
 //import BasicTable from './sections/Table';
-import { Line, Doughnut, Radar } from 'react-chartjs-2';
+import { Line, Radar } from 'react-chartjs-2';
 import PropTypes from 'prop-types'
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
@@ -196,7 +193,7 @@ function returnValues(data) {
 function returnVulnerabilityValues(data) {
     var values = []
     
-    if(data != undefined){
+    if(data !== undefined){
         for(var i = 0; i < data.length; i++) {
             values.push({
                 'name': data[i].class_name,
@@ -224,7 +221,7 @@ const ProjectPanel = props => {
                         </MDBCol>
                         <MDBCol>
                             <MDBDropdown>
-                                <MDBDropdownToggle caret color="primary">
+                                <MDBDropdownToggle caret className="white-text" color="  light-green darken-4">
                                     New Project
                                 </MDBDropdownToggle>
                                 <MDBDropdownMenu basic>
@@ -395,7 +392,7 @@ const TablePanel = props => {
                 <MDBCard>
                     <MDBCardHeader>
                         <MDBDropdown>
-                            <MDBDropdownToggle caret color="primary">
+                            <MDBDropdownToggle caret className="white-text" color="  light-green darken-4">
                                 {props.mytableSelectedProperty}
                             </MDBDropdownToggle>
                             <MDBDropdownMenu basic>{dropdownLabels}</MDBDropdownMenu>
@@ -546,11 +543,11 @@ class SecurityDashPage extends React.Component {
     updateProjectData = (projectName) => {
         var project = null
         
-        if(projectName == 'Holisun'){
+        if(projectName === 'Holisun'){
             project = holisunJson
-        }else if(projectName == 'Neurasmus'){
+        }else if(projectName === 'Neurasmus'){
             project = neurasmusJson
-        }else if(projectName == 'Airbus'){
+        }else if(projectName === 'Airbus'){
             project = airbusJson
         }
         
@@ -565,9 +562,9 @@ class SecurityDashPage extends React.Component {
     updateTabledData = (data, name) => {
         var tableData = []
         
-        if(data != undefined){
+        if(data !== undefined){
             for(var i = 0; i < data.length; i++) {
-                if(data[i].propertyName == name){
+                if(data[i].propertyName === name){
                     for(var j = 0; j < data[i]['issues'].length; j++) {
                         tableData.push({
                             'ruleName': data[i]['issues'][j]['ruleName'],
@@ -592,7 +589,7 @@ class SecurityDashPage extends React.Component {
     updateVulnerabilityTabledData = (data) => {
         var tableData = []
         
-        if(data != undefined){
+        if(data !== undefined){
             for(var i = 0; i < data.length; i++) {
                 tableData.push({
                     'class_name': data[i]['class_name'],
