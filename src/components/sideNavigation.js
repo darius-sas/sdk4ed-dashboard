@@ -42,10 +42,22 @@ const TopNavigation = () => {
                         Technical Debt
                     </MDBListGroupItem>
                 </NavLink>
-                <NavLink to="/forecast" activeClassName="activeClass">
+                <NavLink to="/tdforecast" activeClassName="activeClass">
                     <MDBListGroupItem>
                         <MDBIcon icon="compass" className="mr-3"/>
-                        Forecast
+                        TD Forecast
+                    </MDBListGroupItem>
+                </NavLink>
+                <NavLink to="/energyforecast" activeClassName="activeClass">
+                    <MDBListGroupItem>
+                        <MDBIcon icon="compass" className="mr-3"/>
+                        Energy Forecast
+                    </MDBListGroupItem>
+                </NavLink>
+                <NavLink to="/securityforecast" activeClassName="activeClass">
+                    <MDBListGroupItem>
+                        <MDBIcon icon="compass" className="mr-3"/>
+                        Security Forecast
                     </MDBListGroupItem>
                 </NavLink>
                 <NavLink to="/tradeoffs" activeClassName="activeClass">

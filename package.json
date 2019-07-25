@@ -6,6 +6,8 @@
   "license": "MIT",
   "dependencies": {
     "google-map-react": "^1.0.6",
+    "highcharts": "^7.1.2",
+    "highcharts-react-official": "^2.2.2",
     "mdbreact": "^4.9.0",
     "plotly.js": "^1.48.3",
     "react": "^16.7.0",
