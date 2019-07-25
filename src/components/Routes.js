@@ -4,6 +4,8 @@ import TDDashPage from './pages/TDDashPage';
 import SecurityDashPage from './pages/SecurityDashPage';  
 import EnergyDashPage from './pages/EnergyDashPage';
 import ForecastDashPage from './pages/ForecastDashPage';
+import ForecastEnergyDashPage from './pages/ForecastEnergyDashPage';
+import ForecastSecurityDashPage from './pages/ForecastSecurityDashPage';
 
 import MapsPage from './pages/MapsPage';
 import NotFoundPage from './pages/NotFoundPage';
@@ -20,7 +22,9 @@ class Routes extends React.Component {
         <Route path='/techdebt' component={TDDashPage}/>
         <Route path='/security' component={SecurityDashPage} />
         <Route path='/energy' component={EnergyDashPage} />
-        <Route path='/forecast' component={ForecastDashPage}/>
+        <Route path='/tdforecast' component={ForecastDashPage}/>
+        <Route path='/energyforecast' component={ForecastEnergyDashPage}/>
+        <Route path='/securityforecast' component={ForecastSecurityDashPage}/>
         <Route path='/dashboard' component={DashboardPage} />
         <Route path='/' exact component={DashboardPage} />
 
