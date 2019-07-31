@@ -192,19 +192,20 @@ function returnValues(data) {
 // Function to extract values from vulnerabilities json
 function returnVulnerabilityValues(data) {
     var values = []
-    
-    if(data !== undefined){
-        for(var i = 0; i < data.length; i++) {
-            values.push({
-                'name': data[i].class_name,
-                'value': 1,
-                'colorValue': data[i].sigmoid
-            })
-        }
-        //parseFloat((data[i].confidence).replace('%',''))
+    for(var i = 0; i < data.length; i++) {
+        values.push({
+            'name': data[i].class_name,
+            'value': 1,
+            'colorValue': data[i].sigmoid
+        })
     }
-    
+    //parseFloat((data[i].confidence).replace('%',''))
     return values
+}
+
+// Function to check if an object is empty
+function isEmpty(obj) {
+  return Object.keys(obj).length === 0;
 }
 
 // The Project Panel
@@ -244,15 +245,15 @@ const SecurityIndexPanel = props => {
  
     // code to render stars
     var mysecurityIndexStars = 0
-    if (props.mysecurityIndexScore.eval > 0.8) {
+    if (props.mysecurityIndexScorel > 0.8) {
         mysecurityIndexStars = 5
-    } else if (props.mysecurityIndexScore.eval > 0.6) {
+    } else if (props.mysecurityIndexScore > 0.6) {
         mysecurityIndexStars = 4
-    } else if (props.mysecurityIndexScore.eval > 0.5) {
+    } else if (props.mysecurityIndexScore > 0.5) {
         mysecurityIndexStars = 3
-    } else if (props.mysecurityIndexScore.eval > 0.4) {
+    } else if (props.mysecurityIndexScore > 0.4) {
         mysecurityIndexStars = 2
-    } else if (props.mysecurityIndexScore.eval > 0.2) {
+    } else if (props.mysecurityIndexScore > 0.2) {
         mysecurityIndexStars = 1
     }
     
@@ -260,7 +261,7 @@ const SecurityIndexPanel = props => {
     for(var i = 1; i <= mysecurityIndexStars; i++){
         stars.push(<img alt="SDK4ED logo" className="img-fluid" width="100" height="100" src={star}/>)
     }
-    
+        
     return (
         <MDBRow className="mb-4">
             <MDBCol md="12" lg="12" className="mb-12">
@@ -271,7 +272,7 @@ const SecurityIndexPanel = props => {
                         <br></br>
                         <MDBRow><MDBCol>{stars}</MDBCol></MDBRow>
                         <br></br>
-                        <MDBRow><MDBCol><h2>{(props.mysecurityIndexScore.eval).toFixed(2) * 100}%</h2></MDBCol></MDBRow>
+                        <MDBRow><MDBCol><h2>{(props.mysecurityIndexScore).toFixed(2) * 100}%</h2></MDBCol></MDBRow>
                     </div>
                 </MDBCardBody>
                 </MDBCard>
@@ -319,7 +320,7 @@ const ScoresPanel = props => {
             }
         ]
     }
-        
+            
     return (
         <MDBRow className="mb-4">
             <MDBCol md="12" lg="6" className="mb-12">
@@ -385,7 +386,7 @@ const TablePanel = props => {
         ],
         rows: props.mytableData
     }
-
+    
     return (
         <MDBRow className="mb-4">
             <MDBCol md="12" lg="12" className="mb-12">
@@ -457,6 +458,7 @@ const VulnerabilityPredictionHeatmamPanel = props => {
             maxColor: 'rgba(84,130,53,1)'
         },
         series: [{
+            animation: false,
             type: 'treemap',
             layoutAlgorithm: 'squarified',
             data: returnVulnerabilityValues(props.myvulnerabilityPredictionResults)
@@ -465,6 +467,8 @@ const VulnerabilityPredictionHeatmamPanel = props => {
             text: 'Probability of Vulnerability'
         }
     }
+    
+    if (isEmpty(props.myvulnerabilityPredictionResults)){return null}
 
     return (
         <MDBRow className="mb-4">
@@ -472,7 +476,7 @@ const VulnerabilityPredictionHeatmamPanel = props => {
                 <MDBCard className="mb-12">
                 <MDBCardHeader>Vulnerability Prediction Heatmap</MDBCardHeader>
                 <MDBCardBody>
-                    <HighchartsReact highcharts={Highcharts} options={vulnerabilityPredictionData} />
+                    <HighchartsReact highcharts={Highcharts} options={vulnerabilityPredictionData} immutable = {true} />
                 </MDBCardBody>
                 </MDBCard>
             </MDBCol>
@@ -509,7 +513,9 @@ const VulnerabilityPredictionTablePanel = props => {
         ],
         rows: props.myVulnerabilityTableData
     }
-
+    
+    if (isEmpty(props.myVulnerabilityTableData)){return null}
+     
     return (
         <MDBRow className="mb-4">
             <MDBCol md="12" lg="12" className="mb-12">
@@ -531,50 +537,138 @@ class SecurityDashPage extends React.Component {
         
         // Initialize state here. Now hardcoded values are assigned (should be :null otherwise)
         this.state = {
-            projectJson: null,
-            projectTableData: null,
-            projectTableSelectedProperty: null,
-            projectVulnerabilityTableData: null,
+            isLoadingSecurity: false,
+            isLoadingVulnerability: false,
+            name: '',
+            securityIndex: 0,
+            characteristics: {},
+            properties: {},
+            issues: {},
+            vulnerabilityResults: {},
+            projectTableData: {},
+            projectTableSelectedProperty: '',
+            projectVulnerabilityTableData: {},
             projectHistoryIndexScore: hardcodedJson.projectHistoryIndexScore,
         }
     }
     
+    // Perform GET call
+    getData(url, project, lang, inspection, key) {
+        // Default options are marked with *
+        return fetch(url+'?project='+project+'&lang='+lang+'&inspection='+inspection, {
+            method: 'GET', // *GET, POST, PUT, DELETE, etc.
+            mode: 'cors', // no-cors, cors, *same-origin
+            //cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+            //credentials: 'include', // include, *same-origin, omit
+            headers: new Headers({
+                'Authorization': key
+            })
+        })
+        .then(response => response.json()); // parses JSON response into native JavaScript objects 
+    }
+    
     // Update project 
     updateProjectData = (projectName) => {
-        var project = null
+        this.setState({ 
+            isLoadingSecurity: true,
+            isLoadingVulnerability: true
+        });
         
         if(projectName === 'Holisun'){
-            project = holisunJson
+            // Code for fetching json data from API
+            this.getData('http://160.40.51.229:8083/DependabilityToolbox/SecurityAssessment','https://gitlab.com/siavvasm/arassistance.git','java','yes','Basic bWlsdG9zLnNpYXZ2YXNAZ21haWwuY29tOjAyODdQQU9LNjYxMyEh')
+            .then(resp => {
+                console.log("Data received")
+                this.setState({
+                    isLoadingSecurity: false,
+                    name: resp.name,
+                    securityIndex: resp.security_index.eval,
+                    characteristics: resp.characteristics.characteristics,
+                    properties: resp.properties.properties,
+                    issues: resp.issues,
+                })
+                this.updateTabledData(resp.issues, resp.issues[0].propertyName)
+            }).catch(error => this.setState({ error, isLoadingSecurity: false }))
+            
+            // Code for fetching json data from API
+            this.getData('http://160.40.51.229:8083/DependabilityToolbox/VulnerabilityPrediction','https://gitlab.com/siavvasm/arassistance.git','java','yes','Basic bWlsdG9zLnNpYXZ2YXNAZ21haWwuY29tOjAyODdQQU9LNjYxMyEh')
+            .then(resp => {
+                console.log("Data received")
+                this.setState({
+                    isLoadingVulnerability: false,
+                    vulnerabilityResults: resp.results,
+                })
+                this.updateVulnerabilityTabledData(resp.results)
+            }).catch(error => this.setState({ error, isLoadingVulnerability: false }))
         }else if(projectName === 'Neurasmus'){
-            project = neurasmusJson
+            this.getData('http://160.40.51.229:8083/DependabilityToolbox/SecurityAssessment','https://siavvasm@bitbucket.org/alisiddiqi/sdk4ed-healthcare-use-case.git','cpp','yes','Basic c2lhdnZhc21AaXRpLmdyOjAyODdQQU9LNjYxMyEh')
+            .then(resp => {
+                console.log("Data received")
+                this.setState({
+                    isLoadingSecurity: false,
+                    name: resp.name,
+                    securityIndex: resp.security_index.eval,
+                    characteristics: resp.characteristics.characteristics,
+                    properties: resp.properties.properties,
+                    issues: resp.issues,
+                })
+                this.updateTabledData(resp.issues, resp.issues[0].propertyName)
+            }).catch(error => this.setState({ error, isLoadingSecurity: false }))
+            
+            // Code for fetching json data from API
+            this.getData('http://160.40.51.229:8083/DependabilityToolbox/VulnerabilityPrediction','https://siavvasm@bitbucket.org/alisiddiqi/sdk4ed-healthcare-use-case.git','cpp','yes','Basic c2lhdnZhc21AaXRpLmdyOjAyODdQQU9LNjYxMyEh')
+            .then(resp => {
+                console.log("Data received")
+                this.setState({
+                    isLoadingVulnerability: false,
+                    vulnerabilityResults: resp.results,
+                })
+                this.updateVulnerabilityTabledData(resp.results)
+            }).catch(error => this.setState({ error, isLoadingVulnerability: false }))
         }else if(projectName === 'Airbus'){
-            project = airbusJson
+            // Code for fetching json data from API
+            this.getData('http://160.40.51.229:8083/DependabilityToolbox/SecurityAssessment','https://gitlab.seis.iti.gr/wrousseau/kameleon-sdk4ed.git','cpp','yes','Basic c2lhdnZhc21AaXRpLmdyOjEyMzQxMjM0QEA=')
+            .then(resp => {
+                console.log("Data received")
+                this.setState({
+                    isLoadingSecurity: false,
+                    name: resp.name,
+                    securityIndex: resp.security_index.eval,
+                    characteristics: resp.characteristics.characteristics,
+                    properties: resp.properties.properties,
+                    issues: resp.issues,
+                })
+                this.updateTabledData(resp.issues, resp.issues[0].propertyName)
+            }).catch(error => this.setState({ error, isLoadingSecurity: false }))
+            
+            // Code for fetching json data from API
+            this.getData('http://160.40.51.229:8083/DependabilityToolbox/VulnerabilityPrediction','https://gitlab.seis.iti.gr/wrousseau/kameleon-sdk4ed.git','cpp','yes','Basic c2lhdnZhc21AaXRpLmdyOjEyMzQxMjM0QEA=')
+            .then(resp => {
+                console.log("Data received")
+                this.setState({
+                    isLoadingVulnerability: false,
+                    vulnerabilityResults: resp.results,
+                })
+                this.updateVulnerabilityTabledData(resp.results)
+            }).catch(error => this.setState({ error, isLoadingVulnerability: false }))
         }
-        
-        this.setState({
-            projectJson: project
-        })
-        this.updateTabledData(project.issues, project.issues[0].propertyName)
-        this.updateVulnerabilityTabledData(project.vulnerability_results.results)
     }
     
     // Update table 
     updateTabledData = (data, name) => {
         var tableData = []
         
-        if(data !== undefined){
-            for(var i = 0; i < data.length; i++) {
-                if(data[i].propertyName === name){
-                    for(var j = 0; j < data[i]['issues'].length; j++) {
-                        tableData.push({
-                            'ruleName': data[i]['issues'][j]['ruleName'],
-                            'ruleSetName': data[i]['issues'][j]['ruleSetName'],
-                            'packageName': data[i]['issues'][j]['packageName'],
-                            'classPath': data[i]['issues'][j]['classPath'].split('\\')[(data[i]['issues'][j]['classPath'].split('\\')).length -1],
-                            'lineOfCode': data[i]['issues'][j]['beginLine'],
-                            'priority': data[i]['issues'][j]['priority'],
-                        })
-                    }
+        for(var i = 0; i < data.length; i++) {
+            if(data[i].propertyName === name){
+                for(var j = 0; j < data[i]['issues'].length; j++) {
+                    tableData.push({
+                        'ruleName': data[i]['issues'][j]['ruleName'],
+                        'ruleSetName': data[i]['issues'][j]['ruleSetName'],
+                        'packageName': data[i]['issues'][j]['packageName'],
+                        'classPath': data[i]['issues'][j]['classPath'].split('\\')[(data[i]['issues'][j]['classPath'].split('\\')).length -1],
+                        'lineOfCode': data[i]['issues'][j]['beginLine'],
+                        'priority': data[i]['issues'][j]['priority'],
+                    })
                 }
             }
         }
@@ -589,16 +683,14 @@ class SecurityDashPage extends React.Component {
     updateVulnerabilityTabledData = (data) => {
         var tableData = []
         
-        if(data !== undefined){
-            for(var i = 0; i < data.length; i++) {
-                tableData.push({
-                    'class_name': data[i]['class_name'],
-                    'package': data[i]['package'],
-                    'is_vulnerable': data[i]['is_vulnerable'],
-                    'sigmoid': data[i]['sigmoid'],
-                    'confidence': data[i]['confidence'],
-                })
-            }
+        for(var i = 0; i < data.length; i++) {
+            tableData.push({
+                'class_name': data[i]['class_name'],
+                'package': data[i]['package'],
+                'is_vulnerable': data[i]['is_vulnerable'],
+                'sigmoid': data[i]['sigmoid'],
+                'confidence': data[i]['confidence'],
+            })
         }
         
         this.setState({
@@ -607,62 +699,100 @@ class SecurityDashPage extends React.Component {
     }
 
     componentDidMount(){
+        this.setState({ 
+            isLoadingSecurity: true,
+            isLoadingVulnerability: true
+        });
+        
         // Code for fetching json data from API
-        //fetch("http://127.0.0.1:3001")
-        //.then(resp => resp.json())
-        //.then(resp => {
-        //    console.log("Data received")
-        //    this.setState(resp)
-        //})
+        this.getData('http://160.40.51.229:8083/DependabilityToolbox/SecurityAssessment','https://gitlab.com/siavvasm/arassistance.git','java','yes','Basic bWlsdG9zLnNpYXZ2YXNAZ21haWwuY29tOjAyODdQQU9LNjYxMyEh')
+        .then(resp => {
+            console.log("Data received")
+            this.setState({
+                isLoadingSecurity: false,
+                name: resp.name,
+                securityIndex: resp.security_index.eval,
+                characteristics: resp.characteristics.characteristics,
+                properties: resp.properties.properties,
+                issues: resp.issues,
+            })
+            
+            this.updateTabledData(resp.issues, resp.issues[0].propertyName)
+        }).catch(error => this.setState({ error, isLoadingSecurity: false }))
+        
+        // Code for fetching json data from API
+        this.getData('http://160.40.51.229:8083/DependabilityToolbox/VulnerabilityPrediction','https://gitlab.com/siavvasm/arassistance.git','java','yes','Basic bWlsdG9zLnNpYXZ2YXNAZ21haWwuY29tOjAyODdQQU9LNjYxMyEh')
+        .then(resp => {
+            console.log("Data received")
+            this.setState({
+                isLoadingVulnerability: false,
+                vulnerabilityResults: resp.results,
+            })
+            
+            this.updateVulnerabilityTabledData(resp.results)
+        }).catch(error => this.setState({ error, isLoadingVulnerability: false }))
+        
+        // Code for displaying hardcoded json data
+        /* this.setState({
+            isLoadingSecurity: false,
+            name: holisunJson.name,
+            securityIndex: holisunJson.security_index.eval,
+            characteristics: holisunJson.characteristics.characteristics,
+            properties: holisunJson.properties.properties,
+            issues: holisunJson.issues,
+        })
+        this.updateTabledData(holisunJson.issues, holisunJson.issues[0].propertyName)
         
         this.setState({
-            projectJson: holisunJson,
+            isLoadingVulnerability: false,
+            vulnerabilityResults: holisunJson.vulnerability_results.results,
         })
-        
-        // Initialize table
-        if(holisunJson.issues != null){
-            this.updateTabledData(holisunJson.issues, holisunJson.issues[0].propertyName)
-            this.updateVulnerabilityTabledData(holisunJson.vulnerability_results.results)
-        }
+        this.updateVulnerabilityTabledData(holisunJson.vulnerability_results.results) */
     }
     
     render(){
-        if(this.state.projectJson == null){
-            return (<Loader/>)
-        }else{
-            // Code for rendering the dashboard
-            return(
-                <React.Fragment>
-                    <ProjectPanel
-                        myprojectName={this.state.projectJson.name}
-                        updateProjectData={this.updateProjectData}
-                    />
-                    <SecurityIndexPanel
-                        mysecurityIndexScore={this.state.projectJson.security_index}
-                    />
-                    <ScoresPanel
-                        mysecurityCharacteristicsScores={this.state.projectJson.characteristics.characteristics}
-                        mysecurityPropertiesScores={this.state.projectJson.properties.properties}
-                    />
-                    <TablePanel
-                        mySecurityIssues={this.state.projectJson.issues}
-                        mytableData={this.state.projectTableData}
-                        mytableSelectedProperty={this.state.projectTableSelectedProperty}
-                        updateTabledData={this.updateTabledData}
-                    />
-                    {/*<ProjectHistoryPanel
-                        myprojectHistoryIndexScore={this.state.projectHistoryIndexScore}
-                    />*/}
-                    <VulnerabilityPredictionHeatmamPanel
-                        myvulnerabilityPredictionResults={this.state.projectJson.vulnerability_results.results}
-                    />
-                    <VulnerabilityPredictionTablePanel
-                        myVulnerabilityTableData={this.state.projectVulnerabilityTableData}
-                        updateVulnerabilityTabledData={this.updateVulnerabilityTabledData}
-                    />
-                </React.Fragment>
-            )
+        const { error, isLoadingSecurity, isLoadingVulnerability, name, securityIndex, characteristics, properties, issues, vulnerabilityResults, projectTableData, projectTableSelectedProperty, projectVulnerabilityTableData } = this.state
+        
+        if (error) {
+            return <p>{error.message}</p>;
         }
+    
+        if(isLoadingSecurity || isLoadingVulnerability){
+            return (<Loader/>)
+        }
+        
+        // Code for rendering the dashboard
+        return(
+            <React.Fragment>
+                <ProjectPanel
+                    myprojectName={name}
+                    updateProjectData={this.updateProjectData}
+                />
+                <SecurityIndexPanel
+                    mysecurityIndexScore={securityIndex}
+                />
+                <ScoresPanel
+                    mysecurityCharacteristicsScores={characteristics}
+                    mysecurityPropertiesScores={properties}
+                />
+                <TablePanel
+                    mySecurityIssues={issues}
+                    mytableData={projectTableData}
+                    mytableSelectedProperty={projectTableSelectedProperty}
+                    updateTabledData={this.updateTabledData}
+                />
+                {/*<ProjectHistoryPanel
+                    myprojectHistoryIndexScore={this.state.projectHistoryIndexScore}
+                />*/}
+                <VulnerabilityPredictionHeatmamPanel
+                    myvulnerabilityPredictionResults={vulnerabilityResults}
+                />
+                <VulnerabilityPredictionTablePanel
+                    myVulnerabilityTableData={projectVulnerabilityTableData}
+                    updateVulnerabilityTabledData={this.updateVulnerabilityTabledData}
+                />
+            </React.Fragment>
+        )
     }
 }
 
