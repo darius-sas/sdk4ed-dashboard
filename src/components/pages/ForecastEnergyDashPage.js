@@ -2,7 +2,7 @@ import React from 'react';
 //import {PagePanel} from './sections/PagePanel';
 import { MDBCol, MDBCard, MDBCardBody, MDBCardHeader, MDBRow, MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem, MDBFormInline, MDBTable, MDBTableBody, MDBTableHead } from 'mdbreact';
 import PropTypes from 'prop-types'
-//import Loader from './sections/Loading'
+import Loader from './sections/Loading'
 import { Line } from 'react-chartjs-2';
 
 // Hardcoded values. When deployed to production these values should be fetched from APIs in componentDidMount() method
@@ -593,6 +593,7 @@ class EnergyDashPage extends React.Component {
         super(props);
 
         this.state = {
+            isLoading: false,
             projectJson: null,
             projectName: null,
             ground_truth_data: null,
@@ -605,6 +606,10 @@ class EnergyDashPage extends React.Component {
     
     // Update project 
     updateProjectData = (projectName) => {
+        this.setState({ 
+            isLoading: true,
+        });
+        
         var project = null
         
         if(projectName === 'Sbeamer Gabps'){
@@ -612,6 +617,7 @@ class EnergyDashPage extends React.Component {
         }
         
         this.setState({
+            isLoading: false,
             projectJson: project,
             projectName: project.name,
             ground_truth_data: project.ground_truth,
@@ -624,7 +630,17 @@ class EnergyDashPage extends React.Component {
     
     // Update forecasts 
     updateForecastedData = (new_algorithm = this.state.currentAlgorithm, new_horizon = this.state.currentHorizon) => {
+        this.setState({ 
+            isLoading: true,
+        });
+        
+        const { projectJson, currentAlgorithm, currentHorizon } = this.state
+        
+        if(new_algorithm === undefined){new_algorithm = currentAlgorithm}
+        if(new_horizon === undefined){new_horizon = currentHorizon}
+        
         this.setState({
+            isLoading: false,
             ground_truth_data_zoomed: this.state.projectJson[new_algorithm][new_horizon].real,
             forecasted_data: this.state.projectJson[new_algorithm][new_horizon].forecast,
             currentAlgorithm: new_algorithm,
@@ -638,30 +654,32 @@ class EnergyDashPage extends React.Component {
     }
 
     render(){
+        const { isLoading, projectJson, projectName, ground_truth_data, ground_truth_data_zoomed, forecasted_data, currentAlgorithm, currentHorizon } = this.state
+        
         // Code for rendering the dashboard
-        //if(this.state.tdForecasting == null){
-        //    return (<Loader/>)
-        //}else{
-            return(
-                <React.Fragment>
-                    <ConfigurationPanel
-                        myprojectName={this.state.projectName}
-                        mycurrentAlgorithm={this.state.currentAlgorithm}
-                        mycurrentHorizon={this.state.currentHorizon}
-                        updateForecastedData={this.updateForecastedData}
-                        updateProjectData={this.updateProjectData}
-                    />
-                    <EnergyEvolutionPanel 
-                        myground_truth_data={this.state.ground_truth_data} 
-                        myforecasted_data={this.state.forecasted_data}
-                    />
-                    <EnergyForecasterPanel 
-                        myground_truth_data_zoomed={this.state.ground_truth_data_zoomed} 
-                        myforecasted_data={this.state.forecasted_data}
-                    />
-                </React.Fragment>
-            )
-        //}
+        if(isLoading){
+            return (<Loader/>)
+        }
+        
+        return(
+            <React.Fragment>
+                <ConfigurationPanel
+                    myprojectName={projectName}
+                    mycurrentAlgorithm={currentAlgorithm}
+                    mycurrentHorizon={currentHorizon}
+                    updateForecastedData={this.updateForecastedData}
+                    updateProjectData={this.updateProjectData}
+                />
+                <EnergyEvolutionPanel 
+                    myground_truth_data={ground_truth_data} 
+                    myforecasted_data={forecasted_data}
+                />
+                <EnergyForecasterPanel 
+                    myground_truth_data_zoomed={ground_truth_data_zoomed} 
+                    myforecasted_data={forecasted_data}
+                />
+            </React.Fragment>
+        )
     }
 }
 
