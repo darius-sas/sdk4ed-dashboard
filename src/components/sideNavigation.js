@@ -1,80 +1,72 @@
-import React from 'react';
-import logo from "../assets/logo.png";
-import { MDBListGroup, MDBListGroupItem, MDBIcon } from 'mdbreact';
-import { NavLink } from 'react-router-dom';
+import React, {Fragment, PureComponent} from 'react';
+import logo from "../assets/logo.png"
+import {Treebeard} from 'react-treebeard';
 
-const sdk4ed_style={background: '#467a39', color: 'white'}
+const data = {
+    name: 'root',
+    toggled: true,
+    children: [
+        {
+            name: 'parent',
+            children: [
+                { name: 'child1' },
+                { name: 'child2' }
+            ]
+        },
+        {
+            name: 'loading parent',
+            loading: true,
+            children: []
+        },
+        {
+            name: 'parent',
+            children: [
+                {
+                    name: 'nested parent',
+                    children: [
+                        { name: 'nested child 1' },
+                        { name: 'nested child 2' }
+                    ]
+                }
+            ]
+        }
+    ]
+};
 
-const TopNavigation = () => {
-    return (
-        <div className="sidebar-fixed position-fixed">
+
+class TopNavigation extends PureComponent {
+    constructor(props){
+        super(props);
+        this.state = {data};
+    }
+    
+    onToggle(node, toggled){
+        const {cursor, data} = this.state;
+        if (cursor) {
+            this.setState(() => ({cursor, active: false}));
+        }
+        node.active = true;
+        if (node.children) { 
+            node.toggled = toggled; 
+        }
+        this.setState(() => ({cursor: node, data: Object.assign({}, data)}));
+    }
+    
+    render(){
+        const {data} = this.state;
+        return (
+            <div className="sidebar-fixed position-fixed">
             <a href="#!" className="logo-wrapper waves-effect">
                 <img alt="SDK4ED logo" className="img-fluid" src={logo}/>
             </a>
-            <MDBListGroup className="list-group-flush">
-                <NavLink exact={true} to="/" activeClassName="activeClass">
-                    <MDBListGroupItem>
-                        <MDBIcon icon="chart-pie" className="mr-3"/>
-                        Main Dashboard
-                    </MDBListGroupItem>
-                </NavLink>
-                <NavLink to="/profile" activeClassName="activeClass">
-                    <MDBListGroupItem>
-                        <MDBIcon icon="user" className="mr-3"/>
-                        Profile
-                    </MDBListGroupItem>
-                </NavLink>
-                <NavLink to="/energy" activeClassName="activeClass">
-                    <MDBListGroupItem>
-                        <MDBIcon icon="chart-bar" className="mr-3"/>
-                        Energy
-                    </MDBListGroupItem>
-                </NavLink>
-                <NavLink to="/security" activeClassName="activeClass">
-                    <MDBListGroupItem>
-                        <MDBIcon icon="chart-line" className="mr-3"/>
-                        Security 
-                    </MDBListGroupItem>
-                </NavLink>
-                <NavLink to="/techdebt" activeClassName="activeClass">
-                    <MDBListGroupItem>
-                        <MDBIcon icon="chart-area" className="mr-3"/>
-                        Technical Debt
-                    </MDBListGroupItem>
-                </NavLink>
-                <NavLink to="/tdforecast" activeClassName="activeClass">
-                    <MDBListGroupItem>
-                        <MDBIcon icon="compass" className="mr-3"/>
-                        TD Forecast
-                    </MDBListGroupItem>
-                </NavLink>
-                <NavLink to="/energyforecast" activeClassName="activeClass">
-                    <MDBListGroupItem>
-                        <MDBIcon icon="compass" className="mr-3"/>
-                        Energy Forecast
-                    </MDBListGroupItem>
-                </NavLink>
-                <NavLink to="/securityforecast" activeClassName="activeClass">
-                    <MDBListGroupItem>
-                        <MDBIcon icon="compass" className="mr-3"/>
-                        Security Forecast
-                    </MDBListGroupItem>
-                </NavLink>
-                <NavLink to="/tradeoffs" activeClassName="activeClass">
-                    <MDBListGroupItem>
-                        <MDBIcon icon="exchange-alt" className="mr-3"/>
-                        Trade-off Manager
-                    </MDBListGroupItem>
-                </NavLink>
-                <NavLink to="/refactoring" activeClassName="activeClass">
-                    <MDBListGroupItem>
-                        <MDBIcon icon="hammer" className="mr-3"/>
-                        Refactorings
-                    </MDBListGroupItem>
-                </NavLink>
-            </MDBListGroup>
-        </div>
-    );
+            <div><span>Project explore tree here</span></div>
+            <Treebeard
+                data={data}
+                onToggle={this.onToggle}
+            />
+            </div>
+        );
+    }
 }
 
 export default TopNavigation;
