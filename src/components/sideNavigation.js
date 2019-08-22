@@ -12,7 +12,6 @@ class TopNavigation extends PureComponent {
             <a href="#!" className="logo-wrapper waves-effect">
                 <img alt="SDK4ED logo" className="img-fluid" src={logo}/>
             </a>
-            <div><span>MyProject</span></div>
             <FileExplorer/>
             </div>
             </React.Fragment>

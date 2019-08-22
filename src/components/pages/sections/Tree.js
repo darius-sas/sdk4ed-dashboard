@@ -9,6 +9,7 @@ const data = {
     path: '/myProject',
     type: 'folder',
     isRoot: true,
+    isOpen: true,
     children: ['/myProject/src'],
   },
   '/myProject/src': {
