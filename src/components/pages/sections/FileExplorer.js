@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import Tree from './Tree';
 
+/* Code from https://medium.com/@davidtranwd/implement-tree-view-component-with-reactjs-and-styled-components-5eea3b1603cf */
+
 const StyledFileExplorer = styled.div`
   width: 800px;
   max-width: 100%;
