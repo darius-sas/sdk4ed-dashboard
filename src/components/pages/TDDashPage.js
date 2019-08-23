@@ -22,7 +22,7 @@ const PrincipalPanel = props => {
           <MDBCol>
           <MDBRow className="mb-3">
             <MDBCol>
-                  <ScoreCard title="Quality score" color="blue darken-3" score={props.mysummary.qualityScore}/>
+                  <ScoreCard title="Quality score" color="grey lighten-4" score={props.mysummary.qualityScore}/>
             </MDBCol>
             </MDBRow>
             <MDBRow className="mb-3">

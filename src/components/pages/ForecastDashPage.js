@@ -1473,7 +1473,7 @@ const ConfigurationPanel = props => {
         <MDBRow className="mb-4">
             <MDBCol md="12" lg="4" className="mb-12">
                 <MDBCard className="mb-12">
-                <MDBCardHeader>Project</MDBCardHeader>
+                <MDBCardHeader className="sdk4ed-color">Project</MDBCardHeader>
                 <MDBCardBody>
                     <MDBFormInline className="md-form m-0">
                         <MDBDropdown>
@@ -1493,7 +1493,7 @@ const ConfigurationPanel = props => {
             </MDBCol>
             <MDBCol md="12" lg="4" className="mb-12">
                 <MDBCard className="mb-12">
-                <MDBCardHeader>Forecasting Algorithm</MDBCardHeader>
+                <MDBCardHeader className="sdk4ed-color">Forecasting Algorithm</MDBCardHeader>
                 <MDBCardBody>
                     <MDBFormInline className="md-form m-0">
                         <MDBDropdown>
@@ -1517,7 +1517,7 @@ const ConfigurationPanel = props => {
             </MDBCol>
             <MDBCol md="12" lg="4" className="mb-12">
                 <MDBCard className="mb-12">
-                <MDBCardHeader>Forecasting Horizon</MDBCardHeader>
+                <MDBCardHeader className="sdk4ed-color">Forecasting Horizon</MDBCardHeader>
                 <MDBCardBody>
                     <MDBFormInline className="md-form m-0">
                         <MDBDropdown>
@@ -1564,7 +1564,7 @@ const TDEvolutionPanel = props => {
         <MDBRow className="mb-4">
             <MDBCol md="12" lg="12" className="mb-12">
                 <MDBCard className="mb-12">
-                <MDBCardHeader>Technical Debt Evolution</MDBCardHeader>
+                <MDBCardHeader className="sdk4ed-color">Technical Debt Evolution</MDBCardHeader>
                 <MDBCardBody>
                     <Line data={dataLine} options={lineChartOptions} height={500}/>
                 </MDBCardBody>
@@ -1605,7 +1605,7 @@ const TDForecasterPanel = props => {
         <MDBRow className="mb-4">
             <MDBCol md="12" lg="6" className="mb-12">
                 <MDBCard className="mb-12">
-                <MDBCardHeader>Technical Debt Forecasting</MDBCardHeader>
+                <MDBCardHeader className="sdk4ed-color">Technical Debt Forecasting</MDBCardHeader>
                 <MDBCardBody>
                     <Line data={dataLine} options={lineChartOptions} height={300}/>
                 </MDBCardBody>
@@ -1613,7 +1613,7 @@ const TDForecasterPanel = props => {
             </MDBCol>
             <MDBCol md="12" lg="6" className="mb-12">
                 <MDBCard className="mb-12">
-                <MDBCardHeader>Technical Debt Forecasting Details</MDBCardHeader>
+                <MDBCardHeader className="sdk4ed-color">Technical Debt Forecasting Details</MDBCardHeader>
                 <MDBCardBody>
                     <BasicTable data={tableData}/>
                 </MDBCardBody>

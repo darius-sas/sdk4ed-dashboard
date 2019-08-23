@@ -1,8 +1,7 @@
 import React from 'react';
 import {PagePanel} from './sections/PagePanel';
 import { MDBCol, MDBRow} from "mdbreact";
-import {ProgressCard, CountCard, ScoreCard} from './sections/StatusCards'
-import PlotlyChart from './sections/Chart';
+import {ProgressCard, CountCard} from './sections/StatusCards'
 import BasicTable from './sections/Table';
 import 'whatwg-fetch';
 import Loader from './sections/Loading'
@@ -20,10 +19,8 @@ const HotspotsPanel = props => {
             <MDBCol>
                   <CountCard title="CPU cycles" color="grey darken-3" value={props.mysummary.cpucycles} icon="fas fa-microchip" description="Profilling Tools"/>
             </MDBCol>
-            </MDBRow>
-            <MDBRow className="mb-3">
             <MDBCol>
-            		<ProgressCard title="Ratio of branch misses" color="orange darken-3" progress={props.mysummary.branchmiss} icon="fas fa-code-branch"/>
+                <CountCard title="Data Races" color="grey darken-3" value={props.mysummary.dataraces} icon="fas fa-traffic-light"/>
             </MDBCol>
              <MDBCol>
                   <CountCard title="Memory accesses" color="purple darken-3" value={props.mysummary.memoryaccesses} icon="fas fa-memory"/>
@@ -31,20 +28,14 @@ const HotspotsPanel = props => {
             </MDBRow>
 
             <MDBRow className="mb-3">
-
             <MDBCol>
-            	  <ProgressCard title="D Cache miss rate" color="red darken" icon="fas fa-database" progress={props.mysummary.cachemiss} description="Data cache L1"/>
+            		<ProgressCard title="Ratio of branch misses" color="orange darken-3" progress={props.mysummary.branchmiss} icon="fas fa-code-branch"/>
             </MDBCol>
             <MDBCol>
             	  <ProgressCard title="I Cache miss rate" color="blue darken" icon="fas fa-terminal" progress={props.mysummary.Icachemiss}/>
             </MDBCol>
-            </MDBRow>
-            <MDBRow>
             <MDBCol>
-                  <CountCard title="Memory accesses" color="purple darken-3" value={props.mysummary.memoryaccesses} icon="fas fa-memory"/>
-            </MDBCol>
-            <MDBCol>
-                <CountCard title="Data Races" color="grey darken-3" value={props.mysummary.dataraces} icon="fas fa-traffic-light"/>
+            	  <ProgressCard title="D Cache miss rate" color="red darken" icon="fas fa-database" progress={props.mysummary.cachemiss} description="Data cache L1"/>
             </MDBCol>
             </MDBRow>
           </MDBCol>
@@ -78,22 +69,22 @@ const OffloadingPanel = props => {
                   <ProgressCard title="Control" color="orange darken-3" progress={props.mysummary.cont} icon="fas fa-code-branch"/>
             </MDBCol>
             <MDBCol>
+            	  <ProgressCard title="Cache cold misses" color="blue" icon="fas fa-thermometer-empty" progress={props.mysummary.coldmiss}/>
+            </MDBCol>
+            <MDBCol>
+            	  <ProgressCard title="Stride 0" color="orange darken" icon="fas fa-walking" progress={props.mysummary.stride}/>
+            </MDBCol>
+            </MDBRow>
+
+            <MDBRow className="mb-3">
+            <MDBCol>
                   <ProgressCard title="Integer" color="green darken-3" progress={props.mysummary.int} icon="fas fa-sort-numeric-up"/>
             </MDBCol>
             <MDBCol>
                   <ProgressCard title="Floating Point" color="purple darken-3" progress={props.mysummary.fp} icon="fas fa-sort-numeric-up"/>
             </MDBCol>
             <MDBCol>
-                  <ProgressCard title="Division" color="purple darken-3" progress={props.mysummary.div} icon="fas fa-divide"/>
-            </MDBCol>
-            </MDBRow>
-
-            <MDBRow className="mb-3">
-            <MDBCol>
-            	  <ProgressCard title="Cache cold misses" color="blue" icon="fas fa-thermometer-empty" progress={props.mysummary.coldmiss}/>
-            </MDBCol>
-            <MDBCol>
-            	  <ProgressCard title="Stride 0" color="orange darken" icon="fas fa-walking" progress={props.mysummary.stride}/>
+                  <ProgressCard title="Division" color="cyan darken-3" progress={props.mysummary.div} icon="fas fa-divide"/>
             </MDBCol>
             </MDBRow>
             <MDBRow>

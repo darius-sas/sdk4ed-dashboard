@@ -28,7 +28,7 @@ class ContentPanel extends React.Component{
         return (
             <MDBContainer>
             <MDBCard>
-            <MDBCardHeader>{this.props.title}</MDBCardHeader>
+            <MDBCardHeader className="sdk4ed-color">{this.props.title}</MDBCardHeader>
             <MDBCardBody className={this.props.className}>
                 {this.props.children}
             </MDBCardBody>

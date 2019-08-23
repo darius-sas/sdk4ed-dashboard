@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavbarToggler, MDBCollapse, MDBNavItem, MDBNavLink, MDBIcon, MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem, MDBListGroupItem } from 'mdbreact';
-import logo from "../assets/logo.png";
+import { MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavbarToggler, MDBCollapse, MDBNavItem, MDBNavLink, MDBIcon, MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem, MDBListGroupItem, MDBContainer, MDBRow, MDBCol } from 'mdbreact';
 import { NavLink } from 'react-router-dom';
 
 class TopNavigation extends Component {
@@ -61,102 +60,107 @@ class TopNavigation extends Component {
                     <MDBNavbarToggler onClick={this.onClick} />
                     <MDBCollapse isOpen={this.state.collapse} navbar>
                         <MDBNavbarNav left>
-                            <MDBNavItem active  className="mr-1 ml-3">
-                                <NavLink exact={true} to="/" activeClassName="activeClass">
-                                    <MDBListGroupItem>
-                                        <MDBIcon icon="chart-pie" className="mr-3" />
-                                        Main Dashboard
+                            <MDBContainer><MDBRow><MDBCol md="3" className="my-1 mx-0">
+                                <MDBNavItem active>
+                                    <NavLink exact={true} to="/" activeClassName="activeClass">
+                                        <MDBListGroupItem>
+                                            <MDBIcon icon="chart-pie" className="mr-3" />
+                                            Main Dashboard
                                     </MDBListGroupItem>
-                                </NavLink>
-                            </MDBNavItem>
-
-                            <MDBNavItem  className="mr-1 ml-1">
-                                <NavLink to="/profile" activeClassName="activeClass">
-                                    <MDBListGroupItem>
-                                        <MDBIcon icon="user" className="mr-3" />
-                                        Profile
+                                    </NavLink>
+                                </MDBNavItem></MDBCol>
+                                <MDBCol md="3" className="my-1 mx-0">
+                                    <MDBNavItem>
+                                        <NavLink to="/profile" activeClassName="activeClass">
+                                            <MDBListGroupItem>
+                                                <MDBIcon icon="user" className="mr-3" />
+                                                Profile
                                     </MDBListGroupItem>
-                                </NavLink>
-                            </MDBNavItem>
-
-                            <MDBNavItem  className="mr-1 ml-1">
-                                <NavLink to="/energy" activeClassName="activeClass">
-                                    <MDBListGroupItem>
-                                        <MDBIcon icon="chart-bar" className="mr-3" />
-                                        Energy
-                                </MDBListGroupItem>
-                                </NavLink>
-                            </MDBNavItem>
-
-                            <MDBNavItem  className="mr-1 ml-1">
-                                <NavLink to="/security" activeClassName="activeClass">
-                                    <MDBListGroupItem>
-                                        <MDBIcon icon="chart-line" className="mr-3" />
-                                        Security
-                                </MDBListGroupItem>
-                                </NavLink>
-                            </MDBNavItem>
-
-                            <MDBNavItem  className="mr-1 ml-1">
-                                <NavLink to="/techdebt" activeClassName="activeClass">
-                                    <MDBListGroupItem>
-                                        <MDBIcon icon="chart-area" className="mr-3" />
-                                        Technical Debt
-                                </MDBListGroupItem>
-                                </NavLink>
-                            
-                            </MDBNavItem>                                    
-                            <MDBNavItem className="mr-1 ml-1" activeClassName="activeClass">
-                            <MDBDropdown activeClassName="activeClass">
-                            <MDBListGroupItem activeClassName="activeClass">
-                                <MDBDropdownToggle className="pb-0 pr-0 pl-0 pt-0" nav caret activeClassName="activeClass">
-                                    <MDBIcon icon="compass" className="mr-3" />
-                                    <span className="mr-2">Forecast</span>
-                                </MDBDropdownToggle>
-                                <MDBDropdownMenu>
-                                    <MDBDropdownItem>
-                                        <NavLink to="/tdforecast" activeClassName="activeClass">
-                                            TD Forecast
                                         </NavLink>
-                                    </MDBDropdownItem>
-                                    <MDBDropdownItem>
-                                        <NavLink to="/energyforecast" activeClassName="activeClass">
-                                            Energy Forecast
+                                    </MDBNavItem></MDBCol>
+
+                                <MDBCol md="3" className="my-1 mx-0"><MDBNavItem >
+                                    <NavLink to="/energy" activeClassName="activeClass">
+                                        <MDBListGroupItem className="h-100">
+                                            <MDBIcon icon="chart-bar" className="mr-3" />
+                                            Energy
+                                </MDBListGroupItem>
+                                    </NavLink>
+                                </MDBNavItem></MDBCol>
+
+                                <MDBCol md="3" className="my-1 mx-0">
+                                    <MDBNavItem >
+                                        <NavLink to="/security" activeClassName="activeClass">
+                                            <MDBListGroupItem>
+                                                <MDBIcon icon="chart-line" className="mr-3" />
+                                                Security
+                                </MDBListGroupItem>
                                         </NavLink>
-                                    </MDBDropdownItem>
-                                    <MDBDropdownItem>
-                                    <NavLink to="/securityforecast" activeClassName="activeClass">
-                                        Security Forecast
+                                    </MDBNavItem>
+                                </MDBCol>
+                                <MDBCol md="3" className="my-1 mx-0">
+                                    <MDBNavItem >
+                                        <NavLink to="/techdebt" activeClassName="activeClass">
+                                            <MDBListGroupItem>
+                                                <MDBIcon icon="chart-area" className="mr-3" />
+                                                Technical Debt
+                                </MDBListGroupItem>
+                                        </NavLink>
+                                    </MDBNavItem>
+                                </MDBCol>
+                                <MDBCol md="3" className="my-1 mx-0">
+                                    <MDBNavItem  activeClassName="activeClass">
+                                        <MDBDropdown activeClassName="activeClass">
+                                            <MDBListGroupItem activeClassName="activeClass">
+                                                <MDBDropdownToggle className="pb-0 pr-0 pl-0 pt-0" nav caret activeClassName="activeClass">
+                                                    <MDBIcon icon="compass" className="mr-3" />
+                                                    <span className="mr-2">Forecast</span>
+                                                </MDBDropdownToggle>
+                                                <MDBDropdownMenu>
+                                                    <MDBDropdownItem>
+                                                        <NavLink to="/tdforecast" activeClassName="activeClass">
+                                                            TD Forecast
+                                        </NavLink>
+                                                    </MDBDropdownItem>
+                                                    <MDBDropdownItem>
+                                                        <NavLink to="/energyforecast" activeClassName="activeClass">
+                                                            Energy Forecast
+                                        </NavLink>
+                                                    </MDBDropdownItem>
+                                                    <MDBDropdownItem>
+                                                        <NavLink to="/securityforecast" activeClassName="activeClass">
+                                                            Security Forecast
                                        </NavLink>
-                                    </MDBDropdownItem>
-                                </MDBDropdownMenu>
-                                </MDBListGroupItem>
-                            </MDBDropdown>
+                                                    </MDBDropdownItem>
+                                                </MDBDropdownMenu>
+                                            </MDBListGroupItem>
+                                        </MDBDropdown>
 
-                            </MDBNavItem>                                                                      
-                            <MDBNavItem  className="mr-1 ml-1">
-                                <NavLink to="/tradeoffs" activeClassName="activeClass">
-                                    <MDBListGroupItem>
-                                        <MDBIcon icon="exchange-alt" className="mr-3" />
-                                        Trade-off Manager
+                                    </MDBNavItem>                                                           </MDBCol>
+                                <MDBCol md="3" className="my-1 mx-0">                            <MDBNavItem >
+                                    <NavLink to="/tradeoffs" activeClassName="activeClass">
+                                        <MDBListGroupItem>
+                                            <MDBIcon icon="exchange-alt" className="mr-3" />
+                                            Trade-off Manager
                                 </MDBListGroupItem>
-                                </NavLink>
-                            </MDBNavItem>                                    
-                            <MDBNavItem  className="mr-1 ml-1">
-                                <NavLink to="/refactoring" activeClassName="activeClass">
-                                    <MDBListGroupItem>
-                                        <MDBIcon icon="hammer" className="mr-3" />
-                                        Refactorings
+                                    </NavLink>
+                                </MDBNavItem>   </MDBCol>
+                                <MDBCol md="3" className="my-1 mx-0">                            <MDBNavItem >
+                                    <NavLink to="/refactoring" activeClassName="activeClass">
+                                        <MDBListGroupItem>
+                                            <MDBIcon icon="hammer" className="mr-3" />
+                                            Refactorings
                                 </MDBListGroupItem>
-                                </NavLink>
-                            </MDBNavItem>
-
+                                    </NavLink>
+                                </MDBNavItem>
+                                </MDBCol>
+                            </MDBRow></MDBContainer>
                         </MDBNavbarNav>
                     </MDBCollapse>
                 </MDBNavbar>
             </React.Fragment >
-                );
-            }
-        }
-        
+        );
+    }
+}
+
 export default TopNavigation;

@@ -43,7 +43,7 @@ class BasicTable extends React.Component {
 
         return(
             <ContentPanel title={this.props.title}>
-                <MDBTable small responsive hover>
+                <MDBTable small responsive hover striped>
                     <MDBTableHead><tr>{header}</tr></MDBTableHead>
                     <MDBTableBody>{rows}</MDBTableBody>
                 </MDBTable>
