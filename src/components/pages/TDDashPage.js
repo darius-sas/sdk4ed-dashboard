@@ -6,6 +6,8 @@ import PlotlyChart from './sections/Chart';
 import BasicTable from './sections/Table';
 import 'whatwg-fetch';
 import Loader from './sections/Loading'
+import FileExplorer from './sections/FileExplorer';
+import ContentPanel from './sections/ContentPanel';
 
 const PrincipalPanel = props => {
   return (
@@ -109,6 +111,14 @@ const NewCodePanel = props =>{
   )
 }
 
+const FileExplorerPanel = () => {
+  return (
+    <ContentPanel title="Project explorer">
+      <FileExplorer></FileExplorer>
+    </ContentPanel>
+  )
+}
+
 /**
  * The technical debt dashboard page. The page is assembled using multiple panels.
  * The data is retrieved asynchronously.
@@ -144,6 +154,11 @@ class TDDashPage extends React.Component {
     }else{
       return(
           <React.Fragment>
+            <MDBRow>
+              <MDBCol size="2">
+              <FileExplorerPanel/>
+              </MDBCol>
+              <MDBCol>
               <PrincipalPanel mysummary={this.state.systemSummary} 
                               principal={this.state.principalOverTimeChart}/>
               <InterestPanel violations={this.state.topViolations} 
@@ -151,7 +166,10 @@ class TDDashPage extends React.Component {
               <NewCodePanel violations={this.state.topViolationsNewCode}
                             densitycomparison={this.state.densityComparisonChart}
                             density={this.state.densityOverTimeChart}/>
-            </React.Fragment>)
+              </MDBCol>
+              </MDBRow>
+            </React.Fragment>
+            )
     }
   }
 

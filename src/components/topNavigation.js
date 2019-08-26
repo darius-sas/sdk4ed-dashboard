@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavbarToggler, MDBCollapse, MDBNavItem, MDBNavLink, MDBIcon, MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem, MDBListGroupItem, MDBContainer, MDBRow, MDBCol } from 'mdbreact';
 import { NavLink } from 'react-router-dom';
+import logo from "../assets/logo.png"
 
 class TopNavigation extends Component {
     state = {
@@ -23,9 +24,9 @@ class TopNavigation extends Component {
         return (
             <React.Fragment>
                 <MDBNavbar className="flexible-navbar" light expand="md" scrolling>
-                    <MDBNavbarBrand href="/">
-                        <strong>SDK4ED</strong>
-                    </MDBNavbarBrand>
+                    <a href="#!" className="navbar-left logo-wrapper waves-effect">
+                        <img alt="SDK4ED logo" className="mr-3 ml-4" src={logo} style={{height:40}}/>
+                    </a>
                     <MDBNavbarToggler onClick={this.onClick} />
                     <MDBCollapse isOpen={this.state.collapse} navbar>
                         <MDBNavbarNav left>

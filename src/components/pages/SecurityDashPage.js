@@ -325,7 +325,7 @@ const ScoresPanel = props => {
         <MDBRow className="mb-4">
             <MDBCol md="12" lg="6" className="mb-12">
                 <MDBCard className="mb-6">
-                <MDBCardHeader>Characteristics Scores</MDBCardHeader>
+                <MDBCardHeader className="sdk4ed-color">Characteristics Scores</MDBCardHeader>
                 <MDBCardBody>
                     <MDBContainer>
                         <Radar data={securityCharacteristicsData} options={radarChartOptions} />
@@ -335,7 +335,7 @@ const ScoresPanel = props => {
             </MDBCol>
             <MDBCol md="12" lg="6" className="mb-12">
                 <MDBCard className="mb-6">
-                <MDBCardHeader>Properties Scores</MDBCardHeader>
+                <MDBCardHeader className="sdk4ed-color">Properties Scores</MDBCardHeader>
                 <MDBCardBody>
                     <MDBContainer>
                         <Radar data={securityPropertiesData} options={radarChartOptions} />
@@ -391,7 +391,7 @@ const TablePanel = props => {
         <MDBRow className="mb-4">
             <MDBCol md="12" lg="12" className="mb-12">
                 <MDBCard>
-                    <MDBCardHeader>
+                    <MDBCardHeader className="sdk4ed-color">
                         <MDBDropdown>
                             <MDBDropdownToggle caret className="white-text" color="  light-green darken-4">
                                 {props.mytableSelectedProperty}
@@ -439,7 +439,7 @@ const ProjectHistoryPanel = props => {
         <MDBRow className="mb-4">
             <MDBCol md="12" lg="12" className="mb-12">
                 <MDBCard className="mb-12">
-                <MDBCardHeader>Project History</MDBCardHeader>
+                <MDBCardHeader className="sdk4ed-color">Project History</MDBCardHeader>
                 <MDBCardBody>
                     <Line data={projectHistoryData} options={lineChartOptions} height={500}/>
                 </MDBCardBody>
@@ -474,7 +474,7 @@ const VulnerabilityPredictionHeatmamPanel = props => {
         <MDBRow className="mb-4">
             <MDBCol md="12" lg="12" className="mb-12">
                 <MDBCard className="mb-12">
-                <MDBCardHeader>Vulnerability Prediction Heatmap</MDBCardHeader>
+                <MDBCardHeader className="sdk4ed-color">Vulnerability Prediction Heatmap</MDBCardHeader>
                 <MDBCardBody>
                     <HighchartsReact highcharts={Highcharts} options={vulnerabilityPredictionData} immutable = {true} />
                 </MDBCardBody>
@@ -520,7 +520,7 @@ const VulnerabilityPredictionTablePanel = props => {
         <MDBRow className="mb-4">
             <MDBCol md="12" lg="12" className="mb-12">
                 <MDBCard className="mb-12">
-                <MDBCardHeader>Vulnerability Prediction Results</MDBCardHeader>
+                <MDBCardHeader className="sdk4ed-color">Vulnerability Prediction Results</MDBCardHeader>
                 <MDBCardBody>
                     <BasicTable data={tableData} /> 
                 </MDBCardBody>
