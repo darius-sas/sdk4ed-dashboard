@@ -1,5 +1,5 @@
 import React from 'react';
-import { MDBCol, MDBCard, MDBCardBody, MDBCardHeader, MDBRow, MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem, MDBContainer, MDBDataTable } from 'mdbreact';
+import { MDBCol, MDBCard, MDBCardBody, MDBCardHeader, MDBRow, MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem, MDBContainer, MDBDataTable, MDBBtn, MDBIcon } from 'mdbreact';
 import Loader from './sections/Loading';
 //import BasicTable from './sections/Table';
 import { Line, Radar } from 'react-chartjs-2';
@@ -230,6 +230,8 @@ const ProjectPanel = props => {
                                     <MDBDropdownItem onClick={(param) => props.updateProjectData('Neurasmus')}>Neurasmus</MDBDropdownItem>
                                     <MDBDropdownItem onClick={(param) => props.updateProjectData('Airbus')}>Airbus</MDBDropdownItem>
                                 </MDBDropdownMenu>
+								<MDBBtn className="white-text" color="  light-green darken-4"><MDBIcon icon="eye" size="lg"/> View Results</MDBBtn>
+								<MDBBtn className="white-text" color="  light-green darken-4"><MDBIcon icon="sync-alt" size="lg"/> Run Analysis</MDBBtn>
                             </MDBDropdown>
                         </MDBCol>
                     </MDBRow>
