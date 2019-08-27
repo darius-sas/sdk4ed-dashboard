@@ -223,7 +223,7 @@ const ProjectPanel = props => {
                         <MDBCol>
                             <MDBDropdown>
                                 <MDBDropdownToggle caret className="white-text" color="  light-green darken-4">
-                                    New Project
+                                    Select Project
                                 </MDBDropdownToggle>
                                 <MDBDropdownMenu basic>
                                     <MDBDropdownItem onClick={(param) => props.updateProjectData('Holisun')}>Holisun</MDBDropdownItem>
