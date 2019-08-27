@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types'
 import { MDBCard, MDBCardBody, MDBIcon, MDBRow, MDBCol } from 'mdbreact';
 
-const descriptionCard = (text, color) => {  if(text != null)
-   return <MDBCardBody className={"mb-0 pb-1 pt-1 " + color}><p>{text}</p></MDBCardBody>
+const descriptionCard = text => {  if(text != null)
+   return <MDBCardBody className="mb-0 pb-1 pt-1"><p>{text}</p></MDBCardBody>
    else return <MDBCardBody></MDBCardBody>
   }
 
@@ -34,14 +34,14 @@ export class ScoreCard extends React.Component {
     var stars = []
     var score = this.props.score == null ? 0 : parseInt(this.props.score)
     for(var i = 1; i <= 5; i++){
-      var star = i <= score ? "sdk4ed-color-fg" : "grey-text"
+      var star = i <= score ? "amber-text" : "grey-text"
       stars.push(<i className={"fas fa-star fa-3x " + star} key={i} ></i>)
     }
     return(
       <React.Fragment>
         <MDBCard color={color} className="classic-admin-card">
           <MDBCardBody>
-          <div className="float-left black-text">Score</div>
+          <div className="float-left">Score</div>
           <div className="float-right">
             <MDBRow><MDBCol>{stars}</MDBCol></MDBRow>
           </div>
@@ -85,24 +85,20 @@ export class CountCard extends React.Component {
   }
 
   render(){
-    var color = "primary-color"
-    if (this.props.color){
-      color = this.props.color
-    }
-    var textColor = "white-text"
-    if(this.props.textColor){
-      textColor = this.props.textColor
+    var color ="primary-color"
+    if (this.props.color != null){
+      color = "white"//this.props.color
     }
     
     return (
       <React.Fragment>
       <MDBCard color={color} className="classic-admin-card">
-        <MDBCardBody>
-          <div className="float-right"><MDBIcon icon={this.props.icon} size="3x"/></div>
-          <p className={textColor}>{this.props.title}</p>
-          <div className="float-left pb-1"><h4><strong  className={textColor}>{this.props.value}</strong></h4></div>
+        <MDBCardBody className="pb-4">
+          <div className="grey-text"><MDBIcon icon={this.props.icon} size="3x"/></div>
+          <p className="black-text">{this.props.title}</p>
+          <div className="black-text"><h4><strong>{this.props.value}</strong></h4></div>
         </MDBCardBody>
-        {descriptionCard(this.props.description, color)}
+        {descriptionCard(this.props.description)}
       </MDBCard>
       </React.Fragment>
     )
@@ -151,10 +147,6 @@ export class ProgressCard extends React.Component {
     if(barColor != null){
       barColor = this.props.barColor
     }
-    var textColor = "white-text"
-    if(this.props.textColor){
-      textColor = this.props.textColor
-    }
     return (
         <React.Fragment>
         <MDBCard color={color} className="classic-admin-card mb-3">
@@ -172,7 +164,7 @@ export class ProgressCard extends React.Component {
                   style={{width: `${progress}`}}>
             </div>
           </div>
-          {descriptionCard(this.props.description, textColor)}
+          {descriptionCard(this.props.description)}
           </MDBCard>
         </React.Fragment>
     )
