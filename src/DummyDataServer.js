@@ -15,20 +15,6 @@ const server = http.createServer((req, res) => {
         rows: [
             {violation: "Long method", frequency: "30%", occurrences: 54}, {violation: "God Package", frequency: "16%", occurrences: 28},  {violation: "Feature envy", frequency: "10%", occurrences: 17},  {violation: "Commented code", frequency: "5%", occurrences: 10},  {violation: "Possible null pointer", frequency: "3%", occurrences: 5}]}
 
-    const top5Hotspots = {
-        columns: [
-            {label: "Hot-spot", field: "hotspot"}, 
-            {label: "CPU-cycles", field: "cpyusage"}],
-        rows: [
-            {hotspot: "1st (Lines:167-191)", cpyusage: "29%"}, {hotspot: "2nd (Lines:659-675)", cpyusage: "15%"},  {hotspot: "3rd (Lines:522-555)", cpyusage: "12%"},  {hotspot: "4th (Lines:1898-1924)", cpyusage: "9%"},  {hotspot: "5th (Lines:382-395)", cpyusage: "4%"}]}
-
-    const top5HotspotsGPU = {
-        columns: [
-            {label: "Hot-spot", field: "hotspot"}, 
-            {label: "Energy Gain", field: "energygain"}],
-        rows: [
-            {hotspot: "1st", energygain: ">10x"}, {hotspot: "2nd", energygain: "0"},  {hotspot: "3rd", energygain: "0"},  {hotspot: "4th", energygain: "0"},  {hotspot: "5th", energygain: "<10x"}]}
-
     const data = {
         principalOverTimeChart: [{
         y: [65, 59, 80, 81, 56, 55, 40],
@@ -69,19 +55,192 @@ const server = http.createServer((req, res) => {
 
         systemSummary: { qualityScore: 3, coverage: 90, vulnerabilities: {count: 42, critical: 3}, codeSmells: 154, duplCode: 10, bugs: 350, linesOfCode: 8502 },
 
-        energyIndicatorsSummary: { branchmiss: 11, cpucycles: 3158456, cachemiss:12, Icachemiss:4 , memoryaccesses: 154000, duplCode: 10, dataraces: 1, linesOfCode: 8502 },
+        holisun: {
+        	projectName : "holisun",
+        	energyIndicatorsSummary: { branchmiss: 11, cpucycles: 3158456, cachemiss:12, Icachemiss:4 , memoryaccesses: 154000, duplCode: 10, dataraces: 1, linesOfCode: 8502 },
+        	acelerationIndicatorsSummary: { ilp: 1125, ilpRate: 28, cachemiss: 12, mem: 38, cont: 12, int: 20, fp: 40, div: 18, coldmiss: 9, stride:6},
+        	topHotspotsFunction: {
+		        columns: [
+		            {label: "Hot-spot", field: "hotspot"},
+		            {label: "Line start", field: "start"},
+		            {label: "Line end", field: "end"}, 
+		            {label: "CPU-cycles", field: "cpuusage"},
+		            {label: "Source file", field: "source"},
+		            {label: "Function Name", field: "function"}],
+		        rows: [
+		            {hotspot: "1st", start: "-", end: "-", cpuusage: "47.6%", source: "-", function: "sun.awt.X11.XToolkit.waitForEvents"},
+		            {hotspot: "2nd", start: "-", end: "-", cpuusage: "36.47%", source: "-", function: "java.net.SocketInputStream.socketRead0"},
+		            {hotspot: "3rd", start: "-", end: "-", cpuusage: "1.43%", source: "-", function: "sun.nio.ch.FileDispatcherImpl.force0"},
+		            {hotspot: "4th", start: "-", end: "-", cpuusage: "1.05%", source: "-", function: "java.lang.ClassLoader.defineClass1"},
+		            ]},
 
-        acelerationIndicatorsSummary: { ilp: 1125, ilpRate: 28, cachemiss: 12, mem: 38, cont: 12, int: 20, fp: 40, div: 18, coldmiss: 9, stride:6},
+		    topHotspotsLoop: {
+		        columns: [
+		            {label: "Hot-spot", field: "hotspot"},
+		            {label: "Line start", field: "start"},
+		            {label: "Line end", field: "end"},  
+		            {label: "CPU-cycles", field: "cpuusage"},
+		            {label: "Source file", field: "source"},
+		            {label: "Type", field: "type"}],
+		        rows: [
+		            {hotspot: "-", start: "-", end: "-", cpuusage: "-", source: "-", type: "-"}
+		            ]},
+
+        	topHotspotsGPUFunction: {
+		        columns: [
+		            {label: "Hot-spot", field: "hotspot"},
+		            {label: "Line start", field: "start"},
+		            {label: "Line end", field: "end"},
+		            {label: "Energy Gain", field: "energygain"}],
+		        rows: [
+		        	{hotspot: "-",start: "-", end: "-", energygain: "-"} 
+		            ]},
+
+        	topHotspotsGPULoop: {
+		        columns: [
+		            {label: "Hot-spot", field: "hotspot"}, 
+		            {label: "Energy Gain", field: "energygain"}],
+		        rows: [
+		            {hotspot: "-", start: "-", end: "-", energygain: "-"}
+		            ]},
+		},
+
+        airbus: {
+        	projectName : "airbus",
+        	energyIndicatorsSummary: { branchmiss: 4.11, cpucycles: 608599, cachemiss:4.9, Icachemiss:0.84 , memoryaccesses: 36585, dataraces: 0},
+        	acelerationIndicatorsSummary: { ilp: 15283, ilpRate: 28, cachemiss: 4.9, mem: 10268, cont: 15326, int: 61331, fp: 0, div: 0, coldmiss: 16153, stride:0.46408},
+        	topHotspotsFunction: {
+		        columns: [
+		            {label: "Hot-spot", field: "hotspot"},
+		            {label: "Line start", field: "start"},
+		            {label: "Line end", field: "end"}, 
+		            {label: "CPU-cycles", field: "cpuusage"},
+		            {label: "Source file", field: "source"},
+		            {label: "Function Name", field: "function"}],
+		        rows: [
+		            {hotspot: "1st", start: "138", end: "141", cpuusage: "2%", source: "configsection.cpp", function: "ConfigSectionset"},
+		            {hotspot: "2nd", start: "142", end: "157", cpuusage: "6%", source: "configmap.cpp", function: "ConfigMapaddSection"},
+		            {hotspot: "3rd", start: "15", end: "52", cpuusage: "16%", source: "iniparser.cpp", function: "IniParserparseLine"},
+		            {hotspot: "4th", start: "54", end: "57", cpuusage: "4%", source: "iniparser.cpp", function: "IniParsereof"},
+		            {hotspot: "5th", start: "59", end: "65", cpuusage: "4%", source: "iniparser.cpp", function: "IniParserstartSection"},
+		            {hotspot: "6th", start: "67", end: "74", cpuusage: "8%", source: "iniparser.cpp", function: "IniParserterminateSection"},
+		            {hotspot: "7th", start: "13", end: "78", cpuusage: "8%", source: "com_loader.cpp", function: "ComLoaderload"},
+		            {hotspot: "8th", start: "80", end: "133", cpuusage: "1%", source: "com_loader.cpp", function: "ComLoaderloadLinks"},
+		            {hotspot: "9th", start: "135", end: "176", cpuusage: "1%", source: "com_loader.cpp", function: "ComLoaderloadCodecs"},
+		            {hotspot: "10th", start: "178", end: "246", cpuusage: "2%", source: "com_loader.cpp", function: "ComLoaderloadSources"},
+		            {hotspot: "11th", start: "21", end: "56", cpuusage: "17%", source: "conffileparser.cpp", function: "ConfFileParserparseDir"},
+		            {hotspot: "12th", start: "58", end: "67", cpuusage: "22%", source: "conffileparser.cpp", function: "ConfFileParserparseFile"},
+		            {hotspot: "13th", start: "69", end: "89", cpuusage: "22%", source: "conffileparser.cpp", function: "ConfFileParserparse"},
+		            {hotspot: "14th", start: "746", end: "757", cpuusage: "1%", source: "Message4586.cpp", function: "CMessage4586WriteRadiansInSignedBAMField"},
+		            {hotspot: "15th", start: "104", end: "115", cpuusage: "1%", source: "timer.cpp", function: "Timer_loop"},
+		            {hotspot: "16th", start: "117", end: "123", cpuusage: "1%", source: "timer.cpp", function: "Timer_sleepThenRunStep"},
+		            {hotspot: "17th", start: "23", end: "105", cpuusage: "45%", source: "kameleoncore.cpp", function: "KameleonCoreconfigure"},
+		            {hotspot: "18th", start: "215", end: "325", cpuusage: "54%", source: "main.cpp", function: "main"} 
+		            ]},
+
+		    topHotspotsLoop: {
+		        columns: [
+		            {label: "Hot-spot", field: "hotspot"},
+		            {label: "Line start", field: "start"},
+		            {label: "Line end", field: "end"},  
+		            {label: "CPU-cycles", field: "cpuusage"},
+		            {label: "Source file", field: "source"},
+		            {label: "Type", field: "type"}],
+		        rows: [
+		            {hotspot: "1st", start: "145", end: "156", cpuusage: "6%", source: "configmap.cpp", type: "If statement"},
+		            {hotspot: "2nd", start: "21", end: "50", cpuusage: "2%", source: "iniparser.cpp", type: "If statement"},
+		            {hotspot: "3rd", start: "69", end: "73", cpuusage: "8%", source: "iniparser.cpp", type: "If statement"},
+		            {hotspot: "4th", start: "27", end: "55", cpuusage: "17%", source: "conffileparser.cpp", type: "If statement"},
+		            {hotspot: "5th", start: "74", end: "88", cpuusage: "22%", source: "conffileparser.cpp", type: "If statement"},
+		            {hotspot: "6th", start: "106", end: "113", cpuusage: "1%", source: "timer.cpp", type: "If statement"},
+		            {hotspot: "7th", start: "296", end: "321", cpuusage: "6%", source: "main.cpp", type: "While loop"}
+		            ]},
+
+        	topHotspotsGPUFunction: {
+		        columns: [
+		            {label: "Hot-spot", field: "hotspot"},
+		            {label: "Line start", field: "start"},
+		            {label: "Line end", field: "end"},
+		            {label: "Energy Gain", field: "energygain"}],
+		        rows: [
+		            {hotspot: "-",start: "-", end: "-", energygain: "-"} 
+		            ]},
+
+        	topHotspotsGPULoop: {
+		        columns: [
+		            {label: "Hot-spot", field: "hotspot"}, 
+		            {label: "Energy Gain", field: "energygain"}],
+		        rows: [
+		            {hotspot: "-", start: "-", end: "-", energygain: "-"}
+		            ]},
+        },
+
+        neurasmus: {
+        	projectName : "neurasmus",
+        	energyIndicatorsSummary: { branchmiss: 4.11, cpucycles: 608599, cachemiss:4.9, Icachemiss:0.84 , memoryaccesses: 36585, dataraces: 0},
+        	acelerationIndicatorsSummary: { ilp: 15283, ilpRate: 28, cachemiss: 4.9, mem: 10268, cont: 15326, int: 61331, fp: 0, div: 0, coldmiss: 16153, stride:0.46408},
+        	topHotspotsFunction: {
+		        columns: [
+		            {label: "Hot-spot", field: "hotspot"},
+		            {label: "Line start", field: "start"},
+		            {label: "Line end", field: "end"}, 
+		            {label: "CPU-cycles", field: "cpuusage"},
+		            {label: "Source file", field: "source"},
+		            {label: "Function Name", field: "function"}],
+		        rows: [
+		            {hotspot: "1st", start: "32", end: "44", cpuusage: "6%", source: "misty1.c", function: "fi"},
+		            {hotspot: "2nd", start: "47", end: "62", cpuusage: "1%", source: "misty1.c", function: "fo"},
+		            {hotspot: "3rd", start: "65", end: "82", cpuusage: "1%", source: "misty1.c", function: "fl"},
+		            {hotspot: "4th", start: "106", end: "153", cpuusage: "8%", source: "misty1.c", function: "misty1_encrypt_block"},
+		            {hotspot: "5th", start: "191", end: "211", cpuusage: "8%", source: "imdcode.c", function: "cmac"},
+		            {hotspot: "6th", start: "218", end: "705", cpuusage: "10%", source: "imdcode.c", function: "main"} 
+		            ]},
+
+		    topHotspotsLoop: {
+		        columns: [
+		            {label: "Hot-spot", field: "hotspot"},
+		            {label: "Line start", field: "start"},
+		            {label: "Line end", field: "end"},  
+		            {label: "CPU-cycles", field: "cpuusage"},
+		            {label: "Source file", field: "source"},
+		            {label: "Type", field: "type"}],
+		        rows: [
+		            {hotspot: "1st", start: "202", end: "206", cpuusage: "8%", source: "imdcode.c", type: "For loop"},
+		            {hotspot: "2nd", start: "557", end: "562", cpuusage: "6%", source: "imdcode.c", type: "If statement"},
+		            {hotspot: "3rd", start: "601", end: "606", cpuusage: "2%", source: "imdcode.c", type: "If statement"}
+		            ]},
+
+        	topHotspotsGPUFunction: {
+		        columns: [
+		            {label: "Hot-spot", field: "hotspot"},
+		            {label: "Line start", field: "start"},
+		            {label: "Line end", field: "end"},
+		            {label: "Energy Gain", field: "energygain"}],
+		        rows: [
+		        	{hotspot: "1st",start: "32", end: "44", energygain: "0"},
+		            {hotspot: "2nd",start: "47", end: "62", energygain: "0"},
+		            {hotspot: "3rd",start: "65", end: "82", energygain: "0"},
+		            {hotspot: "4th",start: "106", end: "153", energygain: "<10x"},
+		            {hotspot: "5th",start: "191", end: "211", energygain: "<10x"},
+		            {hotspot: "6th",start: "218", end: "705", energygain: "<10x"} 
+		            ]},
+
+        	topHotspotsGPULoop: {
+		        columns: [
+		            {label: "Hot-spot", field: "hotspot"}, 
+		            {label: "Energy Gain", field: "energygain"}],
+		        rows: [
+		            {hotspot: "1st", start: "202", end: "206", energygain: "<10x"},
+		            {hotspot: "2nd", start: "557", end: "562", energygain: "<10x"},
+		            {hotspot: "3rd", start: "601", end: "606", energygain: "<10x"}
+		            ]},
+        },
 
         interestSummary: {breakpoint: dt.toDateString(), breakpointDaysLeft:7, interestprob: 30, interestrank:5},
 
         topViolations: top5violations,
 
         topViolationsNewCode:top5violations,
-
-        topHotspots: top5Hotspots,
-
-        topHotspotsGPU: top5HotspotsGPU
     }
 
   res.statusCode = 200;
