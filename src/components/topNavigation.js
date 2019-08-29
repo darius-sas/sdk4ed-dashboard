@@ -98,17 +98,41 @@ class TopNavigation extends Component {
                                 </MDBListGroupItem>
                                         </NavLink>
                                     </MDBNavItem>
-                                </MDBCol>
-                                <MDBCol md="3" className="my-1 mx-0">
-                                    <MDBNavItem >
-                                        <NavLink to="/techdebt" activeClassName="activeClass">
-                                            <MDBListGroupItem>
-                                                <MDBIcon icon="chart-area" className="mr-3" />
-                                                Technical Debt
-                                </MDBListGroupItem>
+                                    
+                                </MDBCol>                                                                  
+                                                                    
+                                    <MDBCol md="3" className="my-1 mx-0">
+                                    <MDBNavItem  activeClassName="activeClass">
+                                        <MDBDropdown activeClassName="activeClass">
+                                            <MDBListGroupItem activeClassName="activeClass">
+                                                <MDBDropdownToggle className="pb-0 pr-0 pl-0 pt-0" nav caret activeClassName="activeClass">
+                                                    <MDBIcon icon="chart-area" className="mr-3" />
+                                                    <span className="mr-2">Technical Debt</span>
+                                                </MDBDropdownToggle>
+                                                <MDBDropdownMenu>
+                                                    <MDBDropdownItem>
+                                                        <NavLink to="/tdinterest" activeClassName="activeClass">
+                                                            TD Interest
                                         </NavLink>
-                                    </MDBNavItem>
-                                </MDBCol>
+                                                    </MDBDropdownItem>
+                                                    <MDBDropdownItem>
+                                                        <NavLink to="/tdprincipal" activeClassName="activeClass">
+                                                            TD Principal
+                                        </NavLink>
+                                                    </MDBDropdownItem>
+                                                    <MDBDropdownItem>
+                                                        <NavLink to="/tdnewcode" activeClassName="activeClass">
+                                                            TD New Code
+                                       </NavLink>
+                                                    </MDBDropdownItem>
+                                                </MDBDropdownMenu>
+                                            </MDBListGroupItem>
+                                        </MDBDropdown>
+
+                                    </MDBNavItem>                                     
+                                 </MDBCol>
+                                
+                                
                                 <MDBCol md="3" className="my-1 mx-0">
                                     <MDBNavItem  activeClassName="activeClass">
                                         <MDBDropdown activeClassName="activeClass">
@@ -137,7 +161,10 @@ class TopNavigation extends Component {
                                             </MDBListGroupItem>
                                         </MDBDropdown>
 
-                                    </MDBNavItem>                                                           </MDBCol>
+                                    </MDBNavItem> 
+                                    
+                                     </MDBCol>
+                                    
                                 <MDBCol md="3" className="my-1 mx-0">                            <MDBNavItem >
                                     <NavLink to="/tradeoffs" activeClassName="activeClass">
                                         <MDBListGroupItem>
