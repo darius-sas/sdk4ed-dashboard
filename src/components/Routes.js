@@ -1,6 +1,8 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import TDDashPage from './pages/TDDashPage';
+import TDInterestDashPage from './pages/TDInterestDashPage';
+import TDPrincipalDashPage from './pages/TDPrincipalDashPage';
+import TDNewCodeDashPage from './pages/TDNewCodeDashPage';
 import SecurityDashPage from './pages/SecurityDashPage';  
 import EnergyDashPage from './pages/EnergyDashPage';
 import ForecastDashPage from './pages/ForecastDashPage';
@@ -19,7 +21,11 @@ class Routes extends React.Component {
       <Switch>
         {/* Actual routes (incomplete, please refer to API design document) */}
         <Route path='/profile' component={ProfilePage} />
-        <Route path='/techdebt' component={TDDashPage}/>
+        
+        <Route path='/tdinterest' component={TDInterestDashPage}/>        
+        <Route path='/tdprincipal' component={TDPrincipalDashPage}/>
+        <Route path='/tdnewcode' component={TDNewCodeDashPage}/>
+
         <Route path='/security' component={SecurityDashPage} />
         <Route path='/energy' component={EnergyDashPage} />
         <Route path='/tdforecast' component={ForecastDashPage}/>
