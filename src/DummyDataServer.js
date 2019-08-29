@@ -7,13 +7,21 @@ const server = http.createServer((req, res) => {
     var dt = new Date();
     dt.setDate(dt.getDate() + 7)
 
-    const top5violations = {
+    const top10violations = {
         columns: [
             {label: "Violation", field: "violation"}, 
             {label: "Frequency", field: "frequency"},
             {label: "Occurrences", field: "occurrences"}],
         rows: [
-            {violation: "Long method", frequency: "30%", occurrences: 54}, {violation: "God Package", frequency: "16%", occurrences: 28},  {violation: "Feature envy", frequency: "10%", occurrences: 17},  {violation: "Commented code", frequency: "5%", occurrences: 10},  {violation: "Possible null pointer", frequency: "3%", occurrences: 5}]}
+            {violation: "MPC", frequency: "30%", occurrences: 1}, {violation: "DIT", frequency: "16%", occurrences: 1},  {violation: "NCC", frequency: "10%", occurrences: 2},  {violation: "RFC", frequency: "5%", occurrences: 38},  {violation: "LCM", frequency: "3%", occurrences: 205}, {violation: "WMC", frequency: "3%", occurrences: 1}, {violation: "DAC", frequency: "3%", occurrences: 0}, {violation: "CC", frequency: "3%", occurrences: 304}, {violation: "LOC", frequency: "3%", occurrences: 1185}, {violation: "NOP", frequency: "3%", occurrences: 456}]}
+      
+    const top5violations = {
+       columns: [
+            {label: "Violation", field: "violation"}, 
+            {label: "Frequency", field: "frequency"},
+            {label: "Occurrences", field: "occurrences"}],
+        rows: [
+            {violation: "Long method", frequency: "30%", occurrences: 54}, {violation: "God Package", frequency: "16%", occurrences: 28},  {violation: "Feature envy", frequency: "10%", occurrences: 17},  {violation: "Commented code", frequency: "5%", occurrences: 10},  {violation: "Possible null pointer", frequency: "3%", occurrences: 5}]} // The top violations wrt frequency in new code
 
     const data = {
         principalOverTimeChart: [{
@@ -238,9 +246,10 @@ const server = http.createServer((req, res) => {
 
         interestSummary: {breakpoint: dt.toDateString(), breakpointDaysLeft:7, interestprob: 30, interestrank:5},
 
-        topViolations: top5violations,
+        topViolations: top10violations,
 
         topViolationsNewCode:top5violations,
+        
     }
 
   res.statusCode = 200;
