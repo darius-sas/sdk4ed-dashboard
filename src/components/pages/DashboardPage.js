@@ -14,6 +14,7 @@ const DashboardPage =  () => {
     <React.Fragment>
       <BreadcrumSection />
       <AdminCardSection1 />
+      {/*
       <ChartSection1 />
       <TableSection />
       <ChartSection2 />
@@ -22,6 +23,7 @@ const DashboardPage =  () => {
           <ModalSection />
       </MDBRow>
       <AdminCardSection2 />
+      */}
     </React.Fragment>
   )
 }
