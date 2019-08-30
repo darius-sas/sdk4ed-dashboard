@@ -7,9 +7,9 @@ const AdminCardSection1 = () => {
         <MDBCol xl="3" md="6" className="mb-r">
           <MDBCard className="cascading-admin-card">
               <div className="admin-up">
-              <MDBIcon icon="money-bill-alt" className="primary-color"/>
+              <MDBIcon icon="chart-area" className="primary-color"/>
                 <div className="data">
-                  <p>SALES</p>
+                  <p>TECHNICAL DEBT</p>
                   <h4>
                     <strong>$2000</strong>
                   </h4>
@@ -27,9 +27,9 @@ const AdminCardSection1 = () => {
         <MDBCol xl="3" md="6" className="mb-r">
           <MDBCard className="cascading-admin-card">
               <div className="admin-up">
-              <MDBIcon icon="chart-line" className="warning-color"/>
+              <MDBIcon icon="bolt" className="warning-color"/>
                 <div className="data">
-                  <p>SUBSCRIPTIONS</p>
+                  <p>ENERGY</p>
                   <h4>
                     <strong>200</strong>
                   </h4>
@@ -47,9 +47,9 @@ const AdminCardSection1 = () => {
         <MDBCol xl="3" md="6" className="mb-r">
           <MDBCard className="cascading-admin-card">
               <div className="admin-up">
-              <MDBIcon icon="chart-pie" className="light-blue lighten-1"/>
+              <MDBIcon icon="shield-alt" className="light-blue lighten-1"/>
                 <div className="data">
-                  <p>TRAFFIC</p>
+                  <p>SECURITY</p>
                   <h4>
                     <strong>20000</strong>
                   </h4>
@@ -67,9 +67,9 @@ const AdminCardSection1 = () => {
         <MDBCol xl="3" md="6" className="mb-r">
           <MDBCard className="cascading-admin-card">
               <div className="admin-up">
-              <MDBIcon icon="chart-bar" className="red accent-2"/>
+              <MDBIcon icon="compass" className="red accent-2"/>
                 <div className="data">
-                  <p>ORGANIC TRAFFIC</p>
+                  <p>FORECAST</p>
                   <h4>
                     <strong>2000</strong>
                   </h4>
