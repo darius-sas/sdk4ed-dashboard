@@ -229,8 +229,8 @@ const ProjectPanel = props => {
                                     <MDBDropdownItem onClick={(param) => props.updateSelectedProject('Neurasmus')}>Neurasmus</MDBDropdownItem>
                                     <MDBDropdownItem onClick={(param) => props.updateSelectedProject('Airbus')}>Airbus</MDBDropdownItem>
                                 </MDBDropdownMenu>
-								<MDBBtn className="white-text" color="  light-green darken-4" onClick={(param) => props.updateHardcodedProjectData(props.myprojectName)}><MDBIcon icon="eye" size="lg"/> View Results</MDBBtn>
-								<MDBBtn className="white-text" color="  light-green darken-4" onClick={(param) => props.updateProjectData(props.myprojectName)}><MDBIcon icon="sync-alt" size="lg"/> Run Analysis</MDBBtn>
+								<MDBBtn className="white-text" color="  light-green darken-4" onClick={(param) => props.updateHardcodedProjectData(props.myprojectName)}><MDBIcon icon="eye" className="mr-1" size="lg"/>View Results</MDBBtn>
+								<MDBBtn className="white-text" color="  light-green darken-4" onClick={(param) => props.updateProjectData(props.myprojectName)}><MDBIcon icon="sync-alt" className="mr-1" size="lg"/>Run Analysis</MDBBtn>
                             </MDBDropdown>
                         </MDBCol>
                     </MDBRow>
@@ -541,7 +541,7 @@ class SecurityDashPage extends React.Component {
             isLoadingSecurity: false,
             isLoadingVulnerability: false,
             isProjectVisible: false,
-            selectedProject: '',
+            selectedProject: 'Holisun',
             name: '',
             securityIndex: 0,
             characteristics: {},
