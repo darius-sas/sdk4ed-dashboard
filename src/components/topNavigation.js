@@ -65,7 +65,7 @@ class TopNavigation extends Component {
                                 <MDBNavItem active>
                                     <NavLink exact={true} to="/" activeClassName="activeClass">
                                         <MDBListGroupItem>
-                                            <MDBIcon icon="chart-pie" className="mr-3" />
+                                            <MDBIcon icon="home" className="mr-3" />
                                             Main Dashboard
                                     </MDBListGroupItem>
                                     </NavLink>
@@ -83,7 +83,7 @@ class TopNavigation extends Component {
                                 <MDBCol md="3" className="my-1 mx-0"><MDBNavItem >
                                     <NavLink to="/energy" activeClassName="activeClass">
                                         <MDBListGroupItem className="h-100">
-                                            <MDBIcon icon="chart-bar" className="mr-3" />
+                                            <MDBIcon icon="bolt" className="mr-3" />
                                             Energy
                                 </MDBListGroupItem>
                                     </NavLink>
@@ -93,7 +93,7 @@ class TopNavigation extends Component {
                                     <MDBNavItem >
                                         <NavLink to="/security" activeClassName="activeClass">
                                             <MDBListGroupItem>
-                                                <MDBIcon icon="chart-line" className="mr-3" />
+                                                <MDBIcon icon="shield-alt" className="mr-3" />
                                                 Security
                                 </MDBListGroupItem>
                                         </NavLink>
@@ -138,7 +138,7 @@ class TopNavigation extends Component {
                                         <MDBDropdown activeClassName="activeClass">
                                             <MDBListGroupItem activeClassName="activeClass">
                                                 <MDBDropdownToggle className="pb-0 pr-0 pl-0 pt-0" nav caret activeClassName="activeClass">
-                                                    <MDBIcon icon="compass" className="mr-3" />
+                                                    <MDBIcon icon="chart-line" className="mr-3" />
                                                     <span className="mr-2">Forecast</span>
                                                 </MDBDropdownToggle>
                                                 <MDBDropdownMenu>
@@ -168,7 +168,7 @@ class TopNavigation extends Component {
                                 <MDBCol md="3" className="my-1 mx-0">                            <MDBNavItem >
                                     <NavLink to="/tradeoffs" activeClassName="activeClass">
                                         <MDBListGroupItem>
-                                            <MDBIcon icon="exchange-alt" className="mr-3" />
+                                            <MDBIcon icon="balance-scale" className="mr-3" />
                                             Trade-off Manager
                                 </MDBListGroupItem>
                                     </NavLink>
