@@ -9,11 +9,10 @@ const server = http.createServer((req, res) => {
 
     const top10violations = {
         columns: [
-            {label: "Violation", field: "violation"}, 
-            {label: "Frequency", field: "frequency"},
-            {label: "Occurrences", field: "occurrences"}],
+            {label: "Metric", field: "metric"}, 
+            {label: "Score", field: "score"}],
         rows: [
-            {violation: "MPC", frequency: "30%", occurrences: 1}, {violation: "DIT", frequency: "16%", occurrences: 1},  {violation: "NCC", frequency: "10%", occurrences: 2},  {violation: "RFC", frequency: "5%", occurrences: 38},  {violation: "LCM", frequency: "3%", occurrences: 205}, {violation: "WMC", frequency: "3%", occurrences: 1}, {violation: "DAC", frequency: "3%", occurrences: 0}, {violation: "CC", frequency: "3%", occurrences: 304}, {violation: "LOC", frequency: "3%", occurrences: 1185}, {violation: "NOP", frequency: "3%", occurrences: 456}]}
+            {metric: "MPC", score: 1}, {metric: "DIT", score: 1},  {metric: "NCC", score: 2},  {metric: "RFC", score: 38},  {metric: "LCM", score: 205}, {metric: "WMC", score: 1}, {metric: "DAC", score: 0}, {metric: "CC", score: 304}, {metric: "LOC", score: 1185}, {metric: "NOP", score: 456}]}
       
     const top5violations = {
        columns: [
@@ -244,12 +243,13 @@ const server = http.createServer((req, res) => {
 		            ]},
         },
 
-        interestSummary: {breakpoint: dt.toDateString(), breakpointDaysLeft:7, interestprob: 30, interestrank:5},
+        interestSummary: {breakpoint: 28, totalInterest:800, maintainabilityRank: 10, interestProbability:38, instability: 25, interestProbabilityRank: 40},
 
+        principalSummary: {tdInDays: 21, tdInCurrency: 150000, bugs: 168, vulnerabilities: 55 , codeSmells: 1400, coverage: 12.2, duplCode: 2.3 },
+        
         topViolations: top10violations,
 
-        topViolationsNewCode:top5violations,
-        
+        topViolationsNewCode:top5violations       
     }
 
   res.statusCode = 200;
