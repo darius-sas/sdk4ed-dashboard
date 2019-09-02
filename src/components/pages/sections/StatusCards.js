@@ -85,22 +85,24 @@ export class CountCard extends React.Component {
   }
 
   render(){
-    var color = "primary-color"
+    var color = "dark-color"//"primary-color"
     if (this.props.color){
       color = this.props.color
     }
-    var textColor = "white-text"
+    var textColor = "black-text" //"white-text"
     if(this.props.textColor){
       textColor = this.props.textColor
     }
     
+    var colorIcon = "dark-color"
+    
     return (
       <React.Fragment>
-      <MDBCard color={color} className="classic-admin-card">
+      <MDBCard color={colorIcon} className="classic-admin-card">
         <MDBCardBody>
-          <div className="float-right"><MDBIcon icon={this.props.icon} size="3x"/></div>
+          <div className="grey-text"><MDBIcon icon={this.props.icon} size="3x"/></div>
           <p className={textColor}>{this.props.title}</p>
-          <div className="float-left pb-1"><h4><strong  className={textColor}>{this.props.value}</strong></h4></div>
+          <div className="grey-text"><h4><strong  className={textColor}>{this.props.value}</strong></h4></div>
         </MDBCardBody>
         {descriptionCard(this.props.description, color)}
       </MDBCard>
