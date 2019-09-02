@@ -5,13 +5,52 @@ import {ProgressCard, CountCard, ScoreCard} from './sections/StatusCards'
 import PlotlyChart from './sections/Chart';
 import BasicTable from './sections/Table';
 import 'whatwg-fetch';
+import { Line, Radar } from 'react-chartjs-2';
 import Loader from './sections/Loading'
 import FileExplorer from './sections/FileExplorer';
 import ContentPanel from './sections/ContentPanel';
+import { MDBCard, MDBCardBody, MDBCardHeader, MDBContainer, MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem, MDBFormInline, MDBTable, MDBTableBody, MDBTableHead } from 'mdbreact';
+
 
 //============== Import Highcharts ==============//
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
+
+
+// Styling options for RadarChart - Edit only for styling modifications 
+const radarChartOptions = {
+    scale: {
+        ticks: {
+            min: 0,
+            max: 1,
+            stepSize: 0.2
+        },
+        pointLabels: {
+            fontSize: 15
+        },
+    },
+    responsive: true,
+    legend: false,
+}
+
+const InterestRadarPanel =  {
+        labels: ['Bugs', 'Vulnerabilities', 'Duplicated Lines  Density', 'Code Smells'], 
+        datasets: [
+            {
+                label: 'Principal Indicators',
+                backgroundColor: 'rgba(84,130,53,0.05)',
+                borderColor: 'rgba(84,130,53,1)',
+                pointRadius: 4,
+                pointHitRadius: 4,
+                pointBackgroundColor: 'rgba(84,130,53,1)',
+                pointBorderColor: '#c1c7d1',
+                pointHoverBackgroundColor : '#fff',
+                pointHoverBorderColor: 'rgba(84,130,53,1)',
+                data:[0.9805476228578603, 1.0, 0.7897392767031118, 0.28] // data values from prop var are loaded here
+            }
+        ]
+    }
+
 
 const PrincipalPanel = props => {
    //============== Example code ==============//
@@ -87,12 +126,37 @@ const PrincipalPanel = props => {
     
   return (
       <PagePanel header="Technical debt principal" linkTo="principal">
+      
+             
+   <MDBRow className="mb-4">
+            <MDBCol md="12" lg="12" className="mb-12">
+                <MDBCard className="mb-12">
+                <MDBCardHeader className="sdk4ed-color">Project</MDBCardHeader>
+                <MDBCardBody>
+                    <MDBFormInline className="md-form m-0">
+                        <MDBDropdown>
+                            <MDBDropdownToggle caret className="white-text" color="  light-green darken-4">
+                                Project
+                            </MDBDropdownToggle>
+                            <MDBDropdownMenu basic>
+                                <MDBDropdownItem onClick={(param) => props.updateProjectData('Holisun Arassistance')}>Holisun Arassistance</MDBDropdownItem>
+                                <MDBDropdownItem onClick={(param) => props.updateProjectData('MaQuali')}>Holisun MaQuali</MDBDropdownItem>
+                                <MDBDropdownItem onClick={(param) => props.updateProjectData('Neurasmus')}>Neurasmus</MDBDropdownItem>
+                            </MDBDropdownMenu>
+                        </MDBDropdown>
+                        <h4 style={{color:'#548235'}}>{props.myprojectName}</h4>
+                    </MDBFormInline>
+                </MDBCardBody>
+                </MDBCard>
+            </MDBCol>
+      </MDBRow>
+      
       <MDBRow className="mb-3">
       
        <MDBCol size="12">
                 <MDBRow className="mb-3">
                   <MDBCol>
-                  <CountCard title="TD IN DAYS" color="#33691e light-green darken-4 " value={props.principal.tdInDays} icon="clock" />
+                  <CountCard title="TD IN DAYS"  value={props.principal.tdInDays} icon="clock" />
                   </MDBCol>
                   <MDBCol>
                   <CountCard title="TD IN CURRENCY" color="#33691e light-green darken-4" value={props.principal.tdInCurrency} icon="money-bill-alt"/>
@@ -117,6 +181,21 @@ const PrincipalPanel = props => {
                 </MDBRow>
           </MDBCol>
       </MDBRow>
+      
+       <MDBRow className="mb-3">
+  
+   <MDBCol md="12" lg="12" className="mb-12">
+                <MDBCard className="mb-12">
+                <MDBCardHeader className="sdk4ed-color">Principal Indicators</MDBCardHeader>
+                <MDBCardBody>
+                    <MDBContainer>
+                        <Radar data={InterestRadarPanel} options={radarChartOptions} />
+                    </MDBContainer>
+                </MDBCardBody>
+                </MDBCard>
+            </MDBCol>
+  
+   </MDBRow>
       </PagePanel>
 )}
 
