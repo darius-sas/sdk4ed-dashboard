@@ -100,30 +100,30 @@ const InterestPanel = props => {
          <MDBCol size="12">
                 <MDBRow className="mb-3">
                   <MDBCol>
-                  <CountCard title="BREAKING POINT" color="#33691e light-green darken-4" value="28 Months" />
+                  <CountCard title="BREAKING POINT (version)" color="#33691e light-green darken-4" value={props.interest.breakpoint} />
                   </MDBCol>
                   <MDBCol>
-                  <CountCard title="TOTAL INTEREST" color="#33691e light-green darken-4" value="800$" />
+                  <CountCard title="TOTAL INTEREST ($)" color="#33691e light-green darken-4" value={props.interest.totalInterest} />
                   </MDBCol>
                   <MDBCol>
-                  <CountCard title="MAINTAINABILITY RANKING" color="#33691e light-green darken-4" value="10%" />
+                  <CountCard title="MAINTAINABILITY RANKING (%)" color="#33691e light-green darken-4" value={props.interest.maintainabilityRank}/>
                   </MDBCol>
                    </MDBRow>
                   <MDBRow className="mb-3">
 				  <MDBCol>
-                  <CountCard title="INTEREST PROBABILITY" color="#33691e light-green darken-4" value="38%" />
+                  <CountCard title="INTEREST PROBABILITY (%)" color="#33691e light-green darken-4" value={props.interest.interestProbability} />
                   </MDBCol>
                    <MDBCol>
-                  <CountCard title="INSTABILITY" color="#33691e light-green darken-4" value="25%" />
+                  <CountCard title="INSTABILITY (%)" color="#33691e light-green darken-4" value={props.interest.instability} />
                   </MDBCol>
                    <MDBCol>
-                  <CountCard title="INTEREST PROBABILITY RANKING" color="#33691e light-green darken-4" value="40%" />
+                  <CountCard title="INTEREST PROBABILITY RANKING (%)"  color="#33691e light-green darken-4" value={props.interest.interestProbabilityRank} />
                   </MDBCol>
                 </MDBRow>
           </MDBCol>
           
            <MDBCol size="6" mr="1">
-            <BasicTable title="Top 10 Most Probable Violations" data={props.violations}/>
+            <BasicTable title="Interest Indicators" data={props.violations}/>
           </MDBCol>
           
            <MDBCol size="6">
@@ -189,7 +189,7 @@ class TDInterestDashPage extends React.Component {
               </MDBCol>
               <MDBCol>
               <InterestPanel violations={this.state.topViolations} 
-                            mysummary={this.state.interestSummary} interest={this.state.interestOverTimeChart}/>
+                            interest={this.state.interestSummary}/>
               </MDBCol>
               </MDBRow>
             </React.Fragment>
