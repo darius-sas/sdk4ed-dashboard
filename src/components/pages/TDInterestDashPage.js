@@ -6,12 +6,48 @@ import PlotlyChart from './sections/Chart';
 import BasicTable from './sections/Table';
 import 'whatwg-fetch';
 import Loader from './sections/Loading'
+import { Line, Radar } from 'react-chartjs-2';
 import FileExplorer from './sections/FileExplorer';
 import ContentPanel from './sections/ContentPanel';
-
+import { MDBCard, MDBCardBody, MDBCardHeader, MDBContainer, MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem, MDBFormInline, MDBTable, MDBTableBody, MDBTableHead } from 'mdbreact';
 //============== Import Highcharts ==============//
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
+
+// Styling options for RadarChart - Edit only for styling modifications 
+const radarChartOptions = {
+    scale: {
+        ticks: {
+            min: 0,
+            max: 1,
+            stepSize: 0.2
+        },
+        pointLabels: {
+            fontSize: 15
+        },
+    },
+    responsive: true,
+    legend: false,
+}
+// Change the values 
+const InterestRadarPanel =  {
+        labels: ['MPC', 'DIT', 'NOCC', 'RFC', 'LCOM', 'WMPC', 'DAC', 'NOM', 'SIZE1', 'SIZE2'], 
+        datasets: [
+            {
+                label: 'Interest Indicators',
+                backgroundColor: 'rgba(84,130,53,0.05)',
+                borderColor: 'rgba(84,130,53,1)',
+                pointRadius: 4,
+                pointHitRadius: 4,
+                pointBackgroundColor: 'rgba(84,130,53,1)',
+                pointBorderColor: '#c1c7d1',
+                pointHoverBackgroundColor : '#fff',
+                pointHoverBorderColor: 'rgba(84,130,53,1)',
+                data:[0.9805476228578603, 1.0, 0.7897392767031118, 0.28, 0.30952380952380953, 1.0, 0.7411386145858887, 0.9220016554845056, 0.5198202773272929, 0.45591192971313643] // data values from prop var are loaded here
+            }
+        ]
+    }
+
 
 const InterestPanel = props => {
   //============== Example code ==============//
@@ -23,8 +59,9 @@ const InterestPanel = props => {
     },
 
     title: {
-        text: 'Breaking Point over Time',
-        x: -80
+        text: 'Evolution of TD Aspects throught Software Versions',
+        x: -80,
+        align: 'center'
     },
 
     pane: {
@@ -49,8 +86,7 @@ const InterestPanel = props => {
     },
 
     legend: {
-        align: 'right',
-        verticalAlign: 'middle'
+        align: 'right'
     },
 
     series: [{
@@ -90,34 +126,130 @@ const InterestPanel = props => {
 
     }
     
-    
+    const radarChartOptions={		
+		chart: {
+        polar: true
+    },
+
+    title: {
+        text: 'Highcharts Polar Chart'
+    },
+
+    subtitle: {
+        text: 'Also known as Radar Chart'
+    },
+
+    pane: {
+        startAngle: 0,
+        endAngle: 360
+    },
+
+    xAxis: {
+        tickInterval: 45,
+        min: 0,
+        max: 360,
+        labels: {
+            format: '{value}°'
+        }
+    },
+
+    yAxis: {
+        min: 0
+    },
+
+    plotOptions: {
+        series: {
+            pointStart: 0,
+            pointInterval: 45
+        },
+        column: {
+            pointPadding: 0,
+            groupPadding: 0
+        }
+    },
+
+    series: [{
+        type: 'column',
+        name: 'Column',
+        data: [8, 7, 6, 5, 4, 3, 2, 1],
+        pointPlacement: 'between'
+    }, {
+        type: 'line',
+        name: 'Line',
+        data: [1, 2, 3, 4, 5, 6, 7, 8]
+    }, {
+        type: 'area',
+        name: 'Area',
+        data: [1, 8, 2, 7, 3, 6, 4, 5]
+    }]
+		
+	}
+       
     //=========================================//	
 	
   
   return(
   <PagePanel header="Technical debt interest" linkTo="interest">
-      <MDBRow className="mb-3">  
+    
+               
+   <MDBRow className="mb-4">
+            <MDBCol md="12" lg="12" className="mb-12">
+                <MDBCard className="mb-12">
+                <MDBCardHeader className="sdk4ed-color">Project</MDBCardHeader>
+                <MDBCardBody>
+                    <MDBFormInline className="md-form m-0">
+                        <MDBDropdown>
+                            <MDBDropdownToggle caret className="white-text" color="  light-green darken-4">
+                                Project
+                            </MDBDropdownToggle>
+                            <MDBDropdownMenu basic>
+                                <MDBDropdownItem onClick={(param) => props.updateProjectData('Holisun Arassistance')}>Holisun Arassistance</MDBDropdownItem>
+                                <MDBDropdownItem onClick={(param) => props.updateProjectData('MaQuali')}>Holisun MaQuali</MDBDropdownItem>
+                                <MDBDropdownItem onClick={(param) => props.updateProjectData('Neurasmus')}>Neurasmus</MDBDropdownItem>
+                            </MDBDropdownMenu>
+                        </MDBDropdown>
+                        <h4 style={{color:'#548235'}}>{props.myprojectName}</h4>
+                    </MDBFormInline>
+                </MDBCardBody>
+                </MDBCard>
+            </MDBCol>
+      </MDBRow>
+  
+	 <MDBRow className="mb-6">
+	 
+	 <MDBCol>
+            {/*============== Render Highchart here ==============*/}
+            <HighchartsReact
+                highcharts={Highcharts}
+                options={options}
+            />
+            {/*=========================================*/}
+        </MDBCol>
+	 
+	 </MDBRow>
+  
+      <MDBRow className="mb-6">  
          <MDBCol size="12">
                 <MDBRow className="mb-3">
                   <MDBCol>
-                  <CountCard title="BREAKING POINT (version)" color="#33691e light-green darken-4" value={props.interest.breakpoint} />
+                  <CountCard title="BREAKING POINT (version)" color="#33691e light-green darken-4" value={props.interest.breakpoint} icon="hat-wizard" />
                   </MDBCol>
                   <MDBCol>
-                  <CountCard title="TOTAL INTEREST ($)" color="#33691e light-green darken-4" value={props.interest.totalInterest} />
+                  <CountCard title="TOTAL INTEREST ($)" color="#33691e light-green darken-4" value={props.interest.totalInterest} icon="dollar-sign"/>
                   </MDBCol>
                   <MDBCol>
-                  <CountCard title="MAINTAINABILITY RANKING (%)" color="#33691e light-green darken-4" value={props.interest.maintainabilityRank}/>
+                  <CountCard title="MAINTAINABILITY RANKING (%)" color="#33691e light-green darken-4" value="10" icon="percent"/>
                   </MDBCol>
                    </MDBRow>
                   <MDBRow className="mb-3">
 				  <MDBCol>
-                  <CountCard title="INTEREST PROBABILITY (%)" color="#33691e light-green darken-4" value={props.interest.interestProbability} />
+                  <CountCard title="INTEREST PROBABILITY (%)" color="#33691e light-green darken-4" value={props.interest.interestProbability} icon="percent"/>
                   </MDBCol>
                    <MDBCol>
-                  <CountCard title="INSTABILITY (%)" color="#33691e light-green darken-4" value={props.interest.instability} />
+                  <CountCard title="INSTABILITY (%)" color="#33691e light-green darken-4" value="25" icon="balance-scale"/>
                   </MDBCol>
                    <MDBCol>
-                  <CountCard title="INTEREST PROBABILITY RANKING (%)"  color="#33691e light-green darken-4" value={props.interest.interestProbabilityRank} />
+                  <CountCard title="INTEREST PROBABILITY RANKING (%)"  color="#33691e light-green darken-4" value="40" icon="percent"/>
                   </MDBCol>
                 </MDBRow>
           </MDBCol>
@@ -126,14 +258,21 @@ const InterestPanel = props => {
             <BasicTable title="Interest Indicators" data={props.violations}/>
           </MDBCol>
           
-           <MDBCol size="6">
-            {/*============== Render Highchart here ==============*/}
-            <HighchartsReact
-                highcharts={Highcharts}
-                options={options}
-            />
-            {/*=========================================*/}
-        </MDBCol>
+          
+          
+
+            <MDBCol md="12" lg="6" className="mb-12">
+                <MDBCard className="mb-6">
+                <MDBCardHeader className="sdk4ed-color">Interest Indicators</MDBCardHeader>
+                <MDBCardBody>
+                    <MDBContainer>
+                        <Radar data={InterestRadarPanel} options={radarChartOptions} />
+                    </MDBContainer>
+                </MDBCardBody>
+                </MDBCard>
+            </MDBCol>
+
+  
       </MDBRow>
   </PagePanel>
   )
