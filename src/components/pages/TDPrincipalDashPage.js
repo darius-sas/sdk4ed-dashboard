@@ -92,27 +92,27 @@ const PrincipalPanel = props => {
        <MDBCol size="12">
                 <MDBRow className="mb-3">
                   <MDBCol>
-                  <CountCard title="TD IN DAYS" color="#33691e light-green darken-4 " value="21" icon="clock" />
+                  <CountCard title="TD IN DAYS" color="#33691e light-green darken-4 " value={props.principal.tdInDays} icon="clock" />
                   </MDBCol>
                   <MDBCol>
-                  <CountCard title="TD IN CURRENCY" color="#33691e light-green darken-4" value="150K" icon="money-bill-alt"/>
+                  <CountCard title="TD IN CURRENCY" color="#33691e light-green darken-4" value={props.principal.tdInCurrency} icon="money-bill-alt"/>
                   </MDBCol>
                   <MDBCol>
-                  <CountCard title="BUGS" color="#33691e light-green darken-4" value="168" icon="bug"/>
+                  <CountCard title="BUGS" color="#33691e light-green darken-4" value={props.principal.bugs} icon="bug"/>
                   </MDBCol>
                   <MDBCol>
-                  <CountCard title="VULNERABILITIES" color="#33691e light-green darken-4" value="55" icon="lock-open"/>
+                  <CountCard title="VULNERABILITIES" color="#33691e light-green darken-4" value={props.principal.vulnerabilities} icon="lock-open"/>
                   </MDBCol>
                    </MDBRow>
                   <MDBRow className="mb-3">
 				  <MDBCol>
-                  <CountCard title="CODE SMELLS" color="#33691e light-green darken-4" value="1.4K" icon="compress-arrows-alt"/>
+                  <CountCard title="CODE SMELLS" color="#33691e light-green darken-4" value={props.principal.codeSmells} icon="compress-arrows-alt"/>
                   </MDBCol>
                    <MDBCol>
-                  <CountCard title="COVERAGE" color="#33691e light-green darken-4" value="12.2%" icon="fire-alt"/>
+                  <CountCard title="COVERAGE (%)" color="#33691e light-green darken-4" value={props.principal.coverage} icon="fire-alt"/>
                   </MDBCol>
                    <MDBCol>
-                  <CountCard title="DUPLICATIONS" color="#33691e light-green darken-4" value="2.3%" icon="copy"/>
+                  <CountCard title="DUPLICATIONS (%)" color="#33691e light-green darken-4" value={props.principal.duplCode} icon="copy"/>
                   </MDBCol>
                 </MDBRow>
           </MDBCol>
@@ -171,7 +171,7 @@ class TDPrincipalDashPage extends React.Component {
               </MDBCol>
               <MDBCol>
               <PrincipalPanel mysummary={this.state.systemSummary} 
-                              principal={this.state.principalOverTimeChart}/>
+                              principal={this.state.principalSummary}/>
               
               </MDBCol>
               </MDBRow>
