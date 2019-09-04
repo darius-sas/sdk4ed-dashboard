@@ -60,24 +60,24 @@ const HotspotsPanel = props => {
 				<MDBCol>
 					<MDBRow className="mb-3">
 						<MDBCol>
-							<CountCard title="CPU cycles" color="grey darken-3" value={props.myEnergySummary.cpucycles} icon="fas fa-microchip" description="Profilling Tools"/>
+							<CountCard title="CPU cycles" color="#33691e light-green darken-4" value={props.myEnergySummary.cpucycles} icon="fas fa-microchip" description="Profilling Tools"/>
 						</MDBCol>
 						<MDBCol>
-							<CountCard title="Data Races" color="grey darken-3" value={props.myEnergySummary.dataraces} icon="fas fa-traffic-light"/>
+							<CountCard title="Data Races" color="#33691e light-green darken-4" value={props.myEnergySummary.dataraces} icon="fas fa-traffic-light"/>
 						</MDBCol>
 						<MDBCol>
-							<CountCard title="Memory accesses" color="purple darken-3" value={props.myEnergySummary.memoryaccesses} icon="fas fa-memory"/>
+							<CountCard title="Memory accesses" color="#33691e light-green darken-4" value={props.myEnergySummary.memoryaccesses} icon="fas fa-memory"/>
 						</MDBCol>
 					</MDBRow>
 					<MDBRow className="mb-3">
 						<MDBCol>
-							<ProgressCard title="Ratio of branch misses" color="orange darken-3" progress={props.myEnergySummary.branchmiss} icon="fas fa-code-branch"/>
+							<CountCard title="Ratio of branch misses" color="#33691e light-green darken-4" value={props.myEnergySummary.branchmiss} icon="fas fa-code-branch"/>
 						</MDBCol>
 						<MDBCol>
-							<ProgressCard title="I Cache miss rate" color="blue darken" icon="fas fa-terminal" progress={props.myEnergySummary.Icachemiss}/>
+							<CountCard title="I Cache miss rate" color="#33691e light-green darken-4" icon="fas fa-terminal" value={props.myEnergySummary.Icachemiss}/>
 						</MDBCol>
 						<MDBCol>
-							<ProgressCard title="D Cache miss rate" color="red darken" icon="fas fa-database" progress={props.myEnergySummary.cachemiss} description="Data cache L1"/>
+							<CountCard title="D Cache miss rate" color="#33691e light-green darken-4" icon="fas fa-database" value={props.myEnergySummary.cachemiss} description="Data cache L1"/>
 						</MDBCol>
 					</MDBRow>
 				</MDBCol>
@@ -111,35 +111,35 @@ const OffloadingPanel = props => {
 				<MDBCol>
 					<MDBRow className="mb-3">
 						<MDBCol>
-							<CountCard title="Independent operations in window size" color="grey darken-3" value={props.myAccelerationSummary.ilp} icon="fas fa-list-ol" description="Pin Tools"/>
+							<CountCard title="Independent operations in window size" color="grey darken-3" value={props.myAccelerationSummary.ilp} icon="fas fa-list-ol"/>
 						</MDBCol>
 						<MDBCol>
-							<CountCard title="Independent operations in window size Rate" color="grey darken-3" value={props.myAccelerationSummary.ilpRate} icon="fas fa-list-ol" description="Pin Tools"/>
-						</MDBCol>
-					</MDBRow>
-					<MDBRow className="mb-3">
-						<MDBCol>
-							<ProgressCard title="Memory" color="red darken-3" progress={props.myAccelerationSummary.mem} icon="fas fa-memory"/>
-						</MDBCol>
-						<MDBCol>
-							<ProgressCard title="Control" color="orange darken-3" progress={props.myAccelerationSummary.cont} icon="fas fa-code-branch"/>
-						</MDBCol>
-						<MDBCol>
-							<ProgressCard title="Cache cold misses" color="blue" icon="fas fa-thermometer-empty" progress={props.myAccelerationSummary.coldmiss}/>
-						</MDBCol>
-						<MDBCol>
-							<ProgressCard title="Stride 0" color="orange darken" icon="fas fa-walking" progress={props.myAccelerationSummary.stride}/>
+							<CountCard title="Independent operations in window size Rate" color="grey darken-3" value={props.myAccelerationSummary.ilpRate} icon="fas fa-list-ol"/>
 						</MDBCol>
 					</MDBRow>
 					<MDBRow className="mb-3">
 						<MDBCol>
-							<ProgressCard title="Integer" color="green darken-3" progress={props.myAccelerationSummary.int} icon="fas fa-sort-numeric-up"/>
+							<CountCard title="Memory" color="red darken-3" value={props.myAccelerationSummary.mem} icon="fas fa-memory"/>
 						</MDBCol>
 						<MDBCol>
-							<ProgressCard title="Floating Point" color="purple darken-3" progress={props.myAccelerationSummary.fp} icon="fas fa-sort-numeric-up"/>
+							<CountCard title="Control" color="orange darken-3" value={props.myAccelerationSummary.cont} icon="fas fa-code-branch"/>
 						</MDBCol>
 						<MDBCol>
-							<ProgressCard title="Division" color="cyan darken-3" progress={props.myAccelerationSummary.div} icon="fas fa-divide"/>
+							<CountCard title="Cache cold misses" color="blue" icon="fas fa-thermometer-empty" value={props.myAccelerationSummary.coldmiss}/>
+						</MDBCol>
+						<MDBCol>
+							<CountCard title="Stride 0" color="orange darken" icon="fas fa-walking" value={props.myAccelerationSummary.stride}/>
+						</MDBCol>
+					</MDBRow>
+					<MDBRow className="mb-3">
+						<MDBCol>
+							<CountCard title="Integer" color="green darken-3" value={props.myAccelerationSummary.int} icon="fas fa-sort-numeric-up"/>
+						</MDBCol>
+						<MDBCol>
+							<CountCard title="Floating Point" color="purple darken-3" value={props.myAccelerationSummary.fp} icon="fas fa-sort-numeric-up"/>
+						</MDBCol>
+						<MDBCol>
+							<CountCard title="Division" color="cyan darken-3" value={props.myAccelerationSummary.div} icon="fas fa-divide"/>
 						</MDBCol>
 					</MDBRow>
 				</MDBCol>
