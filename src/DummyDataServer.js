@@ -64,8 +64,8 @@ const server = http.createServer((req, res) => {
 
         holisun: {
         	projectName : "holisun",
-        	energyIndicatorsSummary: { branchmiss: 11, cpucycles: 3158456, cachemiss:12, Icachemiss:4 , memoryaccesses: 154000, duplCode: 10, dataraces: 1, linesOfCode: 8502 },
-        	acelerationIndicatorsSummary: { ilp: 1125, ilpRate: 28, cachemiss: 12, mem: 38, cont: 12, int: 20, fp: 40, div: 18, coldmiss: 9, stride:6},
+        	energyIndicatorsSummary: { branchmiss: '11%', cpucycles: 3158456, cachemiss:'12%', Icachemiss:'4%' , memoryaccesses: 154000, duplCode: 10, dataraces: 1, linesOfCode: 8502 },
+        	acelerationIndicatorsSummary: { ilp: 1125, ilpRate: 28, cachemiss: '12%', mem: 38, cont: 12, int: 20, fp: 40, div: 18, coldmiss: 9, stride:6},
         	topHotspotsFunction: {
 		        columns: [
 		            {label: "Hot-spot", field: "hotspot"},
@@ -114,8 +114,8 @@ const server = http.createServer((req, res) => {
 
         airbus: {
         	projectName : "airbus",
-        	energyIndicatorsSummary: { branchmiss: 4.11, cpucycles: 608599, cachemiss:4.9, Icachemiss:0.84 , memoryaccesses: 36585, dataraces: 0},
-        	acelerationIndicatorsSummary: { ilp: 15283, ilpRate: 28, cachemiss: 4.9, mem: 10268, cont: 15326, int: 61331, fp: 0, div: 0, coldmiss: 16153, stride:0.46408},
+        	energyIndicatorsSummary: { branchmiss: '2.69%', cpucycles: 18764557, cachemiss:'5.24%', Icachemiss:'0.55%' , memoryaccesses: 249456, dataraces: 0},
+        	acelerationIndicatorsSummary: { ilp: 15283, ilpRate: 28, cachemiss: '4.9%', mem: 10268, cont: 15326, int: 61331, fp: 0, div: 0, coldmiss: 16153, stride:0.46408},
         	topHotspotsFunction: {
 		        columns: [
 		            {label: "Hot-spot", field: "hotspot"},
@@ -184,7 +184,7 @@ const server = http.createServer((req, res) => {
 
         neurasmus: {
         	projectName : "neurasmus",
-        	energyIndicatorsSummary: { branchmiss: 4.11, cpucycles: 608599, cachemiss:4.9, Icachemiss:0.84 , memoryaccesses: 36585, dataraces: 0},
+        	energyIndicatorsSummary: { branchmiss: '4.11%', cpucycles: 608599, cachemiss:'4.9%', Icachemiss:'0.84%' , memoryaccesses: 36585, dataraces: 0},
         	acelerationIndicatorsSummary: { ilp: 15283, ilpRate: 28, cachemiss: 4.9, mem: 10268, cont: 15326, int: 61331, fp: 0, div: 0, coldmiss: 16153, stride:0.46408},
         	topHotspotsFunction: {
 		        columns: [
@@ -222,24 +222,40 @@ const server = http.createServer((req, res) => {
 		            {label: "Hot-spot", field: "hotspot"},
 		            {label: "Line start", field: "start"},
 		            {label: "Line end", field: "end"},
+		            {label: "Ins. Parallelism", field: "ilp"},
+		            {label: "Memory Stride 0", field: "stride0"},
+		            {label: "Num.of Instructions", field: "ins"},
+		            {label: "Cold Refs", field: "cold"},
+		            {label: "Control Ops", field: "ctrl"},
+		            {label: "Memory Ops", field: "mem"},
+		            {label: "Integer Ops", field: "int"},
 		            {label: "Energy Gain", field: "energygain"}],
 		        rows: [
-		        	{hotspot: "1st",start: "32", end: "44", energygain: "0"},
-		            {hotspot: "2nd",start: "47", end: "62", energygain: "0"},
-		            {hotspot: "3rd",start: "65", end: "82", energygain: "0"},
-		            {hotspot: "4th",start: "106", end: "153", energygain: "<10x"},
-		            {hotspot: "5th",start: "191", end: "211", energygain: "<10x"},
-		            {hotspot: "6th",start: "218", end: "705", energygain: "<10x"} 
+		        	{hotspot: "1st",start: "32", end: "44", ilp: "471.6", stride0: "69%", ins: "184815", cold: "0.06%", ctrl: "14.5%", mem: "41.9%", int: "13.4%", energygain: "0"},
+		            {hotspot: "2nd",start: "47", end: "62", ilp: "432.7", stride0: "49.2%", ins: "62937", cold: "0.2%", ctrl: "13.8%", mem: "41.5%", int: "12.8%", energygain: "0"},
+		            {hotspot: "3rd",start: "65", end: "82", ilp: "459.0", stride0: "65.1%", ins: "113886", cold: "0.04%", ctrl: "14.6%", mem: "41.9%", int: "13.4%", energygain: "0"},
+		            {hotspot: "4th",start: "106", end: "153", ilp: "220.7", stride0: "0%", ins: "9990", cold: "1.5%", ctrl: "5.7%", mem: "32.8%", int: "4.9%", energygain: "0"},
+		            {hotspot: "5th",start: "191", end: "211", ilp: "0", stride0: "0%", ins: "10989", cold: "3.5%", ctrl: "2.4%", mem: "27.8%", int: "2.5%", energygain: "0"},
+		            {hotspot: "6th",start: "218", end: "705", ilp: "0", stride0: "0%", ins: "13989", cold: "3.8%", ctrl: "1.6%", mem: "27.6%", int: "1.8%", energygain: "0"} 
 		            ]},
 
         	topHotspotsGPULoop: {
 		        columns: [
 		            {label: "Hot-spot", field: "hotspot"}, 
+		            {label: "Line start", field: "start"},
+		            {label: "Line end", field: "end"},
+		            {label: "Ins. Parallelism", field: "ilp"},
+		            {label: "Memory Stride 0", field: "stride0"},
+		            {label: "Num.of Instructions", field: "ins"},
+		            {label: "Cold Refs", field: "cold"},
+		            {label: "Control Ops", field: "ctrl"},
+		            {label: "Memory Ops", field: "mem"},
+		            {label: "Integer Ops", field: "int"},
 		            {label: "Energy Gain", field: "energygain"}],
 		        rows: [
-		            {hotspot: "1st", start: "202", end: "206", energygain: "<10x"},
-		            {hotspot: "2nd", start: "557", end: "562", energygain: "<10x"},
-		            {hotspot: "3rd", start: "601", end: "606", energygain: "<10x"}
+		            {hotspot: "1st", start: "202", end: "206", ilp: "0", stride0: "0%", ins: "10989", cold: "3.5%", ctrl: "2.4%", mem: "27.8%", int: "2.5%", energygain: "0"},
+		            {hotspot: "2nd", start: "557", end: "562", ilp: "0", stride0: "0%", ins: "7992", cold: "6.6%", ctrl: "1.9%", mem: "27.1%", int: "2.2%", energygain: "0"},
+		            {hotspot: "3rd", start: "601", end: "606", ilp: "0", stride0: "0%", ins: "2997", cold: "6.6%", ctrl: "", mem: "", int: "", energygain: "0"}
 		            ]},
         },
 
