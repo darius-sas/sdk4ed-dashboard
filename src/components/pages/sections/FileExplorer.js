@@ -16,6 +16,11 @@ const TreeWrapper = styled.div`
 `;
 
 export default class FileExplorer extends Component { 
+
+  constructor(props){
+    super(props)
+  }
+  
   state = {
     selectedFile: null,
   };
@@ -24,11 +29,11 @@ export default class FileExplorer extends Component {
 
   render() {
     const { selectedFile } = this.state;
-
+    console.log(this.props.data)
     return (
       <StyledFileExplorer>
         <TreeWrapper>
-          <Tree onSelect={this.onSelect} />
+          <Tree onSelect={this.onSelect} data = {this.props.data}/>
         </TreeWrapper>
         <div>
           { selectedFile && selectedFile.type === 'file' && selectedFile.content }

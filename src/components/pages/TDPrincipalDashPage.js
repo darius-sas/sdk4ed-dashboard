@@ -1,21 +1,16 @@
 import React from 'react';
 import {PagePanel} from './sections/PagePanel';
 import { MDBCol, MDBRow} from "mdbreact";
-import {ProgressCard, CountCard, ScoreCard} from './sections/StatusCards'
-import PlotlyChart from './sections/Chart';
-import BasicTable from './sections/Table';
+import {CountCard} from './sections/StatusCards'
 import 'whatwg-fetch';
-import { Line, Radar } from 'react-chartjs-2';
+import { Radar } from 'react-chartjs-2';
 import Loader from './sections/Loading'
 import FileExplorer from './sections/FileExplorer';
 import ContentPanel from './sections/ContentPanel';
-import { MDBCard, MDBCardBody, MDBCardHeader, MDBContainer, MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem, MDBFormInline, MDBTable, MDBTableBody, MDBTableHead } from 'mdbreact';
+import { MDBCard, MDBCardBody, MDBCardHeader, MDBContainer, MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem, MDBFormInline, } from 'mdbreact';
 
 
-//============== Import Highcharts ==============//
-import Highcharts from 'highcharts';
-import HighchartsReact from 'highcharts-react-official';
-
+const projects = ["neurasmus8", "maquali13", "arassistance4"]
 
 // Styling options for RadarChart - Edit only for styling modifications 
 const radarChartOptions = {
@@ -52,82 +47,9 @@ const InterestRadarPanel =  {
     }
 
 
-const PrincipalPanel = props => {
-   //============== Example code ==============//
-    var seriesData = [];
-    const options = {
-        chart: {
-        polar: true,
-        type: 'line'
-    },
-
-    title: {
-        text: 'Principal over time',
-        x: -80
-    },
-
-    pane: {
-        size: '80%'
-    },
-
-    xAxis: {
-        categories: ['Code Smells', 'Bugs', 'Vulnerabilities', 'Duplicated Lines Density'],
-        tickmarkPlacement: 'on',
-        lineWidth: 0
-    },
-
-    yAxis: {
-        gridLineInterpolation: 'polygon',
-        lineWidth: 0,
-        min: 0
-    },
-
-    tooltip: {
-        shared: true,
-        pointFormat: '<span style="color:{series.color}">{series.name}: <b>${point.y:,.0f}</b><br/>'
-    },
-
-    legend: {
-        align: 'right',
-        verticalAlign: 'middle'
-    },
-
-    series: [{
-        name: 'Artifact Value',
-        data: [500, 190, 600, 350],
-        pointPlacement: 'on'
-    }, {
-        name: 'Average Value',
-        data: [230, 243, 231, 242],
-        pointPlacement: 'on'
-    }],
-
-    responsive: {
-        rules: [{
-            condition: {
-                maxWidth: 500
-            },
-            chartOptions: {
-                legend: {
-                    align: 'center',
-                    verticalAlign: 'bottom'
-                },
-                pane: {
-                    size: '70%'
-                }
-            }
-        }]
-    }
-
-    }
-    
-    
-    //=========================================//
-    
+const PrincipalPanel = props => {    
   return (
-      <PagePanel header="Technical debt principal" linkTo="principal">
-      
-             
+   <PagePanel header="Technical debt principal" linkTo="principal">            
    <MDBRow className="mb-4">
             <MDBCol md="12" lg="12" className="mb-12">
                 <MDBCard className="mb-12">
@@ -139,9 +61,11 @@ const PrincipalPanel = props => {
                                 Project
                             </MDBDropdownToggle>
                             <MDBDropdownMenu basic>
-                                <MDBDropdownItem onClick={(param) => props.updateProjectData('Holisun Arassistance')}>Holisun Arassistance</MDBDropdownItem>
-                                <MDBDropdownItem onClick={(param) => props.updateProjectData('MaQuali')}>Holisun MaQuali</MDBDropdownItem>
-                                <MDBDropdownItem onClick={(param) => props.updateProjectData('Neurasmus')}>Neurasmus</MDBDropdownItem>
+                            {props.projects.map((element, index) => (
+                                <MDBDropdownItem key={index} onClick={() => props.fetchData(element)}>
+                                {element}
+                                </MDBDropdownItem>
+                            ))}
                             </MDBDropdownMenu>
                         </MDBDropdown>
                         <h4 style={{color:'#548235'}}>{props.myprojectName}</h4>
@@ -184,30 +108,21 @@ const PrincipalPanel = props => {
       
        <MDBRow className="mb-3">
   
-   <MDBCol md="12" lg="12" className="mb-12">
-                <MDBCard className="mb-12">
-                <MDBCardHeader className="sdk4ed-color">Principal Indicators</MDBCardHeader>
-                <MDBCardBody>
-                    <MDBContainer>
-                        <Radar data={InterestRadarPanel} options={radarChartOptions} />
-                    </MDBContainer>
-                </MDBCardBody>
-                </MDBCard>
-            </MDBCol>
-  
-   </MDBRow>
+      <MDBCol md="12" lg="12" className="mb-12">
+                    <MDBCard className="mb-12">
+                    <MDBCardHeader className="sdk4ed-color">Principal Indicators</MDBCardHeader>
+                    <MDBCardBody>
+                        <MDBContainer>
+                            {/* TODO: Data to fetch */}
+                            <Radar data={InterestRadarPanel} options={radarChartOptions} />
+                        </MDBContainer>
+                    </MDBCardBody>
+                    </MDBCard>
+                </MDBCol>
+      
+      </MDBRow>
       </PagePanel>
 )}
-
-
-
-const FileExplorerPanel = () => {
-  return (
-    <ContentPanel title="Project explorer">
-      <FileExplorer></FileExplorer>
-    </ContentPanel>
-  )
-}
 
 /**
  * The technical debt dashboard page. The page is assembled using multiple panels.
@@ -217,45 +132,116 @@ class TDPrincipalDashPage extends React.Component {
   constructor(props){
     super(props);
     
+    this.fetchProjectData = this.fetchProjectData.bind(this)
+
     this.state = {
-      systemSummary: null, // Principal-related summary information
-      interestSummary: null, // Interest-related summary information
-      principalOverTimeChart: null, // Chart for principal over time
-      interestOverTimeChart: null, // Chart for interest over time
-      topViolations: null, // The top violations wrt frequency
-      topViolationsNewCode: null, // The top violations wrt frequency in new code
-      densityComparisonChart: null, // Chart of the density of TD in new and existing code
-      densityOverTimeChart: null // Chart of the density over time
+      principalSummary: null, // Principal-related summary information
+      principalIndicatorsRadar: null,
+      projectNodes: null // File structure of the project
     }
   }
 
-  componentDidMount(){
-    fetch("http://127.0.0.1:3001")
-    .then(resp => resp.json())
-    .then(resp => {
-      console.log("Data received")
-      this.setState(resp)
-    })
+  getApiURL(){
+    const host = "http://se.uom.gr:9906/api/"
+    return host;
   }
 
+  componentDidMount(){
+    this.fetchProjectData("neurasmus8")
+  }
+
+  fetchProjectData(project){
+    console.log("Fetching project " + project)
+    let args = {
+      metricKeys: "ncloc,code_smells,bugs,duplicated_lines_density,coverage,effort_to_reach_maintainability_rating_a", 
+      component: project
+    }
+    const link = `http://se.uom.gr:9906/api/measures/component_tree?metricKeys=${encodeURIComponent(args.metricKeys)}&component=${encodeURIComponent(args.component)}`
+    
+    fetch(link, { headers: {"Accept": "*/*"}})
+      .then(resp => resp.json())
+      .then(data => {
+        console.log("Data fetched successfully")
+        data = data.baseComponent.measures
+        const getMetricValue = (data, name) => data.filter((data)=> data.metric == name)[0].value;
+        const principalSummary = {
+          tdInDays: getMetricValue(data, "effort_to_reach_maintainability_rating_a"),
+          tdInCurrency: 0,
+          bugs: getMetricValue(data, "bugs"),
+          vulnerabilities: 0,
+          codeSmells: getMetricValue(data, "code_smells"),
+          coverage: getMetricValue(data, "coverage"),
+          duplCode: getMetricValue(data, "duplicated_lines_density")
+        }
+        this.setState({principalSummary})
+      })
+      .catch(err => console.log("Failed to fetch " + err))
+
+    args = {
+      qualifiers:"DIR",
+      component: project
+    }
+    
+    const linkDirs = `http://se.uom.gr:9906/api/components/tree?component=${encodeURIComponent(args.component)}`
+
+    fetch(linkDirs)
+      .then(resp => resp.json())
+      .then(data => {
+        const projectNodes = {}
+        data.components.forEach(el => {
+          projectNodes[el.path] = {
+            path: el.path,
+            type: el.qualifier === "DIR" ? "folder" : "file",
+            children: []
+          }
+        });
+        // Parse SQ's files into nodes structure
+        const nodeKeys = Object.keys(projectNodes);
+        for (let i = 0; i < nodeKeys.length; i++) {
+          const parent = projectNodes[nodeKeys[i]];
+          if(parent.type === "file"){
+            continue
+          }
+          for (let j = 0; j < nodeKeys.length; j++) {
+            const children = projectNodes[nodeKeys[j]];
+            if(nodeKeys[i] === nodeKeys[j]){
+                continue;
+            }
+            if(children.path.startsWith(parent.path)){
+              let substr = children.path.substring(children.path.lastIndexOf("/"))
+              if(children.path === (parent.path + substr)){
+                parent.children.push(children.path)
+              }
+            }
+          }
+          if(!parent.path.includes("/")){
+            parent["isRoot"] = true;
+            parent["isOpen"] = true
+          }
+        }
+        this.setState({projectNodes})
+      })
+    }
+
   render(){
-    if(this.state.systemSummary == null){
+    if(this.state.principalSummary == null){
       return (<Loader/>)
     }else{
       return(
           <React.Fragment>
             <MDBRow>
               <MDBCol size="2">
-              <FileExplorerPanel/>
+              <ContentPanel title="Project explorer">
+                  <FileExplorer data={this.state.projectNodes}></FileExplorer>
+              </ContentPanel>
               </MDBCol>
               <MDBCol>
-              <PrincipalPanel mysummary={this.state.systemSummary} 
-                              principal={this.state.principalSummary}/>
-              
+              <PrincipalPanel principal={this.state.principalSummary}
+                              projects={projects}
+                              fetchData={this.fetchProjectData}/>
               </MDBCol>
               </MDBRow>
-            </React.Fragment>
-            )
+            </React.Fragment>)
     }
   }
 

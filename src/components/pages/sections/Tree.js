@@ -4,39 +4,13 @@ import PropTypes from 'prop-types';
 
 import TreeNode from './TreeNode';
 
-const data = {
-  '/myProject': {
-    path: '/myProject',
-    type: 'folder',
-    isRoot: true,
-    isOpen: true,
-    children: ['/myProject/src'],
-  },
-  '/myProject/src': {
-    path: '/myProject/src',
-    type: 'folder',
-    children: ['/myProject/src/Main.java', '/myProject/src/Test.java', "/myProject/src/readme.md"]
-  },
-  '/myProject/src/readme.md': {
-    path: '/myProject/src/readme.md',
-    type: 'file',
-  },
-
-  '/myProject/src/Main.java': {
-    path: '/myProject/src/Main.java',
-    type: 'file',
-  },
-  '/myProject/src/Test.java': {
-    path: '/myProject/src/Test.java',
-    type: 'file',
-  },
-};
-
 export default class Tree extends Component {
 
-  state = {
-    nodes: data,
-  };
+  constructor(props){
+    super(props)
+    this.state = { nodes: this.props.data }
+  }
+
 
   getRootNodes = () => {
     const { nodes } = this.state;

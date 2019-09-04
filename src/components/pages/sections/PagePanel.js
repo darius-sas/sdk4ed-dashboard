@@ -22,7 +22,7 @@ export class PagePanel extends React.Component {
     /**
      * The content of this panel.
      */
-    children: PropTypes.element
+    children: PropTypes.arrayOf(PropTypes.element)
   }
 
   render(){
