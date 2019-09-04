@@ -255,7 +255,7 @@ const server = http.createServer((req, res) => {
 		        rows: [
 		            {hotspot: "1st", start: "202", end: "206", ilp: "0", stride0: "0%", ins: "10989", cold: "3.5%", ctrl: "2.4%", mem: "27.8%", int: "2.5%", energygain: "0"},
 		            {hotspot: "2nd", start: "557", end: "562", ilp: "0", stride0: "0%", ins: "7992", cold: "6.6%", ctrl: "1.9%", mem: "27.1%", int: "2.2%", energygain: "0"},
-		            {hotspot: "3rd", start: "601", end: "606", ilp: "0", stride0: "0%", ins: "2997", cold: "6.6%", ctrl: "", mem: "", int: "", energygain: "0"}
+		            {hotspot: "3rd", start: "601", end: "606", ilp: "0", stride0: "0%", ins: "2997", cold: "6.6%", ctrl: "3.1%", mem: "29.4%", int: "3.3%", energygain: "0"}
 		            ]},
         },
 
