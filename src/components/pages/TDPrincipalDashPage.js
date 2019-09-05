@@ -33,7 +33,26 @@ const radarChartOptions = {
     legend: false,
 }
 
-const InterestRadarPanel =  {
+
+
+
+const PrincipalPanel = props => {
+		
+	function normalize(min, max) 
+	{
+		var delta = max - min;
+		return function (val) {
+			return (val - min) / delta;
+		};
+	}
+
+	var numbers = [parseFloat(props.principal.bugs), parseFloat(props.principal.vulnerabilities), parseFloat(props.principal.duplCode), parseFloat(props.principal.codeSmells)];
+
+	console.log(numbers.map(normalize(Math.min(...numbers), Math.max(...numbers))));
+
+	numbers = numbers.map(normalize(Math.min(...numbers), Math.max(...numbers)))
+
+	const PrincipalRadarPanel =  {
         labels: ['Bugs', 'Vulnerabilities', 'Duplicated Lines  Density', 'Code Smells'], 
         datasets: [
             {
@@ -46,13 +65,12 @@ const InterestRadarPanel =  {
                 pointBorderColor: '#c1c7d1',
                 pointHoverBackgroundColor : '#fff',
                 pointHoverBorderColor: 'rgba(84,130,53,1)',
-                data:[0.9805476228578603, 1.0, 0.7897392767031118, 0.28] // data values from prop var are loaded here
+                data: [numbers[0], numbers[1], numbers[2], numbers[3]]
             }
         ]
     }
-
-
-const PrincipalPanel = props => {
+	
+	
    //============== Example code ==============//
     var seriesData = [];
     const options = {
@@ -139,9 +157,9 @@ const PrincipalPanel = props => {
                                 Project
                             </MDBDropdownToggle>
                             <MDBDropdownMenu basic>
-                                <MDBDropdownItem onClick={(param) => props.updateProjectData('Holisun Arassistance')}>Holisun Arassistance</MDBDropdownItem>
-                                <MDBDropdownItem onClick={(param) => props.updateProjectData('MaQuali')}>Holisun MaQuali</MDBDropdownItem>
-                                <MDBDropdownItem onClick={(param) => props.updateProjectData('Neurasmus')}>Neurasmus</MDBDropdownItem>
+                                <MDBDropdownItem onClick={(param) => props.updateProjectData('holisun_arassistance')}>Holisun Arassistance</MDBDropdownItem>
+                                <MDBDropdownItem onClick={(param) => props.updateProjectData('airbus')}>Airbus</MDBDropdownItem>
+                                <MDBDropdownItem onClick={(param) => props.updateProjectData('neurasmus')}>Neurasmus</MDBDropdownItem>
                             </MDBDropdownMenu>
                         </MDBDropdown>
                         <h4 style={{color:'#548235'}}>{props.myprojectName}</h4>
@@ -156,7 +174,7 @@ const PrincipalPanel = props => {
        <MDBCol size="12">
                 <MDBRow className="mb-3">
                   <MDBCol>
-                  <CountCard title="TD IN DAYS"  value={props.principal.tdInDays} icon="clock" />
+                  <CountCard title="TD IN DAYS"  value={props.principal.tdInMinutes} icon="clock" />
                   </MDBCol>
                   <MDBCol>
                   <CountCard title="TD IN CURRENCY" color="#33691e light-green darken-4" value={props.principal.tdInCurrency} icon="money-bill-alt"/>
@@ -164,16 +182,13 @@ const PrincipalPanel = props => {
                   <MDBCol>
                   <CountCard title="BUGS" color="#33691e light-green darken-4" value={props.principal.bugs} icon="bug"/>
                   </MDBCol>
+                   </MDBRow>
+                  <MDBRow className="mb-3">
                   <MDBCol>
                   <CountCard title="VULNERABILITIES" color="#33691e light-green darken-4" value={props.principal.vulnerabilities} icon="lock-open"/>
                   </MDBCol>
-                   </MDBRow>
-                  <MDBRow className="mb-3">
 				  <MDBCol>
                   <CountCard title="CODE SMELLS" color="#33691e light-green darken-4" value={props.principal.codeSmells} icon="compress-arrows-alt"/>
-                  </MDBCol>
-                   <MDBCol>
-                  <CountCard title="COVERAGE (%)" color="#33691e light-green darken-4" value={props.principal.coverage} icon="fire-alt"/>
                   </MDBCol>
                    <MDBCol>
                   <CountCard title="DUPLICATIONS (%)" color="#33691e light-green darken-4" value={props.principal.duplCode} icon="copy"/>
@@ -189,13 +204,18 @@ const PrincipalPanel = props => {
                 <MDBCardHeader className="sdk4ed-color">Principal Indicators</MDBCardHeader>
                 <MDBCardBody>
                     <MDBContainer>
-                        <Radar data={InterestRadarPanel} options={radarChartOptions} />
+                        <Radar data={PrincipalRadarPanel} options={radarChartOptions} />
                     </MDBContainer>
                 </MDBCardBody>
                 </MDBCard>
-            </MDBCol>
-  
+            </MDBCol> 
    </MDBRow>
+   
+          <MDBCol md="12">
+            <BasicTable title="Principal Indicators" data={props.principalArtifacts}/>
+          </MDBCol>
+          
+        
       </PagePanel>
 )}
 
@@ -209,6 +229,16 @@ const FileExplorerPanel = () => {
   )
 }
 
+
+// Function to extract values from json
+function returnValues(data) {
+    var values = []
+    for(var i = 0; i < data.length; i++) {
+        values.push(data[i].eval)
+    }
+    return values
+}
+
 /**
  * The technical debt dashboard page. The page is assembled using multiple panels.
  * The data is retrieved asynchronously.
@@ -218,39 +248,92 @@ class TDPrincipalDashPage extends React.Component {
     super(props);
     
     this.state = {
-      systemSummary: null, // Principal-related summary information
-      interestSummary: null, // Interest-related summary information
-      principalOverTimeChart: null, // Chart for principal over time
-      interestOverTimeChart: null, // Chart for interest over time
-      topViolations: null, // The top violations wrt frequency
-      topViolationsNewCode: null, // The top violations wrt frequency in new code
-      densityComparisonChart: null, // Chart of the density of TD in new and existing code
-      densityOverTimeChart: null // Chart of the density over time
+		isLoading: false,
+		name: '',
+		principalIndicatorsSummary: {},
+		principalIndicators: {},
     }
   }
+  
+	// Update project 
+	updateProjectData = (projectName) => {
+		this.setState({ 
+            isLoading: true,
+        });
+		
+		if(projectName === 'neurasmus'){
+			fetch("http://127.0.0.1:3001")
+			.then(resp => resp.json())
+			.then(resp => {
+				this.setState({
+					isLoading: false,
+					name: resp.neurasmusTD.projectName,
+					principalIndicatorsSummary: resp.neurasmusTD.principalSummary,
+					principalIndicators: resp.neurasmusTD.principalIndicators,
+					principalLineChart: resp.neurasmusTD.lineChartTD,
+				})
+			})
+		}else if(projectName === 'holisun_arassistance'){
+			fetch("http://127.0.0.1:3001")
+			.then(resp => resp.json())
+			.then(resp => {
+				this.setState({
+					isLoading: false,
+					name: resp.holisun_arassistanceTD.projectName,
+					principalIndicatorsSummary: resp.holisun_arassistanceTD.principalSummary,
+					principalIndicators: resp.holisun_arassistanceTD.principalIndicators,
+				})
+			})
+		}else if(projectName === 'airbus'){
+			fetch("http://127.0.0.1:3001")
+			.then(resp => resp.json())
+			.then(resp => {
+				this.setState({
+					isLoading: false,
+					name: resp.airbusTD.projectName,
+					principalIndicatorsSummary: resp.airbusTD.principalSummary,
+					principalIndicators: resp.airbusTD.principalIndicators,
+				})
+			})
+		}
+	}
+  
 
   componentDidMount(){
     fetch("http://127.0.0.1:3001")
     .then(resp => resp.json())
     .then(resp => {
       console.log("Data received")
-      this.setState(resp)
+      this.setState({
+				isLoading: false,
+				name: resp.holisun_arassistanceTD.projectName,
+				principalIndicatorsSummary: resp.holisun_arassistanceTD.principalSummary,
+				principalIndicators: resp.holisun_arassistanceTD.principalIndicators,
+			})
     })
   }
 
   render(){
-    if(this.state.systemSummary == null){
+	  		const { isLoading, name, principalIndicatorsSummary, principalIndicators } = this.state
+
+	  
+    if(this.isLoading){
       return (<Loader/>)
     }else{
       return(
           <React.Fragment>
             <MDBRow>
+            {/*
               <MDBCol size="2">
               <FileExplorerPanel/>
-              </MDBCol>
+              </MDBCol>*/}
               <MDBCol>
-              <PrincipalPanel mysummary={this.state.systemSummary} 
-                              principal={this.state.principalSummary}/>
+              <PrincipalPanel 
+					   myprojectName = {name}
+                       updateProjectData={this.updateProjectData} 
+                       principal = {principalIndicatorsSummary}
+                       principalArtifacts = {principalIndicators}
+               />
               
               </MDBCol>
               </MDBRow>
