@@ -14,6 +14,9 @@ import { MDBCard, MDBCardBody, MDBCardHeader, MDBContainer, MDBDropdown, MDBDrop
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 
+
+// SELECT sum(principal), sum(interest) FROM `analyjed_jar_project_classes` WHERE project_name='Holisun Arassistance' GROUP by version
+
 // Styling options for RadarChart - Edit only for styling modifications 
 const radarChartOptions = {
     scale: {
@@ -29,9 +32,11 @@ const radarChartOptions = {
     responsive: true,
     legend: false,
 }
-// Change the values 
-const InterestRadarPanel =  {
-        labels: ['MPC', 'DIT', 'NOCC', 'RFC', 'LCOM', 'WMPC', 'DAC', 'NOM', 'SIZE1', 'SIZE2'], 
+
+const InterestPanel = props => {
+	
+	const InterestRadarPanel =  {
+        labels: ['MPC', 'DIT', 'NOCC', 'RFC', 'LCOM', 'WMPC', 'DAC', 'CC', 'LOC', 'NoF', 'CD'], 
         datasets: [
             {
                 label: 'Interest Indicators',
@@ -43,15 +48,40 @@ const InterestRadarPanel =  {
                 pointBorderColor: '#c1c7d1',
                 pointHoverBackgroundColor : '#fff',
                 pointHoverBorderColor: 'rgba(84,130,53,1)',
-                data:[0.9805476228578603, 1.0, 0.7897392767031118, 0.28, 0.30952380952380953, 1.0, 0.7411386145858887, 0.9220016554845056, 0.5198202773272929, 0.45591192971313643] // data values from prop var are loaded here
+                data:[0.7, 0.9805476228578603, 1.0, 0.7897392767031118, 0.28, 0.30952380952380953, 1.0, 0.7411386145858887, 0.9220016554845056, 0.5198202773272929, 0.45591192971313643] // data values from prop var are loaded here
             }
         ]
     }
-
-
-const InterestPanel = props => {
+	
+	
   //============== Example code ==============//
-    var seriesData = [];
+
+	var interestLine = String(props.myinterestLineChart.values); //string typeof
+	
+	var principalLine = String(props.myprincipalLineChart.values);
+	
+	var breakPointlLine = String(props.myprincipalLineChart.values);
+
+	var cumulativeInterestLine = String(props.myprincipalLineChart.values);
+	
+	var i = interestLine.split(',');
+	var j = principalLine.split(',');
+	var k = breakPointlLine.split(',');
+	var l = cumulativeInterestLine.split(',');
+
+	var interValues = [];
+	var princValues = [];
+	var breakpointValues = [];
+	var cumInterValues = [];
+	
+	for (var ii=0; ii < i.length; ii++)
+	{
+		interValues.push(parseFloat(i[ii]));
+		princValues.push(parseFloat(j[ii]));
+		breakpointValues.push(parseFloat(k[ii]));
+		cumInterValues.push(parseFloat(l[ii]));
+	}
+	
     const options = {
         chart: {
         polar: true,
@@ -91,19 +121,19 @@ const InterestPanel = props => {
 
     series: [{
         name: 'Interest',
-        data: [500, 190, 600, 350, 372, 424, 819, 233, 414, 245],
+        data: [interValues[0], interValues[1], interValues[2], interValues[3], interValues[4], interValues[5]],
         pointPlacement: 'on'
     }, {
         name: 'Principal',
-        data: [230, 243, 231, 242, 424, 245, 525, 384, 839, 493],
+        data: [princValues[0], princValues[1], princValues[2], princValues[3], princValues[4],princValues[5]],
         pointPlacement: 'on'
     }, {
         name: 'Breaking Point',
-        data: [235, 542, 234, 224, 876, 234, 493, 583, 205, 295],
+        data: [breakpointValues[0],breakpointValues[1], breakpointValues[2], breakpointValues[3], breakpointValues[4], breakpointValues[5], breakpointValues[6],breakpointValues[7]],
         pointPlacement: 'on'
     }, {
         name: 'Cumulative Interest',
-        data: [378, 829, 829, 940, 998, 483, 443, 593, 493, 583],
+        data: [cumInterValues[0], cumInterValues[1], cumInterValues[2], cumInterValues[3], cumInterValues[4], cumInterValues[5], cumInterValues[6], cumInterValues[7]],
         pointPlacement: 'on'
     }],
 
@@ -125,65 +155,7 @@ const InterestPanel = props => {
     }
 
     }
-    
-    const radarChartOptions={		
-		chart: {
-        polar: true
-    },
 
-    title: {
-        text: 'Highcharts Polar Chart'
-    },
-
-    subtitle: {
-        text: 'Also known as Radar Chart'
-    },
-
-    pane: {
-        startAngle: 0,
-        endAngle: 360
-    },
-
-    xAxis: {
-        tickInterval: 45,
-        min: 0,
-        max: 360,
-        labels: {
-            format: '{value}°'
-        }
-    },
-
-    yAxis: {
-        min: 0
-    },
-
-    plotOptions: {
-        series: {
-            pointStart: 0,
-            pointInterval: 45
-        },
-        column: {
-            pointPadding: 0,
-            groupPadding: 0
-        }
-    },
-
-    series: [{
-        type: 'column',
-        name: 'Column',
-        data: [8, 7, 6, 5, 4, 3, 2, 1],
-        pointPlacement: 'between'
-    }, {
-        type: 'line',
-        name: 'Line',
-        data: [1, 2, 3, 4, 5, 6, 7, 8]
-    }, {
-        type: 'area',
-        name: 'Area',
-        data: [1, 8, 2, 7, 3, 6, 4, 5]
-    }]
-		
-	}
        
     //=========================================//	
 	
@@ -203,9 +175,9 @@ const InterestPanel = props => {
                                 Project
                             </MDBDropdownToggle>
                             <MDBDropdownMenu basic>
-                                <MDBDropdownItem onClick={(param) => props.updateProjectData('Holisun Arassistance')}>Holisun Arassistance</MDBDropdownItem>
-                                <MDBDropdownItem onClick={(param) => props.updateProjectData('MaQuali')}>Holisun MaQuali</MDBDropdownItem>
-                                <MDBDropdownItem onClick={(param) => props.updateProjectData('Neurasmus')}>Neurasmus</MDBDropdownItem>
+                                <MDBDropdownItem onClick={(param) => props.updateProjectData('holisun_arassistance')}>Holisun Arassistance</MDBDropdownItem>
+                                <MDBDropdownItem onClick={(param) => props.updateProjectData('airbus')}>Airbus</MDBDropdownItem>
+                                <MDBDropdownItem onClick={(param) => props.updateProjectData('neurasmus')}>Neurasmus</MDBDropdownItem>
                             </MDBDropdownMenu>
                         </MDBDropdown>
                         <h4 style={{color:'#548235'}}>{props.myprojectName}</h4>
@@ -237,43 +209,41 @@ const InterestPanel = props => {
                   <MDBCol>
                   <CountCard title="TOTAL INTEREST ($)" color="#33691e light-green darken-4" value={props.interest.totalInterest} icon="dollar-sign"/>
                   </MDBCol>
-                  <MDBCol>
-                  <CountCard title="MAINTAINABILITY RANKING (%)" color="#33691e light-green darken-4" value="10" icon="percent"/>
+                    <MDBCol>
+                  <CountCard title="INTEREST PROBABILITY (%)" color="#33691e light-green darken-4" value={props.interest.interestProbability} icon="percent"/>
                   </MDBCol>
                    </MDBRow>
                   <MDBRow className="mb-3">
 				  <MDBCol>
-                  <CountCard title="INTEREST PROBABILITY (%)" color="#33691e light-green darken-4" value={props.interest.interestProbability} icon="percent"/>
+                  <CountCard title="MAINTAINABILITY RANKING (%)" color="#33691e light-green darken-4" value="-" icon="trophy"/>
                   </MDBCol>
                    <MDBCol>
-                  <CountCard title="INSTABILITY (%)" color="#33691e light-green darken-4" value="25" icon="balance-scale"/>
-                  </MDBCol>
-                   <MDBCol>
-                  <CountCard title="INTEREST PROBABILITY RANKING (%)"  color="#33691e light-green darken-4" value="40" icon="percent"/>
+                  <CountCard title="INTEREST PROBABILITY RANKING (%)"  color="#33691e light-green darken-4" value="-" icon="trophy"/>
                   </MDBCol>
                 </MDBRow>
           </MDBCol>
-          
-           <MDBCol size="6" mr="1">
-            <BasicTable title="Interest Indicators" data={props.violations}/>
-          </MDBCol>
-          
-          
-          
-
-            <MDBCol md="12" lg="6" className="mb-12">
+           </MDBRow>
+           
+            <MDBCol md="12" lg="qw" className="mb-12">
                 <MDBCard className="mb-6">
                 <MDBCardHeader className="sdk4ed-color">Interest Indicators</MDBCardHeader>
                 <MDBCardBody>
                     <MDBContainer>
-                        <Radar data={InterestRadarPanel} options={radarChartOptions} />
+                        <Radar data={InterestRadarPanel} />
                     </MDBContainer>
                 </MDBCardBody>
                 </MDBCard>
             </MDBCol>
+            
+            
+		<MDBRow className="mb-12">
+           <MDBCol size="12" mr="1">
+            <BasicTable title="Interest Indicators" data={props.interestArtifacts}/>
+          </MDBCol>
+          </MDBRow>
 
   
-      </MDBRow>
+     
   </PagePanel>
   )
 }
@@ -296,39 +266,119 @@ class TDInterestDashPage extends React.Component {
     super(props);
     
     this.state = {
-      systemSummary: null, // Principal-related summary information
-      interestSummary: null, // Interest-related summary information
-      principalOverTimeChart: null, // Chart for principal over time
-      interestOverTimeChart: null, // Chart for interest over time
-      topViolations: null, // The top violations wrt frequency
-      topViolationsNewCode: null, // The top violations wrt frequency in new code
-      densityComparisonChart: null, // Chart of the density of TD in new and existing code
-      densityOverTimeChart: null // Chart of the density over time
+		isLoading: false,
+		name: '',
+		interestIndicatorsSummary: {},
+		interestIndicators: {},
+		interestLineChart: {},
+		principalLineChart: {},
+		breakingPointLineChart: {},
+		cumulativeInterestLineChart: {},
     }
   }
+  
+  
+ // Update project 
+	updateProjectData = (projectName) => {
+		this.setState({ 
+            isLoading: true,
+        });
+		
+		if(projectName === 'neurasmus'){
+			fetch("http://127.0.0.1:3001")
+			.then(resp => resp.json())
+			.then(resp => {
+				this.setState({
+					isLoading: false,
+					name: resp.neurasmusTD.projectName,
+					interestIndicatorsSummary: resp.neurasmusTD.interestSummary,
+					interestIndicators: resp.neurasmusTD.interestIndicators,
+					
+					interestLineChart: resp.neurasmusTD.lineChartInterestTD,
+					principalLineChart: resp.neurasmusTD.lineChartPrincipalTD,
+					breakingPointLineChart: resp.neurasmusTD.lineChartBreakingPointTD,
+					cumulativeInterestLineChart: resp.neurasmusTD.lineChartCumulativeInterestTD,
+				})
+			})
+		}else if(projectName === 'holisun_arassistance'){
+			fetch("http://127.0.0.1:3001")
+			.then(resp => resp.json())
+			.then(resp => {
+				this.setState({
+					isLoading: false,
+					name: resp.holisun_arassistanceTD.projectName,
+					interestIndicatorsSummary: resp.holisun_arassistanceTD.interestSummary,
+					interestIndicators: resp.holisun_arassistanceTD.interestIndicators,
+					
+					interestLineChart: resp.holisun_arassistanceTD.lineChartInterestTD,
+					principalLineChart: resp.holisun_arassistanceTD.lineChartPrincipalTD,
+					breakingPointLineChart: resp.holisun_arassistanceTD.lineChartBreakingPointTD,
+					cumulativeInterestLineChart: resp.holisun_arassistanceTD.lineChartCumulativeInterestTD,
+				})
+			})
+		}else if(projectName === 'airbus'){
+			fetch("http://127.0.0.1:3001")
+			.then(resp => resp.json())
+			.then(resp => {
+				this.setState({
+					isLoading: false,
+					name: resp.airbusTD.projectName,
+					interestIndicatorsSummary: resp.airbusTD.interestSummary,
+					interestIndicators: resp.airbusTD.interestIndicators,
+					
+					interestLineChart: resp.airbusTD.lineChartInterestTD,
+					principalLineChart: resp.airbusTD.lineChartPrincipalTD,
+					breakingPointLineChart: resp.airbusTD.lineChartBreakingPointTD,
+					cumulativeInterestLineChart: resp.airbusTD.lineChartCumulativeInterestTD,
+				})
+			})
+		}
+	}
+  
 
   componentDidMount(){
     fetch("http://127.0.0.1:3001")
     .then(resp => resp.json())
     .then(resp => {
       console.log("Data received")
-      this.setState(resp)
+		this.setState({
+				isLoading: false,
+				name: resp.holisun_arassistanceTD.projectName,
+				interestIndicatorsSummary: resp.holisun_arassistanceTD.interestSummary,
+				interestIndicators: resp.holisun_arassistanceTD.interestIndicators,
+				
+				interestLineChart: resp.holisun_arassistanceTD.lineChartInterestTD,
+				principalLineChart: resp.holisun_arassistanceTD.lineChartPrincipalTD,
+				breakingPointLineChart: resp.holisun_arassistanceTD.lineChartBreakingPointTD,
+				cumulativeInterestLineChart: resp.holisun_arassistanceTD.lineChartCumulativeInterestTD,
+			})
     })
   }
 
   render(){
-    if(this.state.systemSummary == null){
+	  	  const { isLoading, name, interestIndicatorsSummary, interestIndicators, interestLineChart, principalLineChart, breakingPointLineChart, cumulativeInterestLineChart} = this.state
+	  
+     if(this.isLoading){
       return (<Loader/>)
     }else{
       return(
           <React.Fragment>
             <MDBRow>
+            {/*
               <MDBCol size="2">
               <FileExplorerPanel/>
-              </MDBCol>
-              <MDBCol>
-              <InterestPanel violations={this.state.topViolations} 
-                            interest={this.state.interestSummary}/>
+              </MDBCol>*/}
+              <MDBCol> 
+              <InterestPanel 			
+					myprojectName = {name}
+					updateProjectData={this.updateProjectData} 
+					interest = {interestIndicatorsSummary}
+					interestArtifacts = {interestIndicators}
+					myinterestLineChart={interestLineChart}
+					myprincipalLineChart = {principalLineChart}
+					mybreakingpointLineChart = {breakingPointLineChart}
+					mycumulativeInterestLineChart = {cumulativeInterestLineChart}
+               />
               </MDBCol>
               </MDBRow>
             </React.Fragment>
