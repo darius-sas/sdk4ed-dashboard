@@ -8,6 +8,7 @@ import Loader from './sections/Loading'
 import FileExplorer from './sections/FileExplorer';
 import ContentPanel from './sections/ContentPanel';
 import { MDBCard, MDBCardBody, MDBCardHeader, MDBContainer, MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem, MDBFormInline, } from 'mdbreact';
+import { parseSonarqubeFiles } from './sections/Tree';
 
 
 const projects = ["neurasmus8", "maquali13", "arassistance4"]
@@ -161,7 +162,6 @@ class TDPrincipalDashPage extends React.Component {
     fetch(link, { headers: {"Accept": "*/*"}})
       .then(resp => resp.json())
       .then(data => {
-        console.log("Data fetched successfully")
         data = data.baseComponent.measures
         const getMetricValue = (data, name) => data.filter((data)=> data.metric == name)[0].value;
         const principalSummary = {
@@ -187,38 +187,7 @@ class TDPrincipalDashPage extends React.Component {
     fetch(linkDirs)
       .then(resp => resp.json())
       .then(data => {
-        const projectNodes = {}
-        data.components.forEach(el => {
-          projectNodes[el.path] = {
-            path: el.path,
-            type: el.qualifier === "DIR" ? "folder" : "file",
-            children: []
-          }
-        });
-        // Parse SQ's files into nodes structure
-        const nodeKeys = Object.keys(projectNodes);
-        for (let i = 0; i < nodeKeys.length; i++) {
-          const parent = projectNodes[nodeKeys[i]];
-          if(parent.type === "file"){
-            continue
-          }
-          for (let j = 0; j < nodeKeys.length; j++) {
-            const children = projectNodes[nodeKeys[j]];
-            if(nodeKeys[i] === nodeKeys[j]){
-                continue;
-            }
-            if(children.path.startsWith(parent.path)){
-              let substr = children.path.substring(children.path.lastIndexOf("/"))
-              if(children.path === (parent.path + substr)){
-                parent.children.push(children.path)
-              }
-            }
-          }
-          if(!parent.path.includes("/")){
-            parent["isRoot"] = true;
-            parent["isOpen"] = true
-          }
-        }
+        const projectNodes = parseSonarqubeFiles(data)  
         this.setState({projectNodes})
       })
     }
@@ -230,9 +199,9 @@ class TDPrincipalDashPage extends React.Component {
       return(
           <React.Fragment>
             <MDBRow>
-              <MDBCol size="2">
+              <MDBCol size="3">
               <ContentPanel title="Project explorer">
-                  <FileExplorer data={this.state.projectNodes}></FileExplorer>
+                  <FileExplorer onFetchData={() => {return this.state.projectNodes} }></FileExplorer>
               </ContentPanel>
               </MDBCol>
               <MDBCol>

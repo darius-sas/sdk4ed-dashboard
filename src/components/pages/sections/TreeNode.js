@@ -13,7 +13,7 @@ const getPaddingLeft = (level, type) => {
 const StyledTreeNode = styled.div`
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: center; 
   padding: 5px 8px;
   padding-left: ${props => getPaddingLeft(props.level, props.type)}px;
 
@@ -27,7 +27,7 @@ const NodeIcon = styled.div`
   margin-right: ${props => props.marginRight ? props.marginRight : 5}px;
 `;
 
-const getNodeLabel = (node) => last(node.path.split('/'));
+const getNodeLabel = (node) => node.name;
 
 const TreeNode = (props) => {
   const { node, getChildNodes, level, onToggle, onNodeSelect } = props;

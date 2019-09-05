@@ -5,7 +5,7 @@ import Tree from './Tree';
 /* Code from https://medium.com/@davidtranwd/implement-tree-view-component-with-reactjs-and-styled-components-5eea3b1603cf */
 
 const StyledFileExplorer = styled.div`
-  width: 800px;
+  overflow-y: scroll;
   max-width: 100%;
   margin: 0 auto;
   display: flex;  
@@ -25,15 +25,14 @@ export default class FileExplorer extends Component {
     selectedFile: null,
   };
 
-  onSelect = (file) => this.setState({ selectedFile: file });
+  onSelect = (file) => {this.setState({ selectedFile: file })};
 
   render() {
     const { selectedFile } = this.state;
-    console.log(this.props.data)
     return (
       <StyledFileExplorer>
         <TreeWrapper>
-          <Tree onSelect={this.onSelect} data = {this.props.data}/>
+          <Tree onSelect={this.onSelect} onFetchData={this.props.onFetchData}/>
         </TreeWrapper>
         <div>
           { selectedFile && selectedFile.type === 'file' && selectedFile.content }
