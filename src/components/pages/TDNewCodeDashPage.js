@@ -95,9 +95,9 @@ const NewCodePanel = props =>{
                                 Project
                             </MDBDropdownToggle>
                             <MDBDropdownMenu basic>
-                                <MDBDropdownItem onClick={(param) => props.updateProjectData('Holisun Arassistance')}>Holisun Arassistance</MDBDropdownItem>
-                                <MDBDropdownItem onClick={(param) => props.updateProjectData('MaQuali')}>Holisun MaQuali</MDBDropdownItem>
-                                <MDBDropdownItem onClick={(param) => props.updateProjectData('Neurasmus')}>Neurasmus</MDBDropdownItem>
+                                <MDBDropdownItem onClick={(param) => props.updateProjectData('holisun_arassistance')}>Holisun Arassistance</MDBDropdownItem>
+                                <MDBDropdownItem onClick={(param) => props.updateProjectData('airbus')}>Airbus</MDBDropdownItem>
+                                <MDBDropdownItem onClick={(param) => props.updateProjectData('neurasmus')}>Neurasmus</MDBDropdownItem>
                             </MDBDropdownMenu>
                         </MDBDropdown>
                         <h4 style={{color:'#548235'}}>{props.myprojectName}</h4>
@@ -178,9 +178,10 @@ class TDNewCodeDashPage extends React.Component {
       return(
           <React.Fragment>
             <MDBRow>
+            {/*
               <MDBCol size="2">
               <FileExplorerPanel/>
-              </MDBCol>
+              </MDBCol>*/}
               <MDBCol>
               <NewCodePanel violations={this.state.topViolationsNewCode}
                             densitycomparison={this.state.densityComparisonChart}
