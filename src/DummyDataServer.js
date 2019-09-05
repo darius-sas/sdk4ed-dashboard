@@ -143,13 +143,13 @@ const server = http.createServer((req, res) => {
 					{name:'Neurasmus/imd-emulator/resources/mdcode_v1.3/misty1.h', tdInMinutes: 120, tdInCurrency: 91.61, bugs: 0, vulnerabilities: 0 , codeSmells: 23,  duplCode: 0.00 }, ]
 		          },
 		          
-		   	lineChartInterestTD: {values: [500, 190, 600, 350, 372, 424, 819, 233]}, 
+		   	lineChartInterestTD: {values: [965.441, 56.982, 29.874, 557.914, 58.697, 69.202, 62.015, 62.764, 55.029]}, 
 		     
-			lineChartPrincipalTD: {values: [230, 243, 231, 242, 424, 245, 525, 384]}, 
+			lineChartPrincipalTD: {values: [3150.201, 3295.266, 3371.616, 6598.166, 4336.68, 4645.134, 4516.866, 5260.514, 5321.595]}, 
 		     
-			lineChartBreakingPointTD: {values: [235, 542, 234, 224, 876, 234, 493, 583]},
+			lineChartBreakingPointTD: {values: [3.2629, 57.8299, 112.8612, 11.8264, 73.8824, 67.1242, 72.8350, 83.8141, 96.7052]},
 		     
-			lineChartCumulativeInterestTD: {values: [378, 829, 829, 940, 998, 483, 443, 593]},       
+			lineChartCumulativeInterestTD: {values: [965.441, 1022.423, 1052.297, 1610.211, 1668.908, 1738.11, 1800.125, 1862.889, 1917.918]},       
 		          
 					
         },     
@@ -277,13 +277,13 @@ const server = http.createServer((req, res) => {
 				},
 					
 					
-			lineChartInterestTD: {values: [500, 190, 600, 350, 372, 424, 819, 233]}, 
+			lineChartInterestTD: {values: [8440.584, 1686.407, 446.951, 390.905, 516.374]}, 
 		     
-			lineChartPrincipalTD: {values: [230, 243, 231, 242, 424, 245, 525, 384]}, 
+			lineChartPrincipalTD: {values: [6022.488, 7237.98, 7384.572, 7781.591, 8331.312]}, 
 		     
-			lineChartBreakingPointTD: {values: [235, 542, 234, 224, 876, 234, 493, 583]},
+			lineChartBreakingPointTD: {values: [0.7135, 4.2919, 16.5221, 19.9066, 16.1342]},
 		     
-			lineChartCumulativeInterestTD: {values: [378, 829, 829, 940, 998, 483, 443, 593]},
+			lineChartCumulativeInterestTD: {values: [8440.584, 10126.991, 10573.942, 10964.847, 11481.221]},
 					
         },   
   
@@ -367,13 +367,13 @@ const server = http.createServer((req, res) => {
 					]
 		          },
 		          
-		    lineChartInterestTD: {values: [500, 190, 600, 350, 372, 424, 819, 233]}, 
+		    lineChartInterestTD: {values: [104176.913, 0.5, 418032.206]}, 
 		     
-			lineChartPrincipalTD: {values: [230, 243, 231, 242, 424, 245, 525, 384]}, 
+			lineChartPrincipalTD: {values: [116264.253, 116264.253, 697525.965]}, 
 		     
-			lineChartBreakingPointTD: {values: [235, 542, 234, 224, 876, 234, 493, 583]},
+			lineChartBreakingPointTD: {values: [1.1160, 232528.506, 1.6685]},
 		     
-			lineChartCumulativeInterestTD: {values: [378, 829, 829, 940, 998, 483, 443, 593]},
+			lineChartCumulativeInterestTD: {values: [104176.913, 104177.413, 522209.619]},
 						  
     			
         },
