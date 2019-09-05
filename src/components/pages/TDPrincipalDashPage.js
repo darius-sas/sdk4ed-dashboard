@@ -65,7 +65,7 @@ const PrincipalPanel = props => {
                 pointBorderColor: '#c1c7d1',
                 pointHoverBackgroundColor : '#fff',
                 pointHoverBorderColor: 'rgba(84,130,53,1)',
-                data: [numbers[0], numbers[1], numbers[2], numbers[3]]
+                data: numbers
             }
         ]
     }
