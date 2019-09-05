@@ -55,14 +55,15 @@ const InterestPanel = props => {
 	
 	
   //============== Example code ==============//
-
+  
+ {/* 
 	var interestLine = String(props.myinterestLineChart.values); //string typeof
 	
 	var principalLine = String(props.myprincipalLineChart.values);
 	
-	var breakPointlLine = String(props.myprincipalLineChart.values);
+	var breakPointlLine = String(props.mybreakingpointLineChart.values);
 
-	var cumulativeInterestLine = String(props.myprincipalLineChart.values);
+	var cumulativeInterestLine = String(props.mycumulativeInterestLineChart.values);
 	
 	var i = interestLine.split(',');
 	var j = principalLine.split(',');
@@ -74,13 +75,16 @@ const InterestPanel = props => {
 	var breakpointValues = [];
 	var cumInterValues = [];
 	
-	for (var ii=0; ii < i.length; ii++)
+	for (var index=0; index < i.length; index++)
 	{
-		interValues.push(parseFloat(i[ii]));
-		princValues.push(parseFloat(j[ii]));
-		breakpointValues.push(parseFloat(k[ii]));
-		cumInterValues.push(parseFloat(l[ii]));
+		interValues.push(parseFloat(i[index]));
+		princValues.push(parseFloat(j[index]));
+		breakpointValues.push(parseFloat(k[index]));
+		cumInterValues.push(parseFloat(l[index]));
 	}
+	* 
+	* 
+	* */}
 	
     const options = {
         chart: {
@@ -121,19 +125,19 @@ const InterestPanel = props => {
 
     series: [{
         name: 'Interest',
-        data: [interValues[0], interValues[1], interValues[2], interValues[3], interValues[4], interValues[5]],
+        data: props.myinterestLineChart.values,
         pointPlacement: 'on'
     }, {
         name: 'Principal',
-        data: [princValues[0], princValues[1], princValues[2], princValues[3], princValues[4],princValues[5]],
+        data: props.myprincipalLineChart.values,
         pointPlacement: 'on'
     }, {
         name: 'Breaking Point',
-        data: [breakpointValues[0],breakpointValues[1], breakpointValues[2], breakpointValues[3], breakpointValues[4], breakpointValues[5], breakpointValues[6],breakpointValues[7]],
+        data: props.mybreakingpointLineChart.values,
         pointPlacement: 'on'
     }, {
         name: 'Cumulative Interest',
-        data: [cumInterValues[0], cumInterValues[1], cumInterValues[2], cumInterValues[3], cumInterValues[4], cumInterValues[5], cumInterValues[6], cumInterValues[7]],
+        data: props.mycumulativeInterestLineChart.values,
         pointPlacement: 'on'
     }],
 
