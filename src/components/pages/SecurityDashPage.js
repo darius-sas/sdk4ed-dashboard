@@ -254,7 +254,7 @@ const SecurityIndexPanel = props => {
  
     // code to render stars
     var mysecurityIndexStars = 0
-    if (props.mysecurityIndexScorel > 0.8) {
+    if (props.mysecurityIndexScore > 0.8) {
         mysecurityIndexStars = 5
     } else if (props.mysecurityIndexScore > 0.6) {
         mysecurityIndexStars = 4
