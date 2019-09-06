@@ -25,7 +25,7 @@ const NewCodePanel = props =>{
         text: 'Technical Debt Evolution over time'
     },
     xAxis: {
-        categories: ['Version 1', 'Version 2', 'Version 3', 'Version 4', 'Version 5']
+        categories: ['Transition 1', 'Transition 2', 'Transition 3', 'Transition 4']
     },
     yAxis: {
         min: 0,
