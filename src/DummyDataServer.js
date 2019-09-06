@@ -593,9 +593,9 @@ const server = http.createServer((req, res) => {
 
         topViolationsNewCode:top5violations,   
         
-        newCodeLineChartTD: {data: [5.8, 3, 4, 7, 2] },
+        newCodeLineChartTD: {data: [5.8, 3, 4, 7]},
         
-        newCodeLineChartNC: {data: [3.5, 2, 3, 2, 1]},  
+        newCodeLineChartNC: {data: [3.5, 2, 3, 2]},  
     }
 
   res.statusCode = 200;
