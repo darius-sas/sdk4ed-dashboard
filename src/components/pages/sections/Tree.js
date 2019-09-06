@@ -24,11 +24,10 @@ export default class Tree extends Component {
 
   onToggle = (node) => {
     const {nodes} = this.state
+    console.log(node)
     nodes[node.path].isOpen = !node.isOpen
     let n = node
-    while(nodes[n.path].children.length == 1 && nodes[n.children[0]].type === "folder"){
-      console.log("In onToggle")
-      console.log(n)
+    while(nodes[n.path].children.length === 1 && nodes[n.children[0]].type === "folder"){
       nodes[n.children[0]].isOpen = true
       n = nodes[n.children[0]]
     }
@@ -41,15 +40,12 @@ export default class Tree extends Component {
   }
 
   render() {
-    console.log("In Tree render")
-    console.log(this.props.onFetchData())
     this.state = {nodes : this.props.onFetchData()};
     const rootNodes = this.getRootNodes();
-    console.log(rootNodes)
     return (
       <div>
-        { rootNodes.map(node => (
-          <TreeNode 
+        { rootNodes.map((node, index) => (
+          <TreeNode index={index}
             node={node}
             getChildNodes={this.getChildNodes}
             onToggle={this.onToggle}
@@ -144,18 +140,19 @@ class DirectoryNode{
   }
 
   isFile(){
-      return this.name.includes(".") && this.children.length == 0
+      return this.name.includes(".") && this.children.length === 0
   }
 
   toTreeView(){
-      return {           
-          path: this.toString(),
-          name: this.name,
-          type: !this.isFile() ? "folder" : "file",
-          children: this.children.map(n => n.toString()),
-          isRoot: this.isRoot,
-          isOpen: this.isOpen
-      }
+    let path = this.toString()
+    return {           
+        path: path,
+        name: this.name,
+        type: !this.isFile() ? "folder" : "file",
+        children: this.children.map(n => n.toString()),
+        isRoot: this.isRoot,
+        isOpen: this.isOpen
+    }
   }
 
   static compare(a, b){

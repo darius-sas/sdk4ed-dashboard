@@ -30,11 +30,10 @@ const NodeIcon = styled.div`
 const getNodeLabel = (node) => node.name;
 
 const TreeNode = (props) => {
-  const { node, getChildNodes, level, onToggle, onNodeSelect } = props;
-
+  const { node, getChildNodes, level, onToggle, onNodeSelect, index } = props;
   return (
     <React.Fragment>
-      <StyledTreeNode level={level} type={node.type}>
+      <StyledTreeNode level={level} type={node.type} key={index}>
         <NodeIcon onClick={() => onToggle(node)}>
           { node.type === 'folder' && (node.isOpen ? <FaChevronDown /> : <FaChevronRight />) }
         </NodeIcon>
@@ -51,9 +50,10 @@ const TreeNode = (props) => {
         </span>
       </StyledTreeNode>
 
-      { node.isOpen && getChildNodes(node).map(childNode => (
-        <TreeNode 
+      { node.isOpen && getChildNodes(node).map((childNode, newIndex) => (
+        <TreeNode
           {...props}
+          key={index + "" + newIndex}
           node={childNode}          
           level={level + 1}
         />
