@@ -15,11 +15,11 @@ const ProjectOverviewSection = () => {
                                     <div className="data">
                                         <p>TECHNICAL DEBT PRINCIPAL</p>
                                         <h4>
-                                            <strong>$2000</strong>
+                                            <strong>$2082.82</strong>
                                         </h4>
                                         <p>TECHNICAL DEBT INTEREST</p>
                                         <h4>
-                                            <strong>$2000</strong>
+                                            <strong>$615.03</strong>
                                         </h4>
                                     </div>
                                 </div>
@@ -124,11 +124,11 @@ const ProjectOverviewSection = () => {
                                     <div className="data">
                                         <p>TECHNICAL DEBT PRINCIPAL</p>
                                         <h4>
-                                            <strong>$2000</strong>
+                                            <strong>$6955.82</strong>
                                         </h4>
                                         <p>TECHNICAL DEBT INTEREST</p>
                                         <h4>
-                                            <strong>$2000</strong>
+                                            <strong>$711.48</strong>
                                         </h4>
                                     </div>
                                 </div>
@@ -232,11 +232,11 @@ const ProjectOverviewSection = () => {
                                     <div className="data">
                                         <p>TECHNICAL DEBT PRINCIPAL</p>
                                         <h4>
-                                            <strong>$2000</strong>
+                                            <strong>$3732.74</strong>
                                         </h4>
                                         <p>TECHNICAL DEBT INTEREST</p>
                                         <h4>
-                                            <strong>$2000</strong>
+                                            <strong>$473.3</strong>
                                         </h4>
                                     </div>
                                 </div>
