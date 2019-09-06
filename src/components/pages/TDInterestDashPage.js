@@ -35,8 +35,28 @@ const radarChartOptions = {
 
 const InterestPanel = props => {
 	
+	function normalize(min, max) 
+	{
+		var delta = max - min;
+		return function (val) {
+			return (val - min) / delta;
+		};
+	}
+
+	{/*
+	var values = parseFloat(props.radarChartVal.values);
+	
+	console.log("Before normalize: " + values);
+
+	console.log(values.map(normalize(Math.min(...values), Math.max(...values))));
+
+	values = values.map(normalize(Math.min(...values), Math.max(...values)))
+
+	console.log("After normalize: " +values);
+	
+	*/}
 	const InterestRadarPanel =  {
-        labels: ['MPC', 'DIT', 'NOCC', 'RFC', 'LCOM', 'WMPC', 'DAC', 'CC', 'LOC', 'NoF', 'CD'], 
+        labels: props.radarChartLab.values, 
         datasets: [
             {
                 label: 'Interest Indicators',
@@ -48,7 +68,7 @@ const InterestPanel = props => {
                 pointBorderColor: '#c1c7d1',
                 pointHoverBackgroundColor : '#fff',
                 pointHoverBorderColor: 'rgba(84,130,53,1)',
-                data:[0.7, 0.9805476228578603, 1.0, 0.7897392767031118, 0.28, 0.30952380952380953, 1.0, 0.7411386145858887, 0.9220016554845056, 0.5198202773272929, 0.45591192971313643] // data values from prop var are loaded here
+                data: props.radarChartVal.values
             }
         ]
     }
@@ -126,19 +146,23 @@ const InterestPanel = props => {
     series: [{
         name: 'Interest',
         data: props.myinterestLineChart.values,
-        pointPlacement: 'on'
+        pointPlacement: 'on',
+        color: "#C70039",
     }, {
         name: 'Principal',
         data: props.myprincipalLineChart.values,
-        pointPlacement: 'on'
+        pointPlacement: 'on',
+        color: "#3AC5E7",
     }, {
         name: 'Breaking Point',
         data: props.mybreakingpointLineChart.values,
-        pointPlacement: 'on'
+        pointPlacement: 'on',
+        color: "#278649",
     }, {
         name: 'Cumulative Interest',
         data: props.mycumulativeInterestLineChart.values,
-        pointPlacement: 'on'
+        pointPlacement: 'on',
+        color: "#F65E17",
     }],
 
     responsive: {
@@ -219,10 +243,10 @@ const InterestPanel = props => {
                    </MDBRow>
                   <MDBRow className="mb-3">
 				  <MDBCol>
-                  <CountCard title="MAINTAINABILITY RANKING (%)" color="#33691e light-green darken-4" value="-" icon="trophy"/>
+                  <CountCard title="MAINTAINABILITY RANKING (%)" color="#33691e light-green darken-4" value={props.interest.maintainabilityRank}icon="trophy"/>
                   </MDBCol>
                    <MDBCol>
-                  <CountCard title="INTEREST PROBABILITY RANKING (%)"  color="#33691e light-green darken-4" value="-" icon="trophy"/>
+                  <CountCard title="INTEREST PROBABILITY RANKING (%)"  color="#33691e light-green darken-4" value={props.interest.interestProbabilityRank} icon="trophy"/>
                   </MDBCol>
                 </MDBRow>
           </MDBCol>
@@ -241,11 +265,10 @@ const InterestPanel = props => {
             
             
 		<MDBRow className="mb-12">
-           <MDBCol size="12" mr="1">
+           <MDBCol size="12" mr="12">
             <BasicTable title="Interest Indicators" data={props.interestArtifacts}/>
           </MDBCol>
           </MDBRow>
-
   
      
   </PagePanel>
@@ -278,6 +301,8 @@ class TDInterestDashPage extends React.Component {
 		principalLineChart: {},
 		breakingPointLineChart: {},
 		cumulativeInterestLineChart: {},
+		radarChartvalues :{},
+		radarChartLabels: {},
     }
   }
   
@@ -302,6 +327,8 @@ class TDInterestDashPage extends React.Component {
 					principalLineChart: resp.neurasmusTD.lineChartPrincipalTD,
 					breakingPointLineChart: resp.neurasmusTD.lineChartBreakingPointTD,
 					cumulativeInterestLineChart: resp.neurasmusTD.lineChartCumulativeInterestTD,
+					radarChartvalues : resp.neurasmusTD.interestRadarChartValues,
+					radarChartLabels : resp.neurasmusTD.interestRadarChartLabels,
 				})
 			})
 		}else if(projectName === 'holisun_arassistance'){
@@ -318,6 +345,8 @@ class TDInterestDashPage extends React.Component {
 					principalLineChart: resp.holisun_arassistanceTD.lineChartPrincipalTD,
 					breakingPointLineChart: resp.holisun_arassistanceTD.lineChartBreakingPointTD,
 					cumulativeInterestLineChart: resp.holisun_arassistanceTD.lineChartCumulativeInterestTD,
+					radarChartvalues : resp.holisun_arassistanceTD.interestRadarChartValues,
+					radarChartLabels : resp.holisun_arassistanceTD.interestRadarChartLabels,
 				})
 			})
 		}else if(projectName === 'airbus'){
@@ -334,6 +363,9 @@ class TDInterestDashPage extends React.Component {
 					principalLineChart: resp.airbusTD.lineChartPrincipalTD,
 					breakingPointLineChart: resp.airbusTD.lineChartBreakingPointTD,
 					cumulativeInterestLineChart: resp.airbusTD.lineChartCumulativeInterestTD,
+					radarChartvalues : resp.airbusTD.interestRadarChartValues,
+					radarChartLabels : resp.airbusTD.interestRadarChartLabels,
+
 				})
 			})
 		}
@@ -355,12 +387,14 @@ class TDInterestDashPage extends React.Component {
 				principalLineChart: resp.holisun_arassistanceTD.lineChartPrincipalTD,
 				breakingPointLineChart: resp.holisun_arassistanceTD.lineChartBreakingPointTD,
 				cumulativeInterestLineChart: resp.holisun_arassistanceTD.lineChartCumulativeInterestTD,
+				radarChartvalues : resp.holisun_arassistanceTD.interestRadarChartValues,
+				radarChartLabels : resp.holisun_arassistanceTD.interestRadarChartLabels,
 			})
     })
   }
 
   render(){
-	  	  const { isLoading, name, interestIndicatorsSummary, interestIndicators, interestLineChart, principalLineChart, breakingPointLineChart, cumulativeInterestLineChart} = this.state
+	  	  const { isLoading, name, interestIndicatorsSummary, interestIndicators, interestLineChart, principalLineChart, breakingPointLineChart, cumulativeInterestLineChart, radarChartvalues, radarChartLabels} = this.state
 	  
      if(this.isLoading){
       return (<Loader/>)
@@ -382,6 +416,8 @@ class TDInterestDashPage extends React.Component {
 					myprincipalLineChart = {principalLineChart}
 					mybreakingpointLineChart = {breakingPointLineChart}
 					mycumulativeInterestLineChart = {cumulativeInterestLineChart}
+					radarChartVal= {radarChartvalues}
+					radarChartLab = {radarChartLabels}
                />
               </MDBCol>
               </MDBRow>
