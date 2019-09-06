@@ -65,7 +65,7 @@ const server = http.createServer((req, res) => {
          neurasmusTD : {
 			projectName : 'Neurasmus',
 			interestSummary : 
-				{name:'Neurasmus', type: 'project', breakpoint: 9.77 , totalInterest:711.48, maintainabilityRank: 0, interestProbability: 0.43, interestProbabilityRank: 0, LOC: 1243, CC: 8.42, NoF: 48, CD: 31.11}, 
+				{name:'Neurasmus', type: 'project', breakpoint: 9.77 , totalInterest:711.48, maintainabilityRank: 99, interestProbability: 0.43, interestProbabilityRank: 66, LOC: 1243, CC: 8.42, NoF: 48, CD: 31.11}, 
 			  							
 			principalSummary :
 				{name:'Neurasmus', type: 'project', tdInMinutes: 9111, tdInCurrency: 6955.82, bugs: 0, vulnerabilities: 0 , codeSmells: 1474, duplCode: 24.16},
@@ -86,20 +86,20 @@ const server = http.createServer((req, res) => {
 				rows: [
 					{name:'Neurasmus/imd-emulator/resources', LOC: 818, CC: 6.20, NoF : 2.13, CD: 407.20, IP: 0.00, Interest: 0.00, MR: 10 , IPR: 10 }, 
 					{name:'Neurasmus/imd-emulator/resources/mdcode_v1.3', LOC: 0, CC: 0.00, NoF : 0.00, CD: 0.00, IP: 0.00, Interest: 0.00, MR: 10 , IPR: 10 },  
-					{name:'Neurasmus/imd-emulator/api.cpp', LOC: 93, CC: 15.00, NoF : 11.00, CD: 11.40, IP: 0.11, Interest: 163.60 , MR: 100 , IPR:40 },   
+					{name:'Neurasmus/imd-emulator/api.cpp', LOC: 93, CC: 15.00, NoF : 11.00, CD: 11.40, IP: 0.11, Interest: 163.60 , MR: 99 , IPR:40 },   
 					{name:'Neurasmus/imd-emulator/api.h', LOC: 11, CC: 0.00, NoF : 0.00, CD: 50.00, IP: 0.11, Interest: 16.70, MR: 70 , IPR:40  },   
 					{name:'Neurasmus/imd-emulator/body.cpp', LOC: 11, CC: 2.00, NoF : 1.00, CD: 31.30, IP: 0.11, Interest: 17.91, MR: 80 , IPR: 40 }, 
 					{name:'Neurasmus/imd-emulator/body.h', LOC: 1, CC: 0.00, NoF : 0.00, CD: 0.00, IP: 0.11, Interest: 1.37, MR: 40 , IPR:40  },  
 					{name:'Neurasmus/imd-emulator/main.cpp', LOC: 53, CC: 6.00, NoF : 5.00, CD: 1.90, IP: 0.11, Interest: 96.78, MR:  90, IPR:40  },  
-					{name:'Neurasmus/imd-emulator/misty1.cpp', LOC: 145, CC: 15.00, NoF : 10.00, CD: 44.20, IP: 0.11, Interest: 236.29, MR: 100 , IPR:40  }, 
-					{name:'Neurasmus/imd-emulator/misty1.h', LOC: 58, CC: 0.00, NoF : 0.00, CD: 21.60, IP: 0.11, Interest: 102.08, MR: 100 , IPR:40  }, 
-					{name:'Neurasmus/imd-emulator/reader.cpp', LOC: 206, CC: 25.00, NoF : 1.00, CD: 38.30, IP: 0.83, Interest: 11.42 , MR: 70 , IPR:100 }, 
+					{name:'Neurasmus/imd-emulator/misty1.cpp', LOC: 145, CC: 15.00, NoF : 10.00, CD: 44.20, IP: 0.11, Interest: 236.29, MR: 99 , IPR:40  }, 
+					{name:'Neurasmus/imd-emulator/misty1.h', LOC: 58, CC: 0.00, NoF : 0.00, CD: 21.60, IP: 0.11, Interest: 102.08, MR: 99 , IPR:40  }, 
+					{name:'Neurasmus/imd-emulator/reader.cpp', LOC: 206, CC: 25.00, NoF : 1.00, CD: 38.30, IP: 0.83, Interest: 11.42 , MR: 70 , IPR:99 }, 
 					{name:'Neurasmus/imd-emulator/reader.h', LOC: 1, CC: 0.00, NoF : 0.00, CD: 0.00, IP: 0.16, Interest: 1.37 , MR: 50 , IPR: 90}, 
 					{name:'Neurasmus/imd-emulator/sec_primitives.cpp', LOC: 24, CC: 4.00, NoF : 2.00, CD: 53.80, IP: 0.66, Interest: 4.09, MR: 60 , IPR:90  }, 
-					{name:'Neurasmus/imd-emulator/sec_primitives.h', LOC: 3, CC: 0.00, NoF : 0.00, CD: 88.50, IP: 0.88, Interest: 0.54 , MR: 40 , IPR:100 }, 
+					{name:'Neurasmus/imd-emulator/sec_primitives.h', LOC: 3, CC: 0.00, NoF : 0.00, CD: 88.50, IP: 0.88, Interest: 0.54 , MR: 40 , IPR:99 }, 
 					{name:'Neurasmus/imd-emulator/sims.cpp', LOC: 11, CC: 2.00, NoF : 1.00, CD: 35.30, IP: 0.11, Interest: 17.56 , MR: 80 , IPR: 40}, 
 					{name:'Neurasmus/imd-emulator/sims.h', LOC: 1, CC: 0.00, NoF : 0.00, CD: 0.00, IP: 0.11, Interest: 1.37, MR: 40 , IPR: 40}, 
-					{name:'Neurasmus/imd-emulator/sisc.cpp', LOC: 199, CC: 24.00, NoF : 1, CD: 30.90, IP: 0.88, Interest: 38.96 , MR: 90 , IPR:100 }, 
+					{name:'Neurasmus/imd-emulator/sisc.cpp', LOC: 199, CC: 24.00, NoF : 1, CD: 30.90, IP: 0.88, Interest: 38.96 , MR: 90 , IPR:99 }, 
 					{name:'Neurasmus/imd-emulator/sisc.h', LOC: 1, CC: 0.00, NoF : 0.00, CD: 0.00, IP: 0.11, Interest: 1.37 , MR:50  , IPR:40 }, 
 					{name:'Neurasmus/imd-emulator/resources/imdcode.c', LOC: 111, CC: 26.00, NoF : 3.00, CD: 59.20, IP: 0.00, Interest: 0.00 , MR:10  , IPR: 10}, 
 					{name:'Neurasmus/imd-emulator/resources/mdcode_v1.3/imdcode.c', LOC: 111, CC: 26.00, NoF : 3.00, CD: 59.30, IP: 0.00, Interest: 0.00 , MR: 10 , IPR: 10}, 
@@ -149,15 +149,18 @@ const server = http.createServer((req, res) => {
 		     
 			lineChartBreakingPointTD: {values: [3.2629, 57.8299, 112.8612, 11.8264, 73.8824, 67.1242, 72.8350, 83.8141, 96.7052]},
 		     
-			lineChartCumulativeInterestTD: {values: [965.441, 1022.423, 1052.297, 1610.211, 1668.908, 1738.11, 1800.125, 1862.889, 1917.918]},       
-		          
-					
+			lineChartCumulativeInterestTD: {values: [965.441, 1022.423, 1052.297, 1610.211, 1668.908, 1738.11, 1800.125, 1862.889, 1917.918]},    
+			
+			interestRadarChartValues : {values: [39.95, 8.42, 48, 31.11] }, 
+			
+			interestRadarChartLabels : {values: ['LOC', 'CC', 'NoF', 'CD']},
+			
         },     
        
 	holisun_arassistanceTD : {
 			projectName : 'Holisun Arassistance',
 			interestSummary : 
-				{name:'Holisun Arassistance', type: 'project', breakpoint: 3.39 , totalInterest:615.03, maintainabilityRank: 0, interestProbability: 0.49, interestProbabilityRank: 0, MPC: 37.19, DIT: 7, NCC: 1, RFC: 34.97, LCM: 52.77, WMC: 1.26, DAC: 0.13, CC: 7.71, LOC: 1189, NOM: 360 }, 
+				{name:'Holisun Arassistance', type: 'project', breakpoint: 3.39 , totalInterest:615.03, maintainabilityRank: 66, interestProbability: 0.49, interestProbabilityRank: 99, MPC: 37.19, DIT: 7, NCC: 1, RFC: 34.97, LCM: 52.77, WMC: 1.26, DAC: 0.13, CC: 7.71, LOC: 1189, NOM: 360 }, 
 			  							
 			principalSummary :
 				{name:'Holisun Arassistance', type: 'project', tdInMinutes:2728, tdInCurrency: 2082.82, bugs: 0, vulnerabilities: 26, codeSmells: 382, duplCode: 49.7},
@@ -178,8 +181,8 @@ const server = http.createServer((req, res) => {
 					{label: "NOM", field: "NOM"}, 
 					{label: "Interest Probability", field: "IP"},
 					{label: "Interest", field: "Interest"},	
-					{label: "Maintainability Ranking", field: "MR"},
-					{label: "Interest Probability Ranking", field: "IPR"},	
+					{label: "Maintainability Ranking %", field: "MR"},
+					{label: "Interest Probability Ranking %", field: "IPR"},	
 					],
 				rows: [
 					{name:'Holisun/arassistance', MPC: 11, DIT: 7, NOCC : 0, RFC: 13, LCM: 8, WMC: 1, DAC: 0, CC: 8, LOC: 51, NOM: 19, IP: 0.55, Interest: 1.97, MR: 40 , IPR: 60  }, 
@@ -190,15 +193,15 @@ const server = http.createServer((req, res) => {
 					{name:'Holisun/arassistance/adapters/OnlineUsersAdapter.java', MPC: 55, DIT: 1, NOCC: 0, RFC: 39, LCM: 18, WMC: 3, DAC: 0, CC: 8, LOC: 50, NOM: 10, IP: 0.23, Interest: 45.80 , MR: 90 , IPR:10  },
 					{name:'Holisun/arassistance/models', MPC: 1, DIT: 1, NOCC : 0, RFC: 20, LCM: 40, WMC: 1, DAC: 0, CC: 18, LOC: 69, NOM: 27, IP: 0.55, Interest: 1.32, MR: 30 , IPR:  60  },   
 					{name:'Holisun/arassistance/models/ChatModel.java', MPC: 1, DIT: 1, NOCC: 0, RFC: 14, LCM: 15, WMC: 1, DAC: 0, CC: 6, LOC: 24, NOM: 9, IP: 0.58, Interest: 1.34, MR: 40 , IPR: 70  },
-					{name:'Holisun/arassistance/models/OnlineUserModel.java', MPC: 2, DIT: 1, NOCC: 0, RFC: 27, LCM: 66, WMC: 1, DAC: 0, CC: 12, LOC: 45, NOM: 18, IP: 0.23, Interest: 50.03 , MR: 100 , IPR: 10 },
+					{name:'Holisun/arassistance/models/OnlineUserModel.java', MPC: 2, DIT: 1, NOCC: 0, RFC: 27, LCM: 66, WMC: 1, DAC: 0, CC: 12, LOC: 45, NOM: 18, IP: 0.23, Interest: 50.03 , MR: 99 , IPR: 10 },
 					{name:'Holisun/arassistance/services', MPC: 107, DIT: 3, NOCC : 0, RFC: 109, LCM: 311, WMC: 1, DAC: 1, CC: 25, LOC: 112, NOM: 28, IP: 0.35, Interest: 2.89, MR: 50 , IPR: 50 },   
 					{name:'Holisun/arassistance/services/ChatService.java', MPC: 107, DIT: 3, NOCC: 0, RFC: 109, LCM: 311, WMC: 1, DAC: 1, CC: 25, LOC: 112, NOM: 28, IP: 0.38, Interest: 3.02, MR: 50 , IPR:  70 },
 					{name:'Holisun/arassistance/ui/activity', MPC: 122, DIT: 7, NOCC : 0, RFC: 78, LCM: 133, WMC: 2, DAC: 0, CC: 64, LOC: 358, NOM: 94, IP: 0.95, Interest: 22.52  , MR: 80 , IPR: 90  }, 
 					{name:'Holisun/arassistance/ui/activity/ChatActivity.java', MPC: 60, DIT: 7, NOCC: 0, RFC: 60, LCM: 16, WMC: 1, DAC: 0, CC: 7, LOC: 40, NOM: 11, IP: 0.58, Interest: 0.48, MR: 30 , IPR: 70  },
-					{name:'Holisun/arassistance/ui/activity/ConferenceActivity.java', MPC: 418, DIT: 7, NOCC: 0, RFC: 215, LCM: 616, WMC: 3, DAC: 2, CC: 40, LOC: 229, NOM: 59, IP: 0.96, Interest:22.23, MR:70  , IPR: 100  },
+					{name:'Holisun/arassistance/ui/activity/ConferenceActivity.java', MPC: 418, DIT: 7, NOCC: 0, RFC: 215, LCM: 616, WMC: 3, DAC: 2, CC: 40, LOC: 229, NOM: 59, IP: 0.96, Interest:22.23, MR:70  , IPR: 99  },
 					{name:'Holisun/arassistance/ui/activity/IncomingCallActivity.java', MPC: 21, DIT: 7, NOCC: 0, RFC: 26, LCM: 0, WMC: 1, DAC: 0, CC: 3, LOC: 14, NOM: 5, IP: 0.23, Interest:28.79 , MR: 90 , IPR: 10 },
-					{name:'Holisun/arassistance/ui/activity/LoginActivity.java', MPC: 78, DIT: 7, NOCC: 0, RFC: 57, LCM: 25, WMC: 2, DAC: 0, CC: 9, LOC: 53, NOM: 13, IP: 0.23, Interest: 61.07, MR:100  , IPR: 10  },
-					{name:'Holisun/arassistance/ui/activity/SliderActivity.java', MPC: 32, DIT: 7, NOCC: 0, RFC: 34, LCM: 9, WMC: 1, DAC: 0, CC: 5, LOC: 22, NOM: 6, IP: 0.96, Interest:2.65, MR: 40 , IPR:  100  },
+					{name:'Holisun/arassistance/ui/activity/LoginActivity.java', MPC: 78, DIT: 7, NOCC: 0, RFC: 57, LCM: 25, WMC: 2, DAC: 0, CC: 9, LOC: 53, NOM: 13, IP: 0.23, Interest: 61.07, MR:99  , IPR: 10  },
+					{name:'Holisun/arassistance/ui/activity/SliderActivity.java', MPC: 32, DIT: 7, NOCC: 0, RFC: 34, LCM: 9, WMC: 1, DAC: 0, CC: 5, LOC: 22, NOM: 6, IP: 0.96, Interest:2.65, MR: 40 , IPR:  99  },
 					{name:'Holisun/arassistance/ui/fragments', MPC: 17, DIT: 3, NOCC : 0, RFC: 25, LCM: 8, WMC: 1, DAC: 0, CC: 18, LOC: 109, NOM: 29, IP: 0.95, Interest: 10.44 , MR: 60 , IPR: 90  },  
 					{name:'Holisun/arassistance/ui/fragments/CallFragment.java', MPC: 28, DIT: 3, NOCC: 0, RFC: 39, LCM: 13, WMC: 1, DAC: 0, CC: 6, LOC: 34, NOM: 11, IP: 0.38, Interest:0.30, MR:  20, IPR: 50 },
 					{name:'Holisun/arassistance/ui/fragments/DocumentsFragment.java', MPC: 28, DIT: 3, NOCC: 0, RFC: 41, LCM: 14, WMC: 1, DAC: 0, CC: 8, LOC: 44, NOM: 13, IP: 0.25, Interest: 27.76 , MR: 80 , IPR:40  },
@@ -206,12 +209,12 @@ const server = http.createServer((req, res) => {
 					{name:'Holisun/arassistance/ui/fragments/TabPagerAdapter.java', MPC: 4, DIT: 3, NOCC: 0, RFC: 9, LCM: 1, WMC: 2, DAC: 0, CC: 2, LOC: 13, NOM: 3, IP: 0.23, Interest: 6.19, MR: 60 , IPR:  10 },
 					{name:'Holisun/arassistance/utils', MPC: 16, DIT: 2, NOCC : 0, RFC: 21, LCM: 32, WMC: 1, DAC: 0, CC: 87, LOC: 373, NOM: 142, IP: 0.95, Interest: 16.50  , MR: 70 , IPR: 90 },  
 					{name:'Holisun/arassistance/utils/Call.java', MPC: 2, DIT: 1, NOCC: 0, RFC: 5, LCM: 1, WMC: 1, DAC: 0, CC: 1, LOC: 6, NOM: 1, IP: 0.23, Interest:  5.60 , MR: 50 , IPR: 10 },
-					{name:'Holisun/arassistance/utils/Constants.java', MPC: 1, DIT: 1, NOCC: 0, RFC: 2, LCM: 0, WMC: 1, DAC: 0, CC: 0, LOC: 22, NOM: 19, IP: 0.96, Interest:  0.41 , MR: 30 , IPR: 100  },
+					{name:'Holisun/arassistance/utils/Constants.java', MPC: 1, DIT: 1, NOCC: 0, RFC: 2, LCM: 0, WMC: 1, DAC: 0, CC: 0, LOC: 22, NOM: 19, IP: 0.96, Interest:  0.41 , MR: 30 , IPR: 99  },
 					{name:'Holisun/arassistance/utils/Converter.java', MPC: 18, DIT: 1, NOCC: 0, RFC: 15, LCM: 3, WMC: 2, DAC: 0, CC: 2, LOC: 19, NOM: 2, IP: 0.23, Interest:  20.62 , MR:70  , IPR: 10  },
 					{name:'Holisun/arassistance/utils/Document.java', MPC: 1, DIT: 1, NOCC: 0, RFC: 8, LCM: 0, WMC: 1, DAC: 0, CC: 3, LOC: 16, NOM: 6, IP: 0.25, Interest:  0.00 , MR:  10, IPR:  40},
 					{name:'Holisun/arassistance/utils/EndpointLogin.java', MPC: 53, DIT: 2, NOCC: 0, RFC: 51, LCM: 16, WMC: 1, DAC: 1, CC: 7, LOC: 44, NOM: 11, IP: 0.38, Interest:  0.32 , MR: 20 , IPR: 50  },
 					{name:'Holisun/arassistance/utils/EndpointLoginInterface.java', MPC: 0, DIT: 1, NOCC: 1, RFC: 4, LCM: 1, WMC: 0, DAC: 0, CC: 2, LOC: 3, NOM: 2, IP: 0.23, Interest:   0.00 , MR: 10 , IPR: 10 },
-					{name:'Holisun/arassistance/utils/EndpointSessionManager.java', MPC: 4, DIT: 1, NOCC: 0, RFC: 56, LCM: 327, WMC: 1, DAC: 0, CC: 26, LOC: 59, NOM: 40, IP: 0.23, Interest: 54.08   , MR: 100 , IPR:10  },
+					{name:'Holisun/arassistance/utils/EndpointSessionManager.java', MPC: 4, DIT: 1, NOCC: 0, RFC: 56, LCM: 327, WMC: 1, DAC: 0, CC: 26, LOC: 59, NOM: 40, IP: 0.23, Interest: 54.08   , MR: 99 , IPR:10  },
 					{name:'Holisun/arassistance/utils/HSQBSessionListener.java', MPC: 0, DIT: 1, NOCC: 0, RFC: 2, LCM: 0, WMC: 0, DAC: 0, CC: 1, LOC: 2, NOM: 1, IP: 0.80, Interest:  0.00  , MR: 10 , IPR: 80 },
 					{name:'Holisun/arassistance/utils/JsonMessageSender.java', MPC: 43, DIT: 1, NOCC: 0, RFC: 30, LCM: 6, WMC: 1, DAC: 0, CC: 3, LOC: 30, NOM: 3, IP: 0.25, Interest: 30.19  , MR: 90 , IPR:40   },
 					{name:'Holisun/arassistance/utils/MessageQueue.java', MPC: 4, DIT: 1, NOCC: 0, RFC: 13, LCM: 0, WMC: 1, DAC: 0, CC: 4, LOC: 11, NOM: 4, IP: 0.23, Interest:  10.13, MR: 60 , IPR: 10  },
@@ -219,7 +222,7 @@ const server = http.createServer((req, res) => {
 					{name:'Holisun/arassistance/utils/Preferences.java', MPC: 17, DIT: 1, NOCC: 0, RFC: 16, LCM: 10, WMC: 1, DAC: 0, CC: 4, LOC: 21, NOM: 4, IP: 0.23, Interest:  24.33 , MR: 80 , IPR: 10  },
 					{name:'Holisun/arassistance/utils/QBPrivateChatManagerListenerImpl.java', MPC: 9, DIT: 2, NOCC: 0, RFC: 16, LCM: 0, WMC: 1, DAC: 0, CC: 3, LOC: 21, NOM: 4, IP: 0.80, Interest: 24.10 , MR: 80 , IPR: 80  },
 					{name:'Holisun/arassistance/utils/SessionManager.java', MPC: 5, DIT: 1, NOCC: 0, RFC: 28, LCM: 28, WMC: 1, DAC: 0, CC: 11, LOC: 26, NOM: 14, IP: 0.38, Interest:  0.80  , MR: 30 , IPR:50  },
-					{name:'Holisun/arassistance/utils/WhiteBoard.java', MPC: 78, DIT: 1, NOCC: 0, RFC: 61, LCM: 93, WMC: 2, DAC: 0, CC: 18, LOC: 81, NOM: 27, IP: 0.23, Interest:  93.33 , MR: 100 , IPR: 10  }, 
+					{name:'Holisun/arassistance/utils/WhiteBoard.java', MPC: 78, DIT: 1, NOCC: 0, RFC: 61, LCM: 93, WMC: 2, DAC: 0, CC: 18, LOC: 81, NOM: 27, IP: 0.23, Interest:  93.33 , MR: 99 , IPR: 10  }, 
 					]	
 				},
 		          
@@ -284,14 +287,17 @@ const server = http.createServer((req, res) => {
 			lineChartBreakingPointTD: {values: [0.7135, 4.2919, 16.5221, 19.9066, 16.1342]},
 		     
 			lineChartCumulativeInterestTD: {values: [8440.584, 10126.991, 10573.942, 10964.847, 11481.221]},
-					
+			
+			interestRadarChartValues : {values: [37.19, 7, 1, 34.97, 52.77, 1.26, 0.13, 7.71] }, 
+			
+			interestRadarChartLabels : {values: ['MPC', 'DIT', 'NCC', 'RFC', 'LCM', 'WMC', 'DAC', 'CC']},		
         },   
   
                
         airbusTD : {
 			projectName : 'Airbus',
 			interestSummary : 
-				{name:'Airbus', type: 'project', breakpoint: 7.89  , totalInterest: 473.30, maintainabilityRank: 0, interestProbability: 0.31 , interestProbabilityRank: 0, LOC: 958 , CC: 9.17, NoF: 95.33, CD: 5.32}, 
+				{name:'Airbus', type: 'project', breakpoint: 7.89  , totalInterest: 473.30, maintainabilityRank: 33, interestProbability: 0.31 , interestProbabilityRank: 33, LOC: 958 , CC: 9.17, NoF: 95.33, CD: 5.32}, 
 			  							
 			principalSummary :
 				{name:'Airbus', type: 'project', tdInMinutes: 4889 , tdInCurrency: 3732.74, bugs: 0, vulnerabilities: 0 , codeSmells: 732 , duplCode: 0.00},
@@ -316,12 +322,12 @@ const server = http.createServer((req, res) => {
 					{name:'Airbus/lib/kamutils/src/bytebuffer.cpp', LOC: 56, CC: 15.00, NoF : 10.00, CD: 1.80, IP: 0.33, Interest: 2.41, MR: 50, IPR: 20 },  
 					{name:'Airbus/lib/kamutils/src/intfun.cpp', LOC: 71, CC: 18.00, NoF : 7.00, CD: 2.70, IP: 0.33, Interest: 2.43, MR:70 , IPR: 20 },  
 					{name:'Airbus/lib/kamutils/src/path.cpp', LOC: 86, CC: 26.00, NoF : 15.00, CD: 0.00, IP: 0.33, Interest: 6.05, MR: 30, IPR:20  },  
-					{name:'Airbus/lib/kamutils/src/strfun.cpp', LOC: 53, CC: 14.00, NoF : 10.00, CD: 8.60, IP: 0.33, Interest: 6.65, MR: 100, IPR:20  },  
+					{name:'Airbus/lib/kamutils/src/strfun.cpp', LOC: 53, CC: 14.00, NoF : 10.00, CD: 8.60, IP: 0.33, Interest: 6.65, MR: 99, IPR:20  },  
 					{name:'Airbus/lib/kamutils/src/timestamp.cpp', LOC: 14, CC: 2.00, NoF : 2.00, CD: 17.60, IP: 0.33, Interest: 6.67, MR:20 , IPR:20  },  
 					{name:'Airbus/lib/kamutils/src/value.cpp', LOC: 31, CC: 30.00, NoF : 30.00, CD: 0.00, IP: 0.33, Interest: 7.87, MR:40 , IPR:20  },  
 					{name:'Airbus/base/inc/com/link', LOC: 112, CC: 0.00, NoF : 0.00, CD: 13.1, IP: 0.33, Interest: 9.09, MR: 80, IPR:20  },  
 					{name:'Airbus/base/inc/com/link/linkinterface.h', LOC: 26, CC: 0.00, NoF : 0.00, CD: 7.10, IP: 0.33, Interest: 21.39 , MR: 80, IPR:20 },  
-					{name:'Airbus/base/inc/com/link/tcpserverlink.h', LOC: 47, CC: 0.00, NoF : 0.00, CD: 6.00, IP: 0.00, Interest: 26.60 , MR: 100, IPR: 10},  
+					{name:'Airbus/base/inc/com/link/tcpserverlink.h', LOC: 47, CC: 0.00, NoF : 0.00, CD: 6.00, IP: 0.00, Interest: 26.60 , MR: 99, IPR: 10},  
 					{name:'Airbus/base/inc/com/link/udplink.h', LOC: 39, CC: 0.00, NoF : 0.00, CD: 0.00, IP: 0.33, Interest: 29.44, MR:60 , IPR: 20 },  
 					{name:'Airbus/base/inc/core/loader', LOC: 120, CC: 0.00, NoF : 0.00, CD: 0.00, IP: 0.33, Interest: 37.33, MR: 60, IPR: 20 },  
 					{name:'Airbus/base/inc/core/loader/com_loader.h', LOC: 21, CC: 0.00, NoF : 0.00, CD: 0.00, IP: 0.33, Interest: 39.28 , MR: 10, IPR:20 },  
@@ -374,15 +380,14 @@ const server = http.createServer((req, res) => {
 			lineChartBreakingPointTD: {values: [1.1160, 232528.506, 1.6685]},
 		     
 			lineChartCumulativeInterestTD: {values: [104176.913, 104177.413, 522209.619]},
-						  
+			
+			interestRadarChartValues : {values: [10.05, 9.17, 95.33, 5.32] }, 
+			
+			interestRadarChartLabels : {values: ['LOC', 'CC', 'NoF', 'CD']},							  
     			
         },
 
-     
-       
-       
-     
-        
+      
         holisun: {
         	projectName : "holisun",
         	energyIndicatorsSummary: { branchmiss: '11%', cpucycles: 3158456, cachemiss:'12%', Icachemiss:'4%' , memoryaccesses: 154000, duplCode: 10, dataraces: 1, linesOfCode: 8502 },
@@ -586,7 +591,11 @@ const server = http.createServer((req, res) => {
         
         topViolations: top10violations,
 
-        topViolationsNewCode:top5violations       
+        topViolationsNewCode:top5violations,   
+        
+        newCodeLineChartTD: {data: [5.8, 3, 4, 7, 2] },
+        
+        newCodeLineChartNC: {data: [3.5, 2, 3, 2, 1]},  
     }
 
   res.statusCode = 200;
