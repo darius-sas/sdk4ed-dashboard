@@ -65,7 +65,7 @@ const server = http.createServer((req, res) => {
          neurasmusTD : {
 			projectName : 'Neurasmus',
 			interestSummary : 
-				{name:'Neurasmus', type: 'project', breakpoint: 9.77 , totalInterest:711.48, maintainabilityRank: 99, interestProbability: 0.43, interestProbabilityRank: 66, LOC: 1243, CC: 8.42, NoF: 48, CD: 31.11}, 
+				{name:'Neurasmus', type: 'project', breakpoint: 9.77 , totalInterest:55.029, maintainabilityRank: 99, interestProbability: 43, interestProbabilityRank: 66, LOC: 1243, CC: 8.42, NoF: 48, CD: 31.11}, 
 			  							
 			principalSummary :
 				{name:'Neurasmus', type: 'project', tdInMinutes: 9111, tdInCurrency: 6955.82, bugs: 0, vulnerabilities: 0 , codeSmells: 1474, duplCode: 24.16},
@@ -160,7 +160,7 @@ const server = http.createServer((req, res) => {
 	holisun_arassistanceTD : {
 			projectName : 'Holisun Arassistance',
 			interestSummary : 
-				{name:'Holisun Arassistance', type: 'project', breakpoint: 3.39 , totalInterest:615.03, maintainabilityRank: 66, interestProbability: 0.49, interestProbabilityRank: 99, MPC: 37.19, DIT: 7, NCC: 1, RFC: 34.97, LCM: 52.77, WMC: 1.26, DAC: 0.13, CC: 7.71, LOC: 1189, NOM: 360 }, 
+				{name:'Holisun Arassistance', type: 'project', breakpoint: 3.39 , totalInterest:516.374, maintainabilityRank: 66, interestProbability: 49, interestProbabilityRank: 99, MPC: 37.19, DIT: 7, NCC: 1, RFC: 34.97, LCM: 52.77, WMC: 1.26, DAC: 0.13, CC: 7.71, LOC: 1189, NOM: 360 }, 
 			  							
 			principalSummary :
 				{name:'Holisun Arassistance', type: 'project', tdInMinutes:2728, tdInCurrency: 2082.82, bugs: 0, vulnerabilities: 26, codeSmells: 382, duplCode: 49.7},
@@ -297,7 +297,7 @@ const server = http.createServer((req, res) => {
         airbusTD : {
 			projectName : 'Airbus',
 			interestSummary : 
-				{name:'Airbus', type: 'project', breakpoint: 7.89  , totalInterest: 473.30, maintainabilityRank: 33, interestProbability: 0.31 , interestProbabilityRank: 33, LOC: 958 , CC: 9.17, NoF: 95.33, CD: 5.32}, 
+				{name:'Airbus', type: 'project', breakpoint: 7.89  , totalInterest: 473.30, maintainabilityRank: 33, interestProbability: 31 , interestProbabilityRank: 33, LOC: 958 , CC: 9.17, NoF: 95.33, CD: 5.32}, 
 			  							
 			principalSummary :
 				{name:'Airbus', type: 'project', tdInMinutes: 4889 , tdInCurrency: 3732.74, bugs: 0, vulnerabilities: 0 , codeSmells: 732 , duplCode: 0.00},
@@ -373,13 +373,13 @@ const server = http.createServer((req, res) => {
 					]
 		          },
 		          
-		    lineChartInterestTD: {values: [104176.913, 0.5, 418032.206]}, 
+		    lineChartInterestTD: {values: [153.17, 0.5, 473.30]}, 
 		     
-			lineChartPrincipalTD: {values: [116264.253, 116264.253, 697525.965]}, 
+			lineChartPrincipalTD: {values: [1002.45, 1029.53, 3732.74]}, 
 		     
-			lineChartBreakingPointTD: {values: [1.1160, 232528.506, 1.6685]},
+			lineChartBreakingPointTD: {values: [1.1160, 23252.506, 1.6685]},
 		     
-			lineChartCumulativeInterestTD: {values: [104176.913, 104177.413, 522209.619]},
+			lineChartCumulativeInterestTD: {values: [153.17, 153.67, 626.97]},
 			
 			interestRadarChartValues : {values: [10.05, 9.17, 95.33, 5.32] }, 
 			
@@ -593,9 +593,9 @@ const server = http.createServer((req, res) => {
 
         topViolationsNewCode:top5violations,   
         
-        newCodeLineChartTD: {data: [5.8, 3, 4, 7]},
-        
-        newCodeLineChartNC: {data: [3.5, 2, 3, 2]},  
+        newCodeLineChartTD: {data: [1.80, 1.77, 1.75, 1.78]},  
+
+        newCodeLineChartNC: {data: [0.5, 0.65, 2, 0.65]},  
     }
 
   res.statusCode = 200;
