@@ -20,7 +20,7 @@ const server = http.createServer((req, res) => {
             {label: "Frequency", field: "frequency"},
             {label: "Occurrences", field: "occurrences"}],
         rows: [
-            {violation: "Long method", frequency: "30%", occurrences: 54}, {violation: "God Package", frequency: "16%", occurrences: 28},  {violation: "Feature envy", frequency: "10%", occurrences: 17},  {violation: "Commented code", frequency: "5%", occurrences: 10},  {violation: "Possible null pointer", frequency: "3%", occurrences: 5}]} // The top violations wrt frequency in new code
+            {violation: "The diamond operator (<>) should be used", frequency: "30%", occurrences: 54}, {violation: "String literals should not be duplicated", frequency: "16%", occurrences: 28},  {violation: "Generic exceptions should never be thrown", frequency: "10%", occurrences: 17},  {violation: "Control flow statements should not be nested too deeply", frequency: "5%", occurrences: 10},  {violation: "Exception handlers should preserve the original exceptions", frequency: "3%", occurrences: 5}]} // The top violations wrt frequency in new code
 
     const data = {
         principalOverTimeChart: [{
@@ -593,9 +593,9 @@ const server = http.createServer((req, res) => {
 
         topViolationsNewCode:top5violations,   
         
-        newCodeLineChartTD: {data: [1.80, 1.77, 1.75, 1.78]},  
+        newCodeLineChartTD: {data: [0.5551232166, 0.561582642, 0.5703077852, 0.580841639]},  
 
-        newCodeLineChartNC: {data: [0.5, 0.65, 2, 0.65]},  
+        newCodeLineChartNC: {data: [2.217741935, 2.8125, 0.98, 1.429752066]},  
     }
 
   res.statusCode = 200;
