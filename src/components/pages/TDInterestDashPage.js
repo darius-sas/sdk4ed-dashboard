@@ -136,7 +136,7 @@ const InterestPanel = props => {
 
     tooltip: {
         shared: true,
-        pointFormat: '<span style="color:{series.color}">{series.name}: <b>${point.y:,.0f}</b><br/>'
+        pointFormat: '<span style="color:{series.color}">{series.name}: <b>{point.y:,.0f}</b><br/>'
     },
 
     legend: {
@@ -144,12 +144,12 @@ const InterestPanel = props => {
     },
 
     series: [{
-        name: 'Interest',
+        name: 'Interest $',
         data: props.myinterestLineChart.values,
         pointPlacement: 'on',
         color: "#C70039",
     }, {
-        name: 'Principal',
+        name: 'Principal $',
         data: props.myprincipalLineChart.values,
         pointPlacement: 'on',
         color: "#3AC5E7",
@@ -159,7 +159,7 @@ const InterestPanel = props => {
         pointPlacement: 'on',
         color: "#278649",
     }, {
-        name: 'Cumulative Interest',
+        name: 'Cumulative Interest $',
         data: props.mycumulativeInterestLineChart.values,
         pointPlacement: 'on',
         color: "#F65E17",
