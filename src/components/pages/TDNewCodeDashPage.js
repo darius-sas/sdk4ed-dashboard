@@ -62,11 +62,11 @@ const NewCodePanel = props =>{
    
     series: [{
         name: 'TD Density New Code',
-        data: props.densityTD.data,
+        data: props.densityNC.data,
         color: "#278649",
     }, {
-        name: 'TD Density Project',
-        data: props.densityNC.data,
+        name: 'TD Density',
+        data: props.densityTD.data,
         color: "#8E2E26",
     }]
     };
