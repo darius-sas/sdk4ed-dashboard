@@ -67,7 +67,7 @@ const ProjectOverviewSection = () => {
                                         <h4>
                                             <strong>72%</strong>
                                         </h4>
-                                        <p>CLASSES MARKED AS VULNERABLE</p>
+                                        <p>POTENTIALLY VULNERABLE CLASSES</p>
                                         <h4>
                                             <strong>10</strong> of 31
                                         </h4>
@@ -176,7 +176,7 @@ const ProjectOverviewSection = () => {
                                         <h4>
                                             <strong>88%</strong>
                                         </h4>
-                                        <p>CLASSES MARKED AS VULNERABLE</p>
+                                        <p>POTENTIALLY VULNERABLE CLASSES</p>
                                         <h4>
                                             <strong>1</strong> of 19
                                         </h4>
@@ -284,7 +284,7 @@ const ProjectOverviewSection = () => {
                                         <h4>
                                             <strong>86%</strong>
                                         </h4>
-                                        <p>CLASSES MARKED AS VULNERABLE</p>
+                                        <p>POTENTIALLY VULNERABLE CLASSES</p>
                                         <h4>
                                             <strong>81</strong> of 256
                                         </h4>

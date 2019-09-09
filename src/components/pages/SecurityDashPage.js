@@ -512,10 +512,10 @@ const VulnerabilityPredictionTablePanel = props => {
                 'label': 'Probability Score',
                 'field': 'sigmoid'
             },
-            {
-                'label': 'Confidence',
-                'field': 'confidence'
-            },
+            //{
+            //    'label': 'Confidence',
+            //    'field': 'confidence'
+            //},
             {
                 'label': 'Is Vulnerable',
                 'field': 'is_vulnerable',
@@ -776,7 +776,7 @@ class SecurityDashPage extends React.Component {
                 'class_name': data[i]['class_name'],
                 'package': data[i]['package'],
                 'sigmoid': data[i]['sigmoid'],
-                'confidence': data[i]['confidence'],
+                // 'confidence': data[i]['confidence'],
                 'is_vulnerable': data[i]['is_vulnerable'],
             })
         }
