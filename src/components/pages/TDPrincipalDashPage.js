@@ -174,7 +174,7 @@ const PrincipalPanel = props => {
        <MDBCol size="12">
                 <MDBRow className="mb-3">
                   <MDBCol>
-                  <CountCard title="TD IN DAYS"  value={props.principal.tdInMinutes} icon="clock" />
+                  <CountCard title="TD IN MINUTES"  value={props.principal.tdInMinutes} icon="clock" />
                   </MDBCol>
                   <MDBCol>
                   <CountCard title="TD IN CURRENCY" color="#33691e light-green darken-4" value={props.principal.tdInCurrency} icon="money-bill-alt"/>
