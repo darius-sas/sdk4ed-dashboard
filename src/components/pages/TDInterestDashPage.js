@@ -17,7 +17,7 @@ import HighchartsReact from 'highcharts-react-official';
 
 // SELECT sum(principal), sum(interest) FROM `analyjed_jar_project_classes` WHERE project_name='Holisun Arassistance' GROUP by version
 
-// Styling options for RadarChart - Edit only for styling modifications 
+// Styling options for RadarChart - Edit only for styling modifications
 const radarChartOptions = {
     scale: {
         ticks: {
@@ -34,8 +34,8 @@ const radarChartOptions = {
 }
 
 const InterestPanel = props => {
-	
-	function normalize(min, max) 
+
+	function normalize(min, max)
 	{
 		var delta = max - min;
 		return function (val) {
@@ -45,7 +45,7 @@ const InterestPanel = props => {
 
 	{/*
 	var values = parseFloat(props.radarChartVal.values);
-	
+
 	console.log("Before normalize: " + values);
 
 	console.log(values.map(normalize(Math.min(...values), Math.max(...values))));
@@ -53,10 +53,10 @@ const InterestPanel = props => {
 	values = values.map(normalize(Math.min(...values), Math.max(...values)))
 
 	console.log("After normalize: " +values);
-	
+
 	*/}
 	const InterestRadarPanel =  {
-        labels: props.radarChartLab.values, 
+        labels: props.radarChartLab.values,
         datasets: [
             {
                 label: 'Interest Indicators',
@@ -72,19 +72,19 @@ const InterestPanel = props => {
             }
         ]
     }
-	
-	
+
+
   //============== Example code ==============//
-  
- {/* 
+
+ {/*
 	var interestLine = String(props.myinterestLineChart.values); //string typeof
-	
+
 	var principalLine = String(props.myprincipalLineChart.values);
-	
+
 	var breakPointlLine = String(props.mybreakingpointLineChart.values);
 
 	var cumulativeInterestLine = String(props.mycumulativeInterestLineChart.values);
-	
+
 	var i = interestLine.split(',');
 	var j = principalLine.split(',');
 	var k = breakPointlLine.split(',');
@@ -94,7 +94,7 @@ const InterestPanel = props => {
 	var princValues = [];
 	var breakpointValues = [];
 	var cumInterValues = [];
-	
+
 	for (var index=0; index < i.length; index++)
 	{
 		interValues.push(parseFloat(i[index]));
@@ -102,10 +102,10 @@ const InterestPanel = props => {
 		breakpointValues.push(parseFloat(k[index]));
 		cumInterValues.push(parseFloat(l[index]));
 	}
-	* 
-	* 
+	*
+	*
 	* */}
-	
+
     const options = {
         chart: {
         polar: true,
@@ -123,7 +123,7 @@ const InterestPanel = props => {
     },
 
     xAxis: {
-        
+
         tickmarkPlacement: 'on',
         lineWidth: 0
     },
@@ -144,12 +144,12 @@ const InterestPanel = props => {
     },
 
     series: [{
-        name: 'Interest $',
+        name: 'Interest €',
         data: props.myinterestLineChart.values,
         pointPlacement: 'on',
         color: "#C70039",
     }, {
-        name: 'Principal $',
+        name: 'Principal €',
         data: props.myprincipalLineChart.values,
         pointPlacement: 'on',
         color: "#3AC5E7",
@@ -159,7 +159,7 @@ const InterestPanel = props => {
         pointPlacement: 'on',
         color: "#278649",
     }, {
-        name: 'Cumulative Interest $',
+        name: 'Cumulative Interest €',
         data: props.mycumulativeInterestLineChart.values,
         pointPlacement: 'on',
         color: "#F65E17",
@@ -184,14 +184,14 @@ const InterestPanel = props => {
 
     }
 
-       
-    //=========================================//	
-	
-  
+
+    //=========================================//
+
+
   return(
   <PagePanel header="Technical debt interest" linkTo="interest">
-    
-               
+
+
    <MDBRow className="mb-4">
             <MDBCol md="12" lg="12" className="mb-12">
                 <MDBCard className="mb-12">
@@ -214,9 +214,9 @@ const InterestPanel = props => {
                 </MDBCard>
             </MDBCol>
       </MDBRow>
-  
+
 	 <MDBRow className="mb-6">
-	 
+
 	 <MDBCol>
             {/*============== Render Highchart here ==============*/}
             <HighchartsReact
@@ -225,17 +225,17 @@ const InterestPanel = props => {
             />
             {/*=========================================*/}
         </MDBCol>
-	 
+
 	 </MDBRow>
-  
-      <MDBRow className="mb-6">  
+
+      <MDBRow className="mb-6">
          <MDBCol size="12">
                 <MDBRow className="mb-3">
                   <MDBCol>
                   <CountCard title="BREAKING POINT (version)" color="#33691e light-green darken-4" value={props.interest.breakpoint} icon="hat-wizard" />
                   </MDBCol>
                   <MDBCol>
-                  <CountCard title="TOTAL INTEREST ($)" color="#33691e light-green darken-4" value={props.interest.totalInterest} icon="dollar-sign"/>
+                  <CountCard title="TOTAL INTEREST (€)" color="#33691e light-green darken-4" value={props.interest.totalInterest} icon="euro-sign"/>
                   </MDBCol>
                     <MDBCol>
                   <CountCard title="INTEREST PROBABILITY (%)" color="#33691e light-green darken-4" value={props.interest.interestProbability} icon="percent"/>
@@ -251,7 +251,7 @@ const InterestPanel = props => {
                 </MDBRow>
           </MDBCol>
            </MDBRow>
-           
+
             <MDBCol md="12" lg="qw" className="mb-12">
                 <MDBCard className="mb-6">
                 <MDBCardHeader className="sdk4ed-color">Interest Indicators</MDBCardHeader>
@@ -262,15 +262,15 @@ const InterestPanel = props => {
                 </MDBCardBody>
                 </MDBCard>
             </MDBCol>
-            
-            
+
+
 		<MDBRow className="mb-12">
            <MDBCol size="12" mr="12">
             <BasicTable title="Interest Indicators" data={props.interestArtifacts}/>
           </MDBCol>
           </MDBRow>
-  
-     
+
+
   </PagePanel>
   )
 }
@@ -291,7 +291,7 @@ const FileExplorerPanel = () => {
 class TDInterestDashPage extends React.Component {
   constructor(props){
     super(props);
-    
+
     this.state = {
 		isLoading: false,
 		name: '',
@@ -305,14 +305,14 @@ class TDInterestDashPage extends React.Component {
 		radarChartLabels: {},
     }
   }
-  
-  
- // Update project 
+
+
+ // Update project
 	updateProjectData = (projectName) => {
-		this.setState({ 
+		this.setState({
             isLoading: true,
         });
-		
+
 		if(projectName === 'neurasmus'){
 			fetch("http://127.0.0.1:3001")
 			.then(resp => resp.json())
@@ -322,7 +322,7 @@ class TDInterestDashPage extends React.Component {
 					name: resp.neurasmusTD.projectName,
 					interestIndicatorsSummary: resp.neurasmusTD.interestSummary,
 					interestIndicators: resp.neurasmusTD.interestIndicators,
-					
+
 					interestLineChart: resp.neurasmusTD.lineChartInterestTD,
 					principalLineChart: resp.neurasmusTD.lineChartPrincipalTD,
 					breakingPointLineChart: resp.neurasmusTD.lineChartBreakingPointTD,
@@ -340,7 +340,7 @@ class TDInterestDashPage extends React.Component {
 					name: resp.holisun_arassistanceTD.projectName,
 					interestIndicatorsSummary: resp.holisun_arassistanceTD.interestSummary,
 					interestIndicators: resp.holisun_arassistanceTD.interestIndicators,
-					
+
 					interestLineChart: resp.holisun_arassistanceTD.lineChartInterestTD,
 					principalLineChart: resp.holisun_arassistanceTD.lineChartPrincipalTD,
 					breakingPointLineChart: resp.holisun_arassistanceTD.lineChartBreakingPointTD,
@@ -358,7 +358,7 @@ class TDInterestDashPage extends React.Component {
 					name: resp.airbusTD.projectName,
 					interestIndicatorsSummary: resp.airbusTD.interestSummary,
 					interestIndicators: resp.airbusTD.interestIndicators,
-					
+
 					interestLineChart: resp.airbusTD.lineChartInterestTD,
 					principalLineChart: resp.airbusTD.lineChartPrincipalTD,
 					breakingPointLineChart: resp.airbusTD.lineChartBreakingPointTD,
@@ -370,7 +370,7 @@ class TDInterestDashPage extends React.Component {
 			})
 		}
 	}
-  
+
 
   componentDidMount(){
     fetch("http://127.0.0.1:3001")
@@ -382,7 +382,7 @@ class TDInterestDashPage extends React.Component {
 				name: resp.holisun_arassistanceTD.projectName,
 				interestIndicatorsSummary: resp.holisun_arassistanceTD.interestSummary,
 				interestIndicators: resp.holisun_arassistanceTD.interestIndicators,
-				
+
 				interestLineChart: resp.holisun_arassistanceTD.lineChartInterestTD,
 				principalLineChart: resp.holisun_arassistanceTD.lineChartPrincipalTD,
 				breakingPointLineChart: resp.holisun_arassistanceTD.lineChartBreakingPointTD,
@@ -395,7 +395,7 @@ class TDInterestDashPage extends React.Component {
 
   render(){
 	  	  const { isLoading, name, interestIndicatorsSummary, interestIndicators, interestLineChart, principalLineChart, breakingPointLineChart, cumulativeInterestLineChart, radarChartvalues, radarChartLabels} = this.state
-	  
+
      if(this.isLoading){
       return (<Loader/>)
     }else{
@@ -406,10 +406,10 @@ class TDInterestDashPage extends React.Component {
               <MDBCol size="2">
               <FileExplorerPanel/>
               </MDBCol>*/}
-              <MDBCol> 
-              <InterestPanel 			
+              <MDBCol>
+              <InterestPanel
 					myprojectName = {name}
-					updateProjectData={this.updateProjectData} 
+					updateProjectData={this.updateProjectData}
 					interest = {interestIndicatorsSummary}
 					interestArtifacts = {interestIndicators}
 					myinterestLineChart={interestLineChart}
