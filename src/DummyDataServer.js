@@ -20,7 +20,7 @@ const server = http.createServer((req, res) => {
             {label: "Frequency", field: "frequency"},
             {label: "Occurrences", field: "occurrences"}],
         rows: [
-            {violation: "The diamond operator (<>) should be used", frequency: "30%", occurrences: 54}, {violation: "String literals should not be duplicated", frequency: "16%", occurrences: 28},  {violation: "Generic exceptions should never be thrown", frequency: "10%", occurrences: 17},  {violation: "Control flow statements should not be nested too deeply", frequency: "5%", occurrences: 10},  {violation: "Exception handlers should preserve the original exceptions", frequency: "3%", occurrences: 5}]} // The top violations wrt frequency in new code
+            {violation: "Cognitive complexity of methods should not be too high", frequency: "30%", occurrences: 54}, {violation: "String literals should not be duplicated", frequency: "16%", occurrences: 28},  {violation: "Generic exceptions should never be thrown", frequency: "10%", occurrences: 17},  {violation: "Control flow statements should not be nested too deeply", frequency: "5%", occurrences: 10},  {violation: "Exception handlers should preserve the original exceptions", frequency: "3%", occurrences: 5}]} // The top violations wrt frequency in new code
 
     const data = {
         principalOverTimeChart: [{
@@ -65,7 +65,7 @@ const server = http.createServer((req, res) => {
          neurasmusTD : {
 			projectName : 'Neurasmus',
 			interestSummary : 
-				{name:'Neurasmus', type: 'project', breakpoint: 9.77 , totalInterest:55.029, maintainabilityRank: 99, interestProbability: 43, interestProbabilityRank: 66, LOC: 1243, CC: 8.42, NoF: 48, CD: 31.11}, 
+				{name:'Neurasmus', type: 'project', breakpoint: 9.77 , totalInterest:550.293, maintainabilityRank: 99, interestProbability: 43, interestProbabilityRank: 66, LOC: 1243, CC: 8.42, NoF: 48, CD: 31.11}, 
 			  							
 			principalSummary :
 				{name:'Neurasmus', type: 'project', tdInMinutes: 9111, tdInCurrency: 6955.82, bugs: 0, vulnerabilities: 0 , codeSmells: 1474, duplCode: 24.16},
@@ -143,11 +143,11 @@ const server = http.createServer((req, res) => {
 					{name:'Neurasmus/imd-emulator/resources/mdcode_v1.3/misty1.h', tdInMinutes: 120, tdInCurrency: 91.61, bugs: 0, vulnerabilities: 0 , codeSmells: 23,  duplCode: 0.00 }, ]
 		          },
 		          
-		   	lineChartInterestTD: {values: [965.441, 56.982, 29.874, 557.914, 58.697, 69.202, 62.015, 62.764, 55.029]}, 
+		   	lineChartInterestTD: {values: [965.441, 569.982, 298.874, 557.914, 586.697, 690.202, 620.015, 620.764, 550.029]}, 
 		     
-			lineChartPrincipalTD: {values: [3150.201, 3295.266, 3371.616, 6598.166, 4336.68, 4645.134, 4516.866, 5260.514, 5321.595]}, 
+			lineChartPrincipalTD: {values: [4119.201, 4307.266, 1431.616, 2803.166, 5669.68, 6074.134, 5904.866, 6878.514, 6955.823]}, 
 		     
-			lineChartBreakingPointTD: {values: [3.2629, 57.8299, 112.8612, 11.8264, 73.8824, 67.1242, 72.8350, 83.8141, 96.7052]},
+			lineChartBreakingPointTD: {values: [3.2629, 5.78299, 11.28612, 11.8264, 7.38824, 6.71242, 7.28350, 8.38141, 9.67052]},
 		     
 			lineChartCumulativeInterestTD: {values: [965.441, 1022.423, 1052.297, 1610.211, 1668.908, 1738.11, 1800.125, 1862.889, 1917.918]},    
 			
@@ -282,7 +282,7 @@ const server = http.createServer((req, res) => {
 					
 			lineChartInterestTD: {values: [8440.584, 1686.407, 446.951, 390.905, 516.374]}, 
 		     
-			lineChartPrincipalTD: {values: [6022.488, 7237.98, 7384.572, 7781.591, 8331.312]}, 
+			lineChartPrincipalTD: {values: [1505.488, 1809.98, 1846.572, 1945.591, 2082.312]}, 
 		     
 			lineChartBreakingPointTD: {values: [0.7135, 4.2919, 16.5221, 19.9066, 16.1342]},
 		     
@@ -593,9 +593,9 @@ const server = http.createServer((req, res) => {
 
         topViolationsNewCode:top5violations,   
         
-        newCodeLineChartTD: {data: [0.5551232166, 0.561582642, 0.5703077852, 0.580841639]},  
+        newCodeLineChartTD: {data: [2.21, 2.81, 0.98, 1.42]},  
 
-        newCodeLineChartNC: {data: [2.217741935, 2.8125, 0.98, 1.429752066]},  
+        newCodeLineChartNC: {data: [0.55, 0.56, 0.57, 0.58]},  
     }
 
   res.statusCode = 200;
