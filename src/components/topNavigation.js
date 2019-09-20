@@ -89,17 +89,35 @@ class TopNavigation extends Component {
                                     </NavLink>
                                 </MDBNavItem></MDBCol>
 
-                                <MDBCol md="3" className="my-1 mx-0">
-                                    <MDBNavItem >
-                                        <NavLink to="/security" activeClassName="activeClass">
-                                            <MDBListGroupItem>
-                                                <MDBIcon icon="shield-alt" className="mr-3" />
-                                                Security
-                                </MDBListGroupItem>
-                                        </NavLink>
-                                    </MDBNavItem>
+
+								<MDBCol md="3" className="my-1 mx-0">
+                                    <MDBNavItem  activeClassName="activeClass">
+                                        <MDBDropdown activeClassName="activeClass">
+                                            <MDBListGroupItem activeClassName="activeClass">
+                                                <MDBDropdownToggle className="pb-0 pr-0 pl-0 pt-0" nav caret activeClassName="activeClass">
+                                                    <MDBIcon icon="tasks" className="mr-3" />
+                                                    <span className="mr-2">Dependability</span>
+                                                </MDBDropdownToggle>
+                                                <MDBDropdownMenu>
+                                                    <MDBDropdownItem>
+                                                        <NavLink to="/security" activeClassName="activeClass">
+		                                                Security
+        				                                </NavLink>
+                                                    </MDBDropdownItem>
+                                                    <MDBDropdownItem>
+                                                        <NavLink to="/optimalcheckpoint" activeClassName="activeClass">
+                                                            Optimal Checkpoint
+                                      				  </NavLink>
+                                                    </MDBDropdownItem>
+
+                                                </MDBDropdownMenu>
+                                            </MDBListGroupItem>
+                                        </MDBDropdown>
+
+                                    </MDBNavItem> 
                                     
-                                </MDBCol>                                                                  
+                                     </MDBCol>
+                                                                                               
                                                                     
                                     <MDBCol md="3" className="my-1 mx-0">
                                     <MDBNavItem  activeClassName="activeClass">
