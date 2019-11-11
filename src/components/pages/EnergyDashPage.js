@@ -60,24 +60,24 @@ const HotspotsPanel = props => {
 				<MDBCol>
 					<MDBRow className="mb-3">
 						<MDBCol>
-							<CountCard title="CPU cycles" color="grey darken-3" value={props.myEnergySummary.cpucycles} icon="fas fa-microchip" description="Profilling Tools"/>
+							<CountCard title="CPU cycles" color="#33691e light-green darken-4" value={props.myEnergySummary.cpucycles} icon="fas fa-microchip" description="Profilling Tools"/>
 						</MDBCol>
 						<MDBCol>
-							<CountCard title="Data Races" color="grey darken-3" value={props.myEnergySummary.dataraces} icon="fas fa-traffic-light"/>
+							<CountCard title="Data Races" color="#33691e light-green darken-4" value={props.myEnergySummary.dataraces} icon="fas fa-traffic-light"/>
 						</MDBCol>
 						<MDBCol>
-							<CountCard title="Memory accesses" color="purple darken-3" value={props.myEnergySummary.memoryaccesses} icon="fas fa-memory"/>
+							<CountCard title="Memory accesses" color="#33691e light-green darken-4" value={props.myEnergySummary.memoryaccesses} icon="fas fa-memory"/>
 						</MDBCol>
 					</MDBRow>
 					<MDBRow className="mb-3">
 						<MDBCol>
-							<ProgressCard title="Ratio of branch misses" color="orange darken-3" progress={props.myEnergySummary.branchmiss} icon="fas fa-code-branch"/>
+							<CountCard title="Ratio of branch misses" color="#33691e light-green darken-4" value={props.myEnergySummary.branchmiss} icon="fas fa-code-branch"/>
 						</MDBCol>
 						<MDBCol>
-							<ProgressCard title="I Cache miss rate" color="blue darken" icon="fas fa-terminal" progress={props.myEnergySummary.Icachemiss}/>
+							<CountCard title="I Cache miss rate" color="#33691e light-green darken-4" icon="fas fa-terminal" value={props.myEnergySummary.Icachemiss}/>
 						</MDBCol>
 						<MDBCol>
-							<ProgressCard title="D Cache miss rate" color="red darken" icon="fas fa-database" progress={props.myEnergySummary.cachemiss} description="Data cache L1"/>
+							<CountCard title="D Cache miss rate" color="#33691e light-green darken-4" icon="fas fa-database" value={props.myEnergySummary.cachemiss} description="Data cache L1"/>
 						</MDBCol>
 					</MDBRow>
 				</MDBCol>
@@ -86,7 +86,7 @@ const HotspotsPanel = props => {
 	)
 }
 
-const OffloadingPanel = props => {
+/*const OffloadingPanel = props => {
   	if (props.myprojectName != 'neurasmus'){
   		return (null)
   	}
@@ -111,35 +111,35 @@ const OffloadingPanel = props => {
 				<MDBCol>
 					<MDBRow className="mb-3">
 						<MDBCol>
-							<CountCard title="Independent operations in window size" color="grey darken-3" value={props.myAccelerationSummary.ilp} icon="fas fa-list-ol" description="Pin Tools"/>
+							<CountCard title="Independent operations in window size" color="grey darken-3" value={props.myAccelerationSummary.ilp} icon="fas fa-list-ol"/>
 						</MDBCol>
 						<MDBCol>
-							<CountCard title="Independent operations in window size Rate" color="grey darken-3" value={props.myAccelerationSummary.ilpRate} icon="fas fa-list-ol" description="Pin Tools"/>
-						</MDBCol>
-					</MDBRow>
-					<MDBRow className="mb-3">
-						<MDBCol>
-							<ProgressCard title="Memory" color="red darken-3" progress={props.myAccelerationSummary.mem} icon="fas fa-memory"/>
-						</MDBCol>
-						<MDBCol>
-							<ProgressCard title="Control" color="orange darken-3" progress={props.myAccelerationSummary.cont} icon="fas fa-code-branch"/>
-						</MDBCol>
-						<MDBCol>
-							<ProgressCard title="Cache cold misses" color="blue" icon="fas fa-thermometer-empty" progress={props.myAccelerationSummary.coldmiss}/>
-						</MDBCol>
-						<MDBCol>
-							<ProgressCard title="Stride 0" color="orange darken" icon="fas fa-walking" progress={props.myAccelerationSummary.stride}/>
+							<CountCard title="Independent operations in window size Rate" color="grey darken-3" value={props.myAccelerationSummary.ilpRate} icon="fas fa-list-ol"/>
 						</MDBCol>
 					</MDBRow>
 					<MDBRow className="mb-3">
 						<MDBCol>
-							<ProgressCard title="Integer" color="green darken-3" progress={props.myAccelerationSummary.int} icon="fas fa-sort-numeric-up"/>
+							<CountCard title="Memory" color="red darken-3" value={props.myAccelerationSummary.mem} icon="fas fa-memory"/>
 						</MDBCol>
 						<MDBCol>
-							<ProgressCard title="Floating Point" color="purple darken-3" progress={props.myAccelerationSummary.fp} icon="fas fa-sort-numeric-up"/>
+							<CountCard title="Control" color="orange darken-3" value={props.myAccelerationSummary.cont} icon="fas fa-code-branch"/>
 						</MDBCol>
 						<MDBCol>
-							<ProgressCard title="Division" color="cyan darken-3" progress={props.myAccelerationSummary.div} icon="fas fa-divide"/>
+							<CountCard title="Cache cold misses" color="blue" icon="fas fa-thermometer-empty" value={props.myAccelerationSummary.coldmiss}/>
+						</MDBCol>
+						<MDBCol>
+							<CountCard title="Stride 0" color="orange darken" icon="fas fa-walking" value={props.myAccelerationSummary.stride}/>
+						</MDBCol>
+					</MDBRow>
+					<MDBRow className="mb-3">
+						<MDBCol>
+							<CountCard title="Integer" color="green darken-3" value={props.myAccelerationSummary.int} icon="fas fa-sort-numeric-up"/>
+						</MDBCol>
+						<MDBCol>
+							<CountCard title="Floating Point" color="purple darken-3" value={props.myAccelerationSummary.fp} icon="fas fa-sort-numeric-up"/>
+						</MDBCol>
+						<MDBCol>
+							<CountCard title="Division" color="cyan darken-3" value={props.myAccelerationSummary.div} icon="fas fa-divide"/>
 						</MDBCol>
 					</MDBRow>
 				</MDBCol>
@@ -147,7 +147,7 @@ const OffloadingPanel = props => {
 		</PagePanel>
 	)
 }
-
+*/
 
 /**
  * The technical debt dashboard page. The page is assembled using multiple panels.
@@ -164,7 +164,7 @@ class EnergyDashPage extends React.Component {
 			energyIndicatorsSummary: {},
 			acelerationIndicatorsSummary: {},
 			topHotspots: {},
-			topHotspotsGPU: {}
+			/*topHotspotsGPU: {}*/
 		}
 	}
 	
@@ -175,7 +175,7 @@ class EnergyDashPage extends React.Component {
         });
 		
 		if(projectName === 'neurasmus'){
-			fetch("http://127.0.0.1:3001")
+			fetch("http://127.0.0.1:3001/neurasmus")
 			.then(resp => resp.json())
 			.then(resp => {
 				this.setState({
@@ -184,11 +184,11 @@ class EnergyDashPage extends React.Component {
 					energyIndicatorsSummary: resp.neurasmus.energyIndicatorsSummary,
 					acelerationIndicatorsSummary: resp.neurasmus.acelerationIndicatorsSummary,
 					topHotspots: resp.neurasmus.topHotspotsFunction,
-					topHotspotsGPU: resp.neurasmus.topHotspotsGPUFunction,
+					/*topHotspotsGPU: resp.neurasmus.topHotspotsGPUFunction,*/
 				})
 			})
 		}else if(projectName === 'airbus'){
-			fetch("http://127.0.0.1:3001")
+			fetch("http://127.0.0.1:3001/airbus")
 			.then(resp => resp.json())
 			.then(resp => {
 				this.setState({
@@ -197,11 +197,11 @@ class EnergyDashPage extends React.Component {
 					energyIndicatorsSummary: resp.airbus.energyIndicatorsSummary,
 					acelerationIndicatorsSummary: resp.airbus.acelerationIndicatorsSummary,
 					topHotspots: resp.airbus.topHotspotsFunction,
-					topHotspotsGPU: resp.airbus.topHotspotsGPUFunction,
+					/*topHotspotsGPU: resp.airbus.topHotspotsGPUFunction,*/
 				})
 			})
 		}else if(projectName === 'holisun'){
-			fetch("http://127.0.0.1:3001")
+			fetch("http://127.0.0.1:3001/holisun")
 			.then(resp => resp.json())
 			.then(resp => {
 				this.setState({
@@ -210,7 +210,7 @@ class EnergyDashPage extends React.Component {
 					energyIndicatorsSummary: resp.holisun.energyIndicatorsSummary,
 					acelerationIndicatorsSummary: resp.holisun.acelerationIndicatorsSummary,
 					topHotspots: resp.holisun.topHotspotsFunction,
-					topHotspotsGPU: resp.holisun.topHotspotsGPUFunction,
+					/*topHotspotsGPU: resp.holisun.topHotspotsGPUFunction,*/
 				})
 			})
 		}
@@ -225,33 +225,33 @@ class EnergyDashPage extends React.Component {
 			console.log(projectName)
 			if(projectName === 'neurasmus'){
 				console.log("heyyyyyyyyyy")
-				fetch("http://127.0.0.1:3001")
+				fetch("http://127.0.0.1:3001/neurasmus")
 				.then(resp => resp.json())
 				.then(resp => {
 					this.setState({
 						isLoading: false,
 						topHotspots: resp.neurasmus.topHotspotsFunction,
-						topHotspotsGPU: resp.neurasmus.topHotspotsGPUFunction,
+						/*topHotspotsGPU: resp.neurasmus.topHotspotsGPUFunction,*/
 					})
 				})
 			}else if(projectName === 'airbus'){
-				fetch("http://127.0.0.1:3001")
+				fetch("http://127.0.0.1:3001/airbus")
 				.then(resp => resp.json())
 				.then(resp => {
 					this.setState({
 						isLoading: false,
 						topHotspots: resp.airbus.topHotspotsFunction,
-						topHotspotsGPU: resp.airbus.topHotspotsGPUFunction,
+						/*topHotspotsGPU: resp.airbus.topHotspotsGPUFunction,*/
 					})
 				})
 			}else if(projectName === 'holisun'){
-				fetch("http://127.0.0.1:3001")
+				fetch("http://127.0.0.1:3001/holisun")
 				.then(resp => resp.json())
 				.then(resp => {
 					this.setState({
 						isLoading: false,
 						topHotspots: resp.holisun.topHotspotsFunction,
-						topHotspotsGPU: resp.holisun.topHotspotsGPUFunction,
+						/*topHotspotsGPU: resp.holisun.topHotspotsGPUFunction,*/
 					})
 				})
 			}
@@ -260,33 +260,33 @@ class EnergyDashPage extends React.Component {
 			console.log("heeeyyyy")
 			if(projectName === 'neurasmus'){
 				console.log("heeeyyyy")
-				fetch("http://127.0.0.1:3001")
+				fetch("http://127.0.0.1:3001/neurasmus")
 				.then(resp => resp.json())
 				.then(resp => {
 					this.setState({
 						isLoading: false,
 						topHotspots: resp.neurasmus.topHotspotsLoop,
-						topHotspotsGPU: resp.neurasmus.topHotspotsGPULoop,
+						/*topHotspotsGPU: resp.neurasmus.topHotspotsGPULoop,*/
 					})
 				})
 			}else if(projectName === 'airbus'){
-				fetch("http://127.0.0.1:3001")
+				fetch("http://127.0.0.1:3001/airbus")
 				.then(resp => resp.json())
 				.then(resp => {
 					this.setState({
 						isLoading: false,
 						topHotspots: resp.airbus.topHotspotsLoop,
-						topHotspotsGPU: resp.airbus.topHotspotsGPULoop,
+						/*topHotspotsGPU: resp.airbus.topHotspotsGPULoop,*/
 					})
 				})
 			}else if(projectName === 'holisun'){
-				fetch("http://127.0.0.1:3001")
+				fetch("http://127.0.0.1:3001/holisun")
 				.then(resp => resp.json())
 				.then(resp => {
 					this.setState({
 						isLoading: false,
 						topHotspots: resp.holisun.topHotspotsLoop,
-						topHotspotsGPU: resp.holisun.topHotspotsGPULoop,
+						/*topHotspotsGPU: resp.holisun.topHotspotsGPULoop,*/
 					})
 				})
 			}			
@@ -298,7 +298,7 @@ class EnergyDashPage extends React.Component {
             isLoading: true,
         });
 		
-		fetch("http://127.0.0.1:3001")
+		fetch("http://127.0.0.1:3001/neurasmus")
 		.then(resp => resp.json())
 		.then(resp => {
 			this.setState({
@@ -307,13 +307,13 @@ class EnergyDashPage extends React.Component {
 				energyIndicatorsSummary: resp.neurasmus.energyIndicatorsSummary,
 				acelerationIndicatorsSummary: resp.neurasmus.acelerationIndicatorsSummary,
 				topHotspots: resp.neurasmus.topHotspotsFunction,
-				topHotspotsGPU: resp.neurasmus.topHotspotsGPUFunction,
+				/*topHotspotsGPU: resp.neurasmus.topHotspotsGPUFunction,*/
 			})
 		})
 	}
 
 	render(){
-		const { isLoading, name, energyIndicatorsSummary, acelerationIndicatorsSummary, topHotspotsFunction, topHotspotsLoop, topHotspotsGPUFunction, topHotspotsGPULoop } = this.state
+		const { isLoading, name, energyIndicatorsSummary, acelerationIndicatorsSummary, topHotspotsFunction, topHotspotsLoop/*, topHotspotsGPUFunction, topHotspotsGPULoop*/ } = this.state
 		
 		if(isLoading){
             return (<Loader/>)
@@ -331,15 +331,16 @@ class EnergyDashPage extends React.Component {
 					myEnergySummary={energyIndicatorsSummary} 
 					hotspots={this.state.topHotspots}
 				/>
-				<OffloadingPanel
-					myprojectName={name}
-					updateHotspotsData={this.updateHotspotsData}
-					hotspotsGPU={this.state.topHotspotsGPU} 
-					myAccelerationSummary={acelerationIndicatorsSummary}
-				/>
 			</React.Fragment>
 		)
 	}
 }
 
 export default EnergyDashPage;
+
+				/*<OffloadingPanel
+					myprojectName={name}
+					updateHotspotsData={this.updateHotspotsData}
+					hotspotsGPU={this.state.topHotspotsGPU} 
+					myAccelerationSummary={acelerationIndicatorsSummary}
+				/>*/

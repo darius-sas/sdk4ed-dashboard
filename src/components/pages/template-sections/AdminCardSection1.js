@@ -7,9 +7,9 @@ const AdminCardSection1 = () => {
         <MDBCol xl="3" md="6" className="mb-r">
           <MDBCard className="cascading-admin-card">
               <div className="admin-up">
-              <MDBIcon icon="chart-area" className="primary-color"/>
+              <MDBIcon icon="money-bill-alt" className="primary-color"/>
                 <div className="data">
-                  <p>TECHNICAL DEBT</p>
+                  <p>SALES</p>
                   <h4>
                     <strong>$2000</strong>
                   </h4>
@@ -27,9 +27,9 @@ const AdminCardSection1 = () => {
         <MDBCol xl="3" md="6" className="mb-r">
           <MDBCard className="cascading-admin-card">
               <div className="admin-up">
-              <MDBIcon icon="bolt" className="warning-color"/>
+              <MDBIcon icon="chart-line" className="warning-color"/>
                 <div className="data">
-                  <p>ENERGY</p>
+                  <p>SUBSCRIPTIONS</p>
                   <h4>
                     <strong>200</strong>
                   </h4>
@@ -47,9 +47,9 @@ const AdminCardSection1 = () => {
         <MDBCol xl="3" md="6" className="mb-r">
           <MDBCard className="cascading-admin-card">
               <div className="admin-up">
-              <MDBIcon icon="shield-alt" className="light-blue lighten-1"/>
+              <MDBIcon icon="chart-pie" className="light-blue lighten-1"/>
                 <div className="data">
-                  <p>SECURITY</p>
+                  <p>TRAFFIC</p>
                   <h4>
                     <strong>20000</strong>
                   </h4>
@@ -67,9 +67,9 @@ const AdminCardSection1 = () => {
         <MDBCol xl="3" md="6" className="mb-r">
           <MDBCard className="cascading-admin-card">
               <div className="admin-up">
-              <MDBIcon icon="compass" className="red accent-2"/>
+              <MDBIcon icon="chart-bar" className="red accent-2"/>
                 <div className="data">
-                  <p>FORECAST</p>
+                  <p>ORGANIC TRAFFIC</p>
                   <h4>
                     <strong>2000</strong>
                   </h4>
@@ -89,4 +89,3 @@ const AdminCardSection1 = () => {
 }
 
 export default AdminCardSection1;
-
