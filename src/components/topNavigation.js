@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavbarToggler, MDBCollapse, MDBNavItem, MDBNavLink, MDBIcon, MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem, MDBListGroupItem, MDBContainer, MDBRow, MDBCol } from 'mdbreact';
-import { NavLink } from 'react-router-dom';
+import { MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavbarToggler, MDBCollapse, MDBNavItem , MDBIcon, MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem, MDBListGroupItem, MDBContainer, MDBRow, MDBCol, MDBNavLink } from 'mdbreact';
 import logo from "../assets/logo.png"
 
 class TopNavigation extends Component {
@@ -63,30 +62,30 @@ class TopNavigation extends Component {
                         <MDBNavbarNav left>
                             <MDBContainer><MDBRow><MDBCol md="3" className="my-1 mx-0">
                                 <MDBNavItem active>
-                                    <NavLink exact={true} to="/" activeClassName="activeClass">
+                                    <MDBNavLink exact={true} to="/" activeClassName="activeClass">
                                         <MDBListGroupItem>
                                             <MDBIcon icon="home" className="mr-3" />
                                             Main Dashboard
                                     </MDBListGroupItem>
-                                    </NavLink>
+                                    </MDBNavLink>
                                 </MDBNavItem></MDBCol>
                                 <MDBCol md="3" className="my-1 mx-0">
                                     <MDBNavItem>
-                                        <NavLink to="/profile" activeClassName="activeClass">
+                                        <MDBNavLink to="/profile" activeClassName="activeClass">
                                             <MDBListGroupItem>
                                                 <MDBIcon icon="user" className="mr-3" />
                                                 Profile
                                     </MDBListGroupItem>
-                                        </NavLink>
+                                        </MDBNavLink>
                                     </MDBNavItem></MDBCol>
 
                                 <MDBCol md="3" className="my-1 mx-0"><MDBNavItem >
-                                    <NavLink to="/energy" activeClassName="activeClass">
+                                    <MDBNavLink to="/energy" activeClassName="activeClass">
                                         <MDBListGroupItem className="h-100">
                                             <MDBIcon icon="bolt" className="mr-3" />
                                             Energy
                                 </MDBListGroupItem>
-                                    </NavLink>
+                                    </MDBNavLink>
                                 </MDBNavItem></MDBCol>
 
 
@@ -100,14 +99,14 @@ class TopNavigation extends Component {
                                                 </MDBDropdownToggle>
                                                 <MDBDropdownMenu>
                                                     <MDBDropdownItem>
-                                                        <NavLink to="/security" activeClassName="activeClass">
+                                                        <MDBNavLink to="/security" activeClassName="activeClass">
 		                                                Security
-        				                                </NavLink>
+        				                                </MDBNavLink>
                                                     </MDBDropdownItem>
                                                     <MDBDropdownItem>
-                                                        <NavLink to="/optimalcheckpoint" activeClassName="activeClass">
+                                                        <MDBNavLink to="/optimalcheckpoint" activeClassName="activeClass">
                                                             Optimal Checkpoint
-                                      				  </NavLink>
+                                      				  </MDBNavLink>
                                                     </MDBDropdownItem>
 
                                                 </MDBDropdownMenu>
@@ -129,19 +128,19 @@ class TopNavigation extends Component {
                                                 </MDBDropdownToggle>
                                                 <MDBDropdownMenu>
                                                     <MDBDropdownItem>
-                                                        <NavLink to="/tdinterest" activeClassName="activeClass">
+                                                        <MDBNavLink to="/tdinterest" activeClassName="activeClass">
                                                             TD Interest
-                                        </NavLink>
+                                        </MDBNavLink>
                                                     </MDBDropdownItem>
                                                     <MDBDropdownItem>
-                                                        <NavLink to="/tdprincipal" activeClassName="activeClass">
+                                                        <MDBNavLink to="/tdprincipal" activeClassName="activeClass">
                                                             TD Principal
-                                        </NavLink>
+                                        </MDBNavLink>
                                                     </MDBDropdownItem>
                                                     <MDBDropdownItem>
-                                                        <NavLink to="/tdnewcode" activeClassName="activeClass">
+                                                        <MDBNavLink to="/tdnewcode" activeClassName="activeClass">
                                                             TD New Code
-                                       </NavLink>
+                                       </MDBNavLink>
                                                     </MDBDropdownItem>
                                                     <MDBDropdownItem>
                                                         <NavLink to="/atdpage" activeClassName="activeClass">
@@ -166,19 +165,19 @@ class TopNavigation extends Component {
                                                 </MDBDropdownToggle>
                                                 <MDBDropdownMenu>
                                                     <MDBDropdownItem>
-                                                        <NavLink to="/tdforecast" activeClassName="activeClass">
+                                                        <MDBNavLink to="/tdforecast" activeClassName="activeClass">
                                                             TD Forecast
-                                        </NavLink>
+                                        </MDBNavLink>
                                                     </MDBDropdownItem>
                                                     <MDBDropdownItem>
-                                                        <NavLink to="/energyforecast" activeClassName="activeClass">
+                                                        <MDBNavLink to="/energyforecast" activeClassName="activeClass">
                                                             Energy Forecast
-                                        </NavLink>
+                                        </MDBNavLink>
                                                     </MDBDropdownItem>
                                                     <MDBDropdownItem>
-                                                        <NavLink to="/securityforecast" activeClassName="activeClass">
+                                                        <MDBNavLink to="/securityforecast" activeClassName="activeClass">
                                                             Security Forecast
-                                       </NavLink>
+                                       </MDBNavLink>
                                                     </MDBDropdownItem>
                                                 </MDBDropdownMenu>
                                             </MDBListGroupItem>
@@ -189,20 +188,20 @@ class TopNavigation extends Component {
                                      </MDBCol>
                                     
                                 <MDBCol md="3" className="my-1 mx-0">                            <MDBNavItem >
-                                    <NavLink to="/tradeoffs" activeClassName="activeClass">
+                                    <MDBNavLink to="/tradeoffs" activeClassName="activeClass">
                                         <MDBListGroupItem>
                                             <MDBIcon icon="balance-scale" className="mr-3" />
                                             Trade-off Manager
                                 </MDBListGroupItem>
-                                    </NavLink>
+                                    </MDBNavLink>
                                 </MDBNavItem>   </MDBCol>
                                 <MDBCol md="3" className="my-1 mx-0">                            <MDBNavItem >
-                                    <NavLink to="/refactoring" activeClassName="activeClass">
+                                    <MDBNavLink to="/refactoring" activeClassName="activeClass">
                                         <MDBListGroupItem>
                                             <MDBIcon icon="hammer" className="mr-3" />
                                             Refactorings
                                 </MDBListGroupItem>
-                                    </NavLink>
+                                    </MDBNavLink>
                                 </MDBNavItem>
                                 </MDBCol>
                             </MDBRow></MDBContainer>

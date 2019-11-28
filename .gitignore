@@ -316,4 +316,7 @@ DerivedData/
 *.perspectivev3
 !default.perspectivev3
 
+# jetbrains idea folder
+.idea
+
 # End of https://www.gitignore.io/api/node,reactnative
