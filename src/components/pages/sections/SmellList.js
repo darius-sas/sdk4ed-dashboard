@@ -77,11 +77,11 @@ class Smell extends Component {
     render() {
         return (
             <MDBRow className="mb-4">
-                <div className="p-5 border border-right-0 border-default">
+                <div className="p-5 border border-right-0 border-default" style={{backgroundColor: "white"}}>
                     <MDBIcon icon="bug" size="6x"/>
                 </div>
 
-                <MDBCol md="9" className="mb-8 border border-left-0 border-default">
+                <MDBCol md="9" className="mb-8 border border-left-0 border-default" style={{backgroundColor: "white"}}>
                     <div className="p-5">
                     <MDBRow className="mb-4">
                         <MDBCol md="4"><div>{this.props.type} ({this.props.uid})</div></MDBCol>
