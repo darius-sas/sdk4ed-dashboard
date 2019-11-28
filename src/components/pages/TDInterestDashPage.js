@@ -3,13 +3,13 @@ import {PagePanel} from './sections/PagePanel';
 import { MDBCol, MDBRow} from "mdbreact";
 import {ProgressCard, CountCard, ScoreCard} from './sections/StatusCards'
 import PlotlyChart from './sections/Chart';
-import BasicTable from './sections/Table';
+import PropTypes from 'prop-types'
 import 'whatwg-fetch';
 import Loader from './sections/Loading'
 import { Line, Radar } from 'react-chartjs-2';
 import FileExplorer from './sections/FileExplorer';
 import ContentPanel from './sections/ContentPanel';
-import { MDBCard, MDBCardBody, MDBCardHeader, MDBContainer, MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem, MDBFormInline, MDBTable, MDBTableBody, MDBTableHead } from 'mdbreact';
+import { MDBCard, MDBCardBody, MDBCardHeader, MDBDataTable, MDBContainer, MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem, MDBFormInline, MDBTable, MDBTableBody, MDBTableHead } from 'mdbreact';
 //============== Import Highcharts ==============//
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
@@ -73,40 +73,7 @@ const InterestPanel = props => {
         ]
     }
 
-
-  //============== Example code ==============//
-
- {/*
-	var interestLine = String(props.myinterestLineChart.values); //string typeof
-
-	var principalLine = String(props.myprincipalLineChart.values);
-
-	var breakPointlLine = String(props.mybreakingpointLineChart.values);
-
-	var cumulativeInterestLine = String(props.mycumulativeInterestLineChart.values);
-
-	var i = interestLine.split(',');
-	var j = principalLine.split(',');
-	var k = breakPointlLine.split(',');
-	var l = cumulativeInterestLine.split(',');
-
-	var interValues = [];
-	var princValues = [];
-	var breakpointValues = [];
-	var cumInterValues = [];
-
-	for (var index=0; index < i.length; index++)
-	{
-		interValues.push(parseFloat(i[index]));
-		princValues.push(parseFloat(j[index]));
-		breakpointValues.push(parseFloat(k[index]));
-		cumInterValues.push(parseFloat(l[index]));
-	}
-	*
-	*
-	* */}
-
-    const options = {
+  const options = {
         chart: {
         polar: true,
         type: 'line'
@@ -189,7 +156,7 @@ const InterestPanel = props => {
 
 
   return(
-  <PagePanel header="Technical debt interest" linkTo="interest">
+  <PagePanel header="Technical debt interest" linkTo="tdinterest">
 
 
    <MDBRow className="mb-4">
@@ -252,27 +219,77 @@ const InterestPanel = props => {
           </MDBCol>
            </MDBRow>
 
-            <MDBCol md="12" lg="qw" className="mb-12">
-                <MDBCard className="mb-6">
-                <MDBCardHeader className="sdk4ed-color">Interest Indicators</MDBCardHeader>
-                <MDBCardBody>
-                    <MDBContainer>
-                        <Radar data={InterestRadarPanel} />
-                    </MDBContainer>
-                </MDBCardBody>
+            <MDBRow className="mb-3">
+              <MDBCol md="12" lg="12" className="mb-12">
+                <MDBCard className="mb-12">
+                  <MDBCardHeader className="sdk4ed-color">Project Interest Indicators</MDBCardHeader>
+                  <MDBCardBody>
+                  <MDBContainer>
+                    <Radar data={InterestRadarPanel}/>
+                  </MDBContainer>
+                  </MDBCardBody>
                 </MDBCard>
+              </MDBCol>
+            </MDBRow>
+
+
+          <MDBRow className="mb-12">
+            <MDBCol md="12" lg="12" className="mb-12">
+              <MDBCard className="mb-12">
+                <MDBCardHeader className="sdk4ed-color">Artifact Interest Indicators</MDBCardHeader>
+                <MDBCardBody>
+                <MDBContainer>
+                  <BasicTable  title="Principal Indicators" data={props.interestArtifacts}/>
+                </MDBContainer>
+                </MDBCardBody>
+              </MDBCard>
             </MDBCol>
-
-
-		<MDBRow className="mb-12">
-           <MDBCol size="12" mr="12">
-            <BasicTable title="Interest Indicators" data={props.interestArtifacts}/>
-          </MDBCol>
           </MDBRow>
 
 
   </PagePanel>
   )
+}
+
+class BasicTable extends React.Component {
+
+    static propTypes = {
+        /**
+         * An object that respects as defined here https://mdbootstrap.com/docs/react/tables/additional/
+         * It contains the data that will be visualized in the table
+         */
+        data: PropTypes.object,
+
+        /**
+         * The title of the table.
+         */
+        title: PropTypes.string
+    }
+
+    render(){
+        var data = this.props.data
+        var rows = []
+        var uniqueId = 0
+        for(var i in data.rows)
+        {
+            var row = data.rows[i]
+            var r = []
+            for(var j in data.columns)
+            {
+                var field = data.columns[j]['field']
+                r.push(<td key={uniqueId++}>{row[field]}</td>)
+            }
+            rows.push(<tr key={uniqueId++}>{r}</tr>)
+        }
+        var header = []
+        for(var h in data.columns)
+            header.push(<th key={uniqueId++}>{data.columns[h]['label']}</th>)
+
+        return(
+            <MDBDataTable striped small bordered responsive hover data={data} />
+        )
+
+    }
 }
 
 

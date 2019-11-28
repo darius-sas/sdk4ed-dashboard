@@ -9,6 +9,7 @@ import ForecastDashPage from './pages/ForecastDashPage';
 import ForecastEnergyDashPage from './pages/ForecastEnergyDashPage';
 import ForecastSecurityDashPage from './pages/ForecastSecurityDashPage';
 import OptimalCheckpoint from './pages/OptimalCheckpointPage';
+import HelloMessage from './pages/ATDPage';
 
 import MapsPage from './pages/MapsPage';
 import NotFoundPage from './pages/NotFoundPage';
@@ -27,7 +28,7 @@ class Routes extends React.Component {
         <Route path='/tdprincipal' component={TDPrincipalDashPage}/>
         <Route path='/tdnewcode' component={TDNewCodeDashPage}/>
 		
-		<Route path='/optimalcheckpoint' component={OptimalCheckpoint}/>
+		    <Route path='/optimalcheckpoint' component={OptimalCheckpoint}/>
         <Route path='/security' component={SecurityDashPage} />
         <Route path='/energy' component={EnergyDashPage} />
         <Route path='/tdforecast' component={ForecastDashPage}/>
@@ -35,6 +36,7 @@ class Routes extends React.Component {
         <Route path='/securityforecast' component={ForecastSecurityDashPage}/>
         <Route path='/dashboard' component={DashboardPage} />
         <Route path='/' exact component={DashboardPage} />
+        <Route path='/atdpage' component={HelloMessage}/>
 
 
         {/* Examples and templates  */}

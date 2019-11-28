@@ -1,247 +1,316 @@
 import React from 'react';
 import {PagePanel} from './sections/PagePanel';
 import { MDBCol, MDBRow} from "mdbreact";
-import {CountCard} from './sections/StatusCards'
+import {ProgressCard, CountCard, ScoreCard} from './sections/StatusCards'
+import PlotlyChart from './sections/Chart';
+import PropTypes from 'prop-types'
 import 'whatwg-fetch';
 import { Radar } from 'react-chartjs-2';
 import Loader from './sections/Loading'
 import FileExplorer from './sections/FileExplorer';
 import ContentPanel from './sections/ContentPanel';
-import { MDBCard, MDBCardBody, MDBCardHeader, MDBContainer, MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem, MDBFormInline, } from 'mdbreact';
-import { parseSonarqubeFiles } from './sections/Tree';
+import { MDBCard, MDBCardBody, MDBDataTable, MDBCardHeader, MDBContainer, MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem, MDBFormInline, MDBTable, MDBTableBody, MDBTableHead } from 'mdbreact';
 
+//============== Import Highcharts ==============//
+import Highcharts from 'highcharts';
+import HighchartsReact from 'highcharts-react-official';
 
-const projects = ["neurasmus8", "maquali13", "arassistance4"]
-
-// Styling options for RadarChart - Edit only for styling modifications 
+// This the value we multiple td in minutes to get td in currency, is the hour wage of software engineering
+const wage = 40
+// Styling options for RadarChart - Edit only for styling modifications
 const radarChartOptions = {
-    scale: {
-        ticks: {
-            min: 0,
-            max: 1,
-            stepSize: 0.2
-        },
-        pointLabels: {
-            fontSize: 15
-        },
+  scale: {
+    ticks: {
+      min: 0,
+      max: 1,
+      stepSize: 0.2
     },
-    responsive: true,
-    legend: false,
+    pointLabels: {
+      fontSize: 15
+    },
+  },
+  responsive: true,
+  legend: false,
 }
 
-const InterestRadarPanel =  {
-        labels: ['Bugs', 'Vulnerabilities', 'Duplicated Lines  Density', 'Code Smells'], 
-        datasets: [
-            {
-                label: 'Principal Indicators',
-                backgroundColor: 'rgba(84,130,53,0.05)',
-                borderColor: 'rgba(84,130,53,1)',
-                pointRadius: 4,
-                pointHitRadius: 4,
-                pointBackgroundColor: 'rgba(84,130,53,1)',
-                pointBorderColor: '#c1c7d1',
-                pointHoverBackgroundColor : '#fff',
-                pointHoverBorderColor: 'rgba(84,130,53,1)',
-                data:[0.9805476228578603, 1.0, 0.7897392767031118, 0.28] // data values from prop var are loaded here
-            }
-        ]
-    }
+const PrincipalPanel = props => {
 
-
-const PrincipalPanel = props => {    
-  return (
-   <PagePanel header="Technical debt principal" linkTo="principal">            
-   <MDBRow className="mb-4">
-            <MDBCol md="12" lg="12" className="mb-12">
-                <MDBCard className="mb-12">
-                <MDBCardHeader className="sdk4ed-color">Project</MDBCardHeader>
-                <MDBCardBody>
-                    <MDBFormInline className="md-form m-0">
-                        <MDBDropdown>
-                            <MDBDropdownToggle caret className="white-text" color="  light-green darken-4">
-                                Select project
-                            </MDBDropdownToggle>
-                            <MDBDropdownMenu basic>
-                            {props.projects.map((element, index) => (
-                                <MDBDropdownItem key={index} onClick={() => props.fetchData(element)}>
-                                {element}
-                                </MDBDropdownItem>
-                            ))}
-                            </MDBDropdownMenu>
-                        </MDBDropdown>
-                        <h4 className="ml-3" style={{color:'#548235'}}>{props.currentProjectName}</h4>
-                    </MDBFormInline>
-                </MDBCardBody>
-                </MDBCard>
-            </MDBCol>
-      </MDBRow>
-      
-      <MDBRow className="mb-3">
-      
-       <MDBCol size="12">
-                <MDBRow className="mb-3">
-                  <MDBCol>
-                  <CountCard title="TD IN DAYS"  value={props.principal.tdInDays} icon="clock" />
-                  </MDBCol>
-                  <MDBCol>
-                  <CountCard title="TD IN CURRENCY" color="#33691e light-green darken-4" value={props.principal.tdInCurrency} icon="money-bill-alt"/>
-                  </MDBCol>
-                  <MDBCol>
-                  <CountCard title="BUGS" color="#33691e light-green darken-4" value={props.principal.bugs} icon="bug"/>
-                  </MDBCol>
-                  <MDBCol>
-                  <CountCard title="VULNERABILITIES" color="#33691e light-green darken-4" value={props.principal.vulnerabilities} icon="lock-open"/>
-                  </MDBCol>
-                   </MDBRow>
-                  <MDBRow className="mb-3">
-				  <MDBCol>
-                  <CountCard title="CODE SMELLS" color="#33691e light-green darken-4" value={props.principal.codeSmells} icon="compress-arrows-alt"/>
-                  </MDBCol>
-                   <MDBCol>
-                  <CountCard title="COVERAGE (%)" color="#33691e light-green darken-4" value={props.principal.coverage} icon="fire-alt"/>
-                  </MDBCol>
-                   <MDBCol>
-                  <CountCard title="DUPLICATIONS (%)" color="#33691e light-green darken-4" value={props.principal.duplCode} icon="copy"/>
-                  </MDBCol>
-                </MDBRow>
-          </MDBCol>
-      </MDBRow>
-      
-       <MDBRow className="mb-3">
-  
-      <MDBCol md="12" lg="12" className="mb-12">
-                    <MDBCard className="mb-12">
-                    <MDBCardHeader className="sdk4ed-color">Principal Indicators</MDBCardHeader>
-                    <MDBCardBody>
-                        <MDBContainer>
-                            {/* TODO: Data to fetch */}
-                            <Radar data={InterestRadarPanel} options={radarChartOptions} />
-                        </MDBContainer>
-                    </MDBCardBody>
-                    </MDBCard>
-                </MDBCol>
-      
-      </MDBRow>
-      </PagePanel>
-)}
-
-/**
- * The technical debt dashboard page. The page is assembled using multiple panels.
- * The data is retrieved asynchronously.
- */
-class TDPrincipalDashPage extends React.Component {
-  constructor(props){
-    super(props);
-    
-    this.fetchProjectData = this.fetchProjectData.bind(this)
-    this.updatePrincipalSummary = this.updatePrincipalSummary.bind(this)
-    this.updateFileSystemTree = this.updateFileSystemTree.bind(this)
-    this.updateOnSelect = this.updateOnSelect.bind(this)
-
-    this.state = {
-      principalSummary: null, // Principal-related summary information
-      principalIndicatorsRadar: null,
-      projectNodes: null, // File structure of the project
-      rawData: null, // Raw data as received from the server for a given project.
-      currentProjectName: "", // Current project full name
-    }
+  function normalize(min, max)
+  {
+    var delta = max - min;
+    return function (val) {
+      return (val - min) / delta;
+    };
   }
 
-  getApiURL(){
-    const host = "http://se.uom.gr:9906/api/"
-    return host;
-  }
+  var numbers = [parseFloat(props.principal.bugs), parseFloat(props.principal.vulnerabilities), parseFloat(props.principal.duplCode), parseFloat(props.principal.codeSmells)];
 
-  componentDidMount(){
-    this.fetchProjectData("neurasmus8")
-  }
+  console.log(numbers.map(normalize(Math.min(...numbers), Math.max(...numbers))));
 
-  fetchProjectData(project){
-    console.log("Fetching project data " + project)
-    let args = {
-      metricKeys: "ncloc,code_smells,bugs,duplicated_lines_density,coverage,effort_to_reach_maintainability_rating_a", 
-      component: project
-    }
-    const link = `${this.getApiURL()}measures/component_tree?metricKeys=${encodeURIComponent(args.metricKeys)}&component=${encodeURIComponent(args.component)}`
-    
-    fetch(link, { headers: {"Accept": "*/*"}})
-      .then(resp => resp.json())
-      .then(this.updatePrincipalSummary)
-      .catch(err => console.log("Failed to updated principal summary: " + err))
-    
-    const linkDirs = `${this.getApiURL()}components/tree?component=${encodeURIComponent(args.component)}`
+  numbers = numbers.map(normalize(Math.min(...numbers), Math.max(...numbers)))
 
-    fetch(linkDirs)
-      .then(resp => resp.json())
-      .then(this.updateFileSystemTree)
-      .catch(err => console.log("Failed to render file system tree: " + err))
-  }
-
-  render(){
-    if(this.state.principalSummary == null){
-      return (<Loader/>)
-    }else{
-      return(
-          <React.Fragment>
-            <MDBRow>
-              <MDBCol size="3">
-              <ContentPanel title="Project explorer">
-                  <FileExplorer onFetchData={() => {return this.state.projectNodes} }
-                                onSelect={this.updateOnSelect}>
-                  </FileExplorer>
-              </ContentPanel>
-              </MDBCol>
-              <MDBCol>
-              <PrincipalPanel principal={this.state.principalSummary}
-                              projects={projects}
-                              fetchData={this.fetchProjectData}
-                              currentProjectName={this.state.currentProjectName}/>
-              </MDBCol>
-              </MDBRow>
-            </React.Fragment>)
-    }
-  }
-
-  updatePrincipalSummary(data){
-    this.setState({rawData: data, currentProjectName: data.baseComponent.name})
-    data = data.baseComponent.measures
-    this.setState({principalSummary: this.buildPrincipalSummary(data)})
-  }
-
-  updateFileSystemTree(data){
-      const projectNodes = parseSonarqubeFiles(data)  
-      this.setState({projectNodes})
-  }
-
-  updateOnSelect(file){
-    let data = this.state.rawData.components.find(c => {
-      let trimmedPath = file.path
-      if(file.path.lastIndexOf("/") == (file.path.length - 1)){
-        trimmedPath = file.path.substring(0, file.path.length - 1)
+  const PrincipalRadarPanel =  {
+    labels: ['Bugs', 'Vulnerabilities', 'Duplicated Lines  Density', 'Code Smells'],
+    datasets: [
+      {
+        label: 'Principal Indicators',
+        backgroundColor: 'rgba(84,130,53,0.05)',
+        borderColor: 'rgba(84,130,53,1)',
+        pointRadius: 4,
+        pointHitRadius: 4,
+        pointBackgroundColor: 'rgba(84,130,53,1)',
+        pointBorderColor: '#c1c7d1',
+        pointHoverBackgroundColor : '#fff',
+        pointHoverBorderColor: 'rgba(84,130,53,1)',
+        data: numbers
       }
-      return trimmedPath === c.path
-    })
-    if(!data){
-      console.log("Could not find selected component: " + file.path)
-      return
-    }
-    data = data.measures
-    this.setState({principalSummary: this.buildPrincipalSummary(data)})
+    ]
   }
 
-  buildPrincipalSummary(data){
-    const getMetricValue = (data, name) => {const value = data.find((data)=> data.metric === name); return value ? value.value : 0;};
-    const principalSummary = {
-      tdInDays: Number(getMetricValue(data, "effort_to_reach_maintainability_rating_a") / 24).toFixed(0),
-      tdInCurrency: 0,
-      bugs: getMetricValue(data, "bugs"),
-      vulnerabilities: 0,
-      codeSmells: getMetricValue(data, "code_smells"),
-      coverage: getMetricValue(data, "coverage"),
-      duplCode: getMetricValue(data, "duplicated_lines_density")
-    }
-    return principalSummary;
-  }
-}
+  return (
+    <PagePanel header="Technical debt principal" linkTo="tdprincipal">
 
-export default TDPrincipalDashPage;
+    <MDBRow className="mb-4">
+      <MDBCol md="12" lg="12" className="mb-12">
+        <MDBCard className="mb-12">
+          <MDBCardHeader className="sdk4ed-color">Project</MDBCardHeader>
+            <MDBCardBody>
+              <MDBFormInline className="md-form m-0">
+                <MDBDropdown>
+                  <MDBDropdownToggle caret className="white-text" color="  light-green darken-4">
+                    Project
+                  </MDBDropdownToggle>
+                  <MDBDropdownMenu basic>
+                    <MDBDropdownItem onClick={(param) => props.updateProjectData('holisun_arassistance')}>Holisun Arassistance</MDBDropdownItem>
+                    <MDBDropdownItem onClick={(param) => props.updateProjectData('airbus')}>Airbus</MDBDropdownItem>
+                    <MDBDropdownItem onClick={(param) => props.updateProjectData('neurasmus')}>Neurasmus</MDBDropdownItem>
+                  </MDBDropdownMenu>
+                </MDBDropdown>
+                <h4 style={{color:'#548235'}}>{props.myprojectName}</h4>
+              </MDBFormInline>
+          </MDBCardBody>
+        </MDBCard>
+      </MDBCol>
+    </MDBRow>
+
+    <MDBRow className="mb-3">
+      <MDBCol size="12">
+        <MDBRow className="mb-3">
+          <MDBCol>
+            <CountCard title="TD IN MINUTES"  value={props.principal.tdInMinutes} icon="clock" />
+          </MDBCol>
+          <MDBCol>
+            <CountCard title="TD IN CURRENCY" color="#33691e light-green darken-4" value={Math.round((props.principal.tdInMinutes/60)*wage)} icon="money-bill-alt"/>
+          </MDBCol>
+          <MDBCol>
+            <CountCard title="BUGS" color="#33691e light-green darken-4" value={props.principal.bugs} icon="bug"/>
+          </MDBCol>
+          </MDBRow>
+
+          <MDBRow className="mb-3">
+            <MDBCol>
+              <CountCard title="VULNERABILITIES" color="#33691e light-green darken-4" value={props.principal.vulnerabilities} icon="lock-open"/>
+            </MDBCol>
+            <MDBCol>
+              <CountCard title="CODE SMELLS" color="#33691e light-green darken-4" value={props.principal.codeSmells} icon="compress-arrows-alt"/>
+            </MDBCol>
+            <MDBCol>
+              <CountCard title="DUPLICATIONS (%)" color="#33691e light-green darken-4" value={props.principal.duplCode} icon="copy"/>
+          </MDBCol>
+        </MDBRow>
+      </MDBCol>
+    </MDBRow>
+
+    <MDBRow className="mb-3">
+      <MDBCol md="12" lg="12" className="mb-12">
+        <MDBCard className="mb-12">
+          <MDBCardHeader className="sdk4ed-color">Project Principal Indicators</MDBCardHeader>
+          <MDBCardBody>
+          <MDBContainer>
+            <Radar data={PrincipalRadarPanel} options={radarChartOptions} />
+          </MDBContainer>
+          </MDBCardBody>
+        </MDBCard>
+      </MDBCol>
+    </MDBRow>
+
+    <MDBRow className="mb-12">
+      <MDBCol md="12" lg="12" className="mb-12">
+        <MDBCard className="mb-12">
+          <MDBCardHeader className="sdk4ed-color">Artifact Principal Indicators</MDBCardHeader>
+          <MDBCardBody>
+          <MDBContainer>
+            <BasicTable  title="Principal Indicators" data={props.principalArtifacts}/>
+          </MDBContainer>
+          </MDBCardBody>
+        </MDBCard>
+      </MDBCol>
+    </MDBRow>
+
+    </PagePanel>
+  )}
+
+  class BasicTable extends React.Component {
+
+      static propTypes = {
+          /**
+           * An object that respects as defined here https://mdbootstrap.com/docs/react/tables/additional/
+           * It contains the data that will be visualized in the table
+           */
+          data: PropTypes.object,
+
+          /**
+           * The title of the table.
+           */
+          title: PropTypes.string
+      }
+
+      render(){
+          var data = this.props.data
+          var rows = []
+          var uniqueId = 0
+          for(var i in data.rows)
+          {
+              var row = data.rows[i]
+              var r = []
+              for(var j in data.columns)
+              {
+                  var field = data.columns[j]['field']
+                  r.push(<td key={uniqueId++}>{row[field]}</td>)
+              }
+              rows.push(<tr key={uniqueId++}>{r} </tr>)
+          }
+          var header = []
+          for(var h in data.columns)
+              header.push(<th key={uniqueId++}>{data.columns[h]['label']} </th>)
+
+          return(
+              <MDBDataTable striped small bordered responsive hover data={data} />
+          )
+
+      }
+  }
+
+  const FileExplorerPanel = () => {
+    return (
+      <ContentPanel title="Project explorer">
+      <FileExplorer></FileExplorer>
+      </ContentPanel>
+    )
+  }
+
+  // Function to extract values from json
+  function returnValues(data) {
+    var values = []
+    for(var i = 0; i < data.length; i++) {
+      values.push(data[i].eval)
+    }
+    return values
+  }
+
+  /**
+  * The technical debt dashboard page. The page is assembled using multiple panels.
+  * The data is retrieved asynchronously.
+  */
+  class TDPrincipalDashPage extends React.Component {
+    constructor(props){
+      super(props);
+
+      this.state = {
+        isLoading: false,
+        name: '',
+        principalIndicatorsSummary: {},
+        principalIndicators: {},
+      }
+    }
+
+    // Update project
+    updateProjectData = (projectName) => {
+      this.setState({
+        isLoading: true,
+      });
+
+      if(projectName === 'neurasmus'){
+        fetch("http://127.0.0.1:3001")
+        .then(resp => resp.json())
+        .then(resp => {
+          this.setState({
+            isLoading: false,
+            name: resp.neurasmusTD.projectName,
+            principalIndicatorsSummary: resp.neurasmusTD.principalSummary,
+            principalIndicators: resp.neurasmusTD.principalIndicators,
+            principalLineChart: resp.neurasmusTD.lineChartTD,
+          })
+        })
+      }else if(projectName === 'holisun_arassistance'){
+        fetch("http://127.0.0.1:3001")
+        .then(resp => resp.json())
+        .then(resp => {
+          this.setState({
+            isLoading: false,
+            name: resp.holisun_arassistanceTD.projectName,
+            principalIndicatorsSummary: resp.holisun_arassistanceTD.principalSummary,
+            principalIndicators: resp.holisun_arassistanceTD.principalIndicators,
+          })
+        })
+      }else if(projectName === 'airbus'){
+        fetch("http://127.0.0.1:3001")
+        .then(resp => resp.json())
+        .then(resp => {
+          this.setState({
+            isLoading: false,
+            name: resp.airbusTD.projectName,
+            principalIndicatorsSummary: resp.airbusTD.principalSummary,
+            principalIndicators: resp.airbusTD.principalIndicators,
+          })
+        })
+      }
+    }
+
+
+    componentDidMount(){
+      fetch("http://127.0.0.1:3001")
+      .then(resp => resp.json())
+      .then(resp => {
+        console.log("Data received")
+        this.setState({
+          isLoading: false,
+          name: resp.holisun_arassistanceTD.projectName,
+          principalIndicatorsSummary: resp.holisun_arassistanceTD.principalSummary,
+          principalIndicators: resp.holisun_arassistanceTD.principalIndicators,
+        })
+      })
+    }
+
+    render(){
+      const { isLoading, name, principalIndicatorsSummary, principalIndicators } = this.state
+
+
+      if(this.isLoading){
+        return (<Loader/>)
+      }else{
+        return(
+          <React.Fragment>
+          <MDBRow>
+          {/*
+            <MDBCol size="2">
+            <FileExplorerPanel/>
+            </MDBCol>*/}
+            <MDBCol>
+            <PrincipalPanel
+            myprojectName = {name}
+            updateProjectData={this.updateProjectData}
+            principal = {principalIndicatorsSummary}
+            principalArtifacts = {principalIndicators}
+            />
+
+            </MDBCol>
+            </MDBRow>
+            </React.Fragment>
+          )
+        }
+      }
+
+    }
+
+    export default TDPrincipalDashPage;

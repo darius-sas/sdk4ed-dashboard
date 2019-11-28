@@ -143,6 +143,11 @@ class TopNavigation extends Component {
                                                             TD New Code
                                        </NavLink>
                                                     </MDBDropdownItem>
+                                                    <MDBDropdownItem>
+                                                        <NavLink to="/atdpage" activeClassName="activeClass">
+                                                            ATD Dashboard
+                                        </NavLink>
+                                                    </MDBDropdownItem>
                                                 </MDBDropdownMenu>
                                             </MDBListGroupItem>
                                         </MDBDropdown>
