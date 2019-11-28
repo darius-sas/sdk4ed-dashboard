@@ -4,17 +4,20 @@ import TopNavigation from './components/topNavigation';
 import SideNavigation from './components/sideNavigation';
 import Footer from './components/Footer';
 import './index.css';
+import SmellListPage from "./components/pages/SmellListPage";
+
 
 class App extends Component {
   
   render() {
     return (
         <div className="flexible-content">
-          <TopNavigation />
-          <main id="content" className="ml-0 p-5">
-            <Routes />
+
+          <SideNavigation/>
+          <main id="content" className="p-5">
+            <SmellListPage/>
           </main>
-          <Footer />
+
         </div>
     );
   }
