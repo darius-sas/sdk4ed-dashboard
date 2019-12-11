@@ -1,20 +1,20 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import TDInterestDashPage from './pages/TDInterestDashPage';
-import TDPrincipalDashPage from './pages/TDPrincipalDashPage';
-import TDNewCodeDashPage from './pages/TDNewCodeDashPage';
-import SecurityDashPage from './pages/SecurityDashPage';  
-import EnergyDashPage from './pages/EnergyDashPage';
-import ForecastDashPage from './pages/ForecastDashPage';
-import ForecastEnergyDashPage from './pages/ForecastEnergyDashPage';
-import ForecastSecurityDashPage from './pages/ForecastSecurityDashPage';
-import OptimalCheckpoint from './pages/OptimalCheckpointPage';
+import TDInterestDashPage from './referencematerial/TDInterestDashPage';
+import TDPrincipalDashPage from './referencematerial/TDPrincipalDashPage';
+import TDNewCodeDashPage from './referencematerial/TDNewCodeDashPage';
+import SecurityDashPage from './referencematerial/SecurityDashPage';
+import EnergyDashPage from './referencematerial/EnergyDashPage';
+import ForecastDashPage from './referencematerial/ForecastDashPage';
+import ForecastEnergyDashPage from './referencematerial/ForecastEnergyDashPage';
+import ForecastSecurityDashPage from './referencematerial/ForecastSecurityDashPage';
+import OptimalCheckpoint from './referencematerial/OptimalCheckpointPage';
 
-import MapsPage from './pages/MapsPage';
+import MapsPage from './referencematerial/MapsPage';
 import NotFoundPage from './pages/NotFoundPage';
 import DashboardPage from './pages/DashboardPage';
-import ProfilePage from './pages/ProfilePage';
-import TablesPage from './pages/TablesPage';
+import ProfilePage from './referencematerial/ProfilePage';
+import TablesPage from './referencematerial/TablesPage';
 
 class Routes extends React.Component {
   render() {

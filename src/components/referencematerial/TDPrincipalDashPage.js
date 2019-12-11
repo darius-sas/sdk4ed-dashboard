@@ -1,14 +1,14 @@
 import React from 'react';
-import {PagePanel} from './sections/PagePanel';
+import {PagePanel} from '../pages/sections/PagePanel';
 import { MDBCol, MDBRow} from "mdbreact";
-import {CountCard} from './sections/StatusCards'
+import {CountCard} from '../pages/sections/StatusCards'
 import 'whatwg-fetch';
 import { Radar } from 'react-chartjs-2';
-import Loader from './sections/Loading'
-import FileExplorer from './sections/FileExplorer';
-import ContentPanel from './sections/ContentPanel';
+import Loader from '../pages/sections/Loading'
+import FileExplorer from '../pages/sections/FileExplorer';
+import ContentPanel from '../pages/sections/ContentPanel';
 import { MDBCard, MDBCardBody, MDBCardHeader, MDBContainer, MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem, MDBFormInline, } from 'mdbreact';
-import { parseSonarqubeFiles } from './sections/Tree';
+import { parseSonarqubeFiles } from '../pages/sections/Tree';
 
 
 const projects = ["neurasmus8", "maquali13", "arassistance4"]

@@ -1,6 +1,6 @@
 import React from 'react';
 import { MDBCol, MDBCard, MDBCardBody, MDBCardHeader, MDBRow, MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem, MDBContainer, MDBDataTable, MDBBtn, MDBIcon } from 'mdbreact';
-import Loader from './sections/Loading';
+import Loader from '../pages/sections/Loading';
 //import BasicTable from './sections/Table';
 import { Line, Radar } from 'react-chartjs-2';
 import PropTypes from 'prop-types'

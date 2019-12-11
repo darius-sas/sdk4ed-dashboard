@@ -2,7 +2,7 @@ import React from 'react';
 //import {PagePanel} from './sections/PagePanel';
 import { MDBCol, MDBCard, MDBCardBody, MDBCardHeader, MDBRow, MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem, MDBFormInline, MDBTable, MDBTableBody, MDBTableHead } from 'mdbreact';
 import PropTypes from 'prop-types'
-import Loader from './sections/Loading'
+import Loader from '../pages/sections/Loading'
 import { Line } from 'react-chartjs-2';
 
 // Hardcoded values. When deployed to production these values should be fetched from APIs in componentDidMount() method
