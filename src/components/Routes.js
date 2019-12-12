@@ -12,7 +12,7 @@ import OptimalCheckpoint from './referencematerial/OptimalCheckpointPage';
 
 import MapsPage from './referencematerial/MapsPage';
 import NotFoundPage from './pages/NotFoundPage';
-import DashboardPage from './pages/DashboardPage';
+import DashboardPage from './referencematerial/DashboardPage';
 import ProfilePage from './referencematerial/ProfilePage';
 import TablesPage from './referencematerial/TablesPage';
 
