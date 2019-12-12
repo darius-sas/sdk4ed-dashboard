@@ -1,71 +1,35 @@
 import React, { Component } from 'react';
-import {
-    MDBCol,
-    MDBCard,
-    MDBCardBody,
-    MDBCardHeader,
-    MDBRow,
-    MDBListGroup,
-    MDBListGroupItem,
-    MDBBadge,
-    MDBIcon,
-    MDBContainer
-} from 'mdbreact';
-import { Bar, Pie } from 'react-chartjs-2';
+import {MDBCol, MDBRow, MDBIcon} from 'mdbreact';
+import style from './temp.css'
 
 class SmellList extends Component {
     constructor(props) {
         super(props);
         this.state = {
             modal: false,
-            events: [
-                {
-                    uid: 1,
-                    type: "10:00",
-                    age: "Breakfast with Simon",
-                    dateIntro: "21/11/1990",
-                    size: "Lounge Caffe",
-                    numEdges: "Discuss Q3 targets"
-                },
-                {
-                    uid: 2,
-                    type: "10:00",
-                    age: "Breakfast with Simon",
-                    dateIntro: "21/11/1990",
-                    size: "Lounge Caffe",
-                    numEdges: "Discuss Q3 targets"
-                },
-                {
-                    uid: 3,
-                    type: "10:00",
-                    age: "Breakfast with Simon",
-                    dateIntro: "21/11/1990",
-                    size: "Lounge Caffe",
-                    numEdges: "Discuss Q3 targets"
-                },
-                {
-                    uid: 4,
-                    type: "10:00",
-                    age: "Breakfast with Simon",
-                    dateIntro: "21/11/1990",
-                    size: "Lounge Caffe",
-                    numEdges: "Discuss Q3 targets"
-                }
-            ]
+            smells: []
         };
+    }
+    componentDidMount() {
+        fetch("http://localhost:3001/smells")
+            .then(res => res.json())
+            .then(smells => this.setState({ smells }));
     }
     render(){
         return (
             <React.Fragment>
-                {this.state.events.map(smell => (
+                {this.state.smells.map(smell => (
                     <Smell
-                        key={smell.uid}
-                        uid={smell.uid}
-                        type={smell.type}
+                        id={smell.id}
+                        characteristics={smell.characteristics}
+                        spanningVersions={smell.spanningVersions}
                         age={smell.age}
-                        dateIntro={smell.dateIntro}
-                        size={smell.size}
-                        numEdges={smell.numEdges}
+                        firstVersionAppeared={smell.firstVersionAppeared}
+                        lastVersionDetected={smell.lastVersionDetected}
+                        affectedComponents={smell.affectedComponents}
+                        type={smell.type}
+                        first={smell.first}
+                        last={smell.last}
                     />
                 ))}
             </React.Fragment>
@@ -74,26 +38,66 @@ class SmellList extends Component {
 }
 
 class Smell extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            open: false,
+        };
+
+    }
+
+    toggle() {
+        this.setState({
+            open: !this.state.open
+        });
+    }
     render() {
         return (
-            <MDBRow className="mb-4">
-                <div className="p-5 border border-right-0 border-default" style={{backgroundColor: "white"}}>
-                    <MDBIcon icon="bug" size="6x"/>
-                </div>
+            <React.Fragment>
+                <MDBRow style={{marginTop: 5}}>
+                    <MDBCol md="1" style={{backgroundColor: "white"}}>
+                        <button className="btn btn-default" onClick={this.toggle.bind(this)}>
+                            Smell viewer
+                        </button>
+                    </MDBCol>
+                    <MDBCol className="" md="1" style={{backgroundColor: "white", padding: 5}}>
+                        <div className="text-center" style={{backgroundColor: "white", height: "50%"}}><h5>ID: {this.props.id}</h5></div>
+                        <div className="text-center" style={{backgroundColor: "white", height: "50%"}}><h5>Type: {this.props.type}</h5></div>
+                    </MDBCol>
+                    <MDBCol className="" md="2" style={{backgroundColor: "white", padding: 5}}>
+                        <div className="text-center" style={{backgroundColor: "white", height: "50%"}}><h5>First version appeared: {this.props.firstVersionAppeared}</h5></div>
+                        <div className="text-center" style={{backgroundColor: "white", height: "50%"}}><h5>Last version appeared: {this.props.lastVersionAppeared}</h5></div>
+                    </MDBCol>
+                    <MDBCol className="" md="1" style={{backgroundColor: "white", padding: 5}}>
+                        <div className="text-center" style={{backgroundColor: "white", height: "50%"}}><h5>Age: {this.props.age}</h5></div>
+                    </MDBCol>
+                    <MDBCol className="" md="2" style={{backgroundColor: "white", padding: 5}}>
 
-                <MDBCol md="9" className="mb-8 border border-left-0 border-default" style={{backgroundColor: "white"}}>
-                    <div className="p-5">
-                    <MDBRow className="mb-4">
-                        <MDBCol md="4"><div>{this.props.type} ({this.props.uid})</div></MDBCol>
-                        <MDBCol md="4"><div>{this.props.size}</div></MDBCol>
-                    </MDBRow>
+                    </MDBCol>
+                </MDBRow>
+                <div id="demo" className={"collapse" + (this.state.open ? ' in' : '')} style={{marginBottom: 5}}>
                     <MDBRow>
-                        <MDBCol md="4"><div>{this.props.age}</div></MDBCol>
-                        <MDBCol md="4"><div>{this.props.numEdges}</div></MDBCol>
+                        <MDBCol className="" md="3" style={{backgroundColor: "white", padding: 5}}>
+                            <div className="text-center" style={{backgroundColor: "white", height: "50%"}}><h5>Affected versions, expandable table with characteristics</h5></div>
+                        </MDBCol>
+                        <MDBCol className="" md="4" style={{backgroundColor: "white", padding: 5}}>
+                            <React.Fragment>
+                                {Object.keys(this.props.characteristics).map(item =>
+                                    <MDBRow>
+                                        <MDBCol md="3">
+                                            <h5>Page rank average</h5>
+                                        </MDBCol>
+                                        <MDBCol md="1">
+                                            <h5>{item + this.props.characteristics[item].pageRankAvrg}</h5>
+                                        </MDBCol>
+                                    </MDBRow>
+                                )}
+                            </React.Fragment>
+                        </MDBCol>
                     </MDBRow>
-                    </div>
-                </MDBCol>
-            </MDBRow>
+                </div>
+            </React.Fragment>
+
         );
     }
 }

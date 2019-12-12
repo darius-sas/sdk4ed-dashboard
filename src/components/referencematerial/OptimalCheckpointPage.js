@@ -1,11 +1,11 @@
 import React from 'react';
-import {PagePanel} from './sections/PagePanel';
+import {PagePanel} from '../pages/sections/PagePanel';
 import { MDBCol, MDBRow, MDBCard,MDBCardHeader, MDBCardBody, MDBTable, MDBTableHead, MDBTableBody} from "mdbreact";
 import PropTypes from 'prop-types'
-import {ProgressCard, CountCard, ScoreCard} from './sections/StatusCards'
-import PlotlyChart from './sections/Chart';
+import {ProgressCard, CountCard, ScoreCard} from '../pages/sections/StatusCards'
+import PlotlyChart from '../pages/sections/Chart';
 import 'whatwg-fetch';
-import Loader from './sections/Loading'
+import Loader from '../pages/sections/Loading'
 
 
 /**
