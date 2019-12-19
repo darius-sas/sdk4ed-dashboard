@@ -66,7 +66,7 @@ class Smell extends Component {
                     </MDBCol>
                     <MDBCol className="" md="2" style={{backgroundColor: "white", padding: 5}}>
                         <div className="text-center" style={{backgroundColor: "white", height: "50%"}}><h5>First version appeared: {this.props.firstVersionAppeared}</h5></div>
-                        <div className="text-center" style={{backgroundColor: "white", height: "50%"}}><h5>Last version appeared: {this.props.lastVersionAppeared}</h5></div>
+                        <div className="text-center" style={{backgroundColor: "white", height: "50%"}}><h5>Last version detected: {this.props.lastVersionDetected}</h5></div>
                     </MDBCol>
                     <MDBCol className="" md="1" style={{backgroundColor: "white", padding: 5}}>
                         <div className="text-center" style={{backgroundColor: "white", height: "50%"}}><h5>Age: {this.props.age}</h5></div>

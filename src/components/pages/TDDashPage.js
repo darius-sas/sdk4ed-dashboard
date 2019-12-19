@@ -1,13 +1,13 @@
 import React from 'react';
-import {PagePanel} from '../pages/sections/PagePanel';
+import {PagePanel} from './sections/PagePanel';
 import { MDBCol, MDBRow} from "mdbreact";
-import {ProgressCard, CountCard, ScoreCard} from '../pages/sections/StatusCards'
-import PlotlyChart from '../pages/sections/Chart';
-import BasicTable from '../pages/sections/Table';
+import {ProgressCard, CountCard, ScoreCard} from './sections/StatusCards'
+import PlotlyChart from './sections/Chart';
+import BasicTable from './sections/Table';
 import 'whatwg-fetch';
-import Loader from '../pages/sections/Loading'
-import FileExplorer from '../pages/sections/FileExplorer';
-import ContentPanel from '../pages/sections/ContentPanel';
+import Loader from './sections/Loading'
+import FileExplorer from './sections/FileExplorer';
+import ContentPanel from './sections/ContentPanel';
 
 const PrincipalPanel = props => {
   return (
@@ -56,7 +56,7 @@ const PrincipalPanel = props => {
           </MDBCol>
       </MDBRow>
       </PagePanel>
-)}
+)};
 
 const InterestPanel = props => {
   
@@ -89,7 +89,7 @@ const InterestPanel = props => {
       </MDBRow>
   </PagePanel>
   )
-}
+};
 
 const NewCodePanel = props =>{
   return (
@@ -109,7 +109,7 @@ const NewCodePanel = props =>{
     </MDBRow>
     </PagePanel>
   )
-}
+};
 
 const FileExplorerPanel = () => {
   return (
@@ -117,7 +117,7 @@ const FileExplorerPanel = () => {
       <FileExplorer></FileExplorer>
     </ContentPanel>
   )
-}
+};
 
 /**
  * The technical debt dashboard page. The page is assembled using multiple panels.

@@ -1,10 +1,10 @@
 import React from 'react';
-import {PagePanel} from '../pages/sections/PagePanel';
+import {PagePanel} from './sections/PagePanel';
 import { MDBCol, MDBRow, MDBCard, MDBCardBody, MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem } from "mdbreact";
-import {ProgressCard, CountCard} from '../pages/sections/StatusCards'
-import BasicTable from '../pages/sections/Table';
+import {ProgressCard, CountCard} from './sections/StatusCards'
+import BasicTable from './sections/Table';
 import 'whatwg-fetch';
-import Loader from '../pages/sections/Loading'
+import Loader from './sections/Loading'
 
 // The Project Panel
 const ProjectPanel = props => {

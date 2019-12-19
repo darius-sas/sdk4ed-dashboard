@@ -1,14 +1,14 @@
 import React from 'react';
-import {PagePanel} from '../pages/sections/PagePanel';
+import {PagePanel} from './sections/PagePanel';
 import { MDBCol, MDBRow} from "mdbreact";
-import {ProgressCard, CountCard, ScoreCard} from '../pages/sections/StatusCards'
-import PlotlyChart from '../pages/sections/Chart';
-import BasicTable from '../pages/sections/Table';
+import {ProgressCard, CountCard, ScoreCard} from './sections/StatusCards'
+import PlotlyChart from './sections/Chart';
+import BasicTable from './sections/Table';
 import 'whatwg-fetch';
-import Loader from '../pages/sections/Loading'
+import Loader from './sections/Loading'
 import { Line, Radar } from 'react-chartjs-2';
-import FileExplorer from '../pages/sections/FileExplorer';
-import ContentPanel from '../pages/sections/ContentPanel';
+import FileExplorer from './sections/FileExplorer';
+import ContentPanel from './sections/ContentPanel';
 import { MDBCard, MDBCardBody, MDBCardHeader, MDBContainer, MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem, MDBFormInline, MDBTable, MDBTableBody, MDBTableHead } from 'mdbreact';
 //============== Import Highcharts ==============//
 import Highcharts from 'highcharts';
@@ -249,48 +249,48 @@ const InterestPanel = props => {
 
   </PagePanel>
   )
-}
+};
 
-class BasicTable extends React.Component {
-
-    static propTypes = {
-        /**
-         * An object that respects as defined here https://mdbootstrap.com/docs/react/tables/additional/
-         * It contains the data that will be visualized in the table
-         */
-        data: PropTypes.object,
-
-        /**
-         * The title of the table.
-         */
-        title: PropTypes.string
-    }
-
-    render(){
-        var data = this.props.data
-        var rows = []
-        var uniqueId = 0
-        for(var i in data.rows)
-        {
-            var row = data.rows[i]
-            var r = []
-            for(var j in data.columns)
-            {
-                var field = data.columns[j]['field']
-                r.push(<td key={uniqueId++}>{row[field]}</td>)
-            }
-            rows.push(<tr key={uniqueId++}>{r}</tr>)
-        }
-        var header = []
-        for(var h in data.columns)
-            header.push(<th key={uniqueId++}>{data.columns[h]['label']}</th>)
-
-        return(
-            <MDBDataTable striped small bordered responsive hover data={data} />
-        )
-
-    }
-}
+// class BasicTable extends React.Component {
+//
+//     static propTypes = {
+//         /**
+//          * An object that respects as defined here https://mdbootstrap.com/docs/react/tables/additional/
+//          * It contains the data that will be visualized in the table
+//          */
+//         data: PropTypes.object,
+//
+//         /**
+//          * The title of the table.
+//          */
+//         title: PropTypes.string
+//     }
+//
+//     render(){
+//         var data = this.props.data
+//         var rows = []
+//         var uniqueId = 0
+//         for(var i in data.rows)
+//         {
+//             var row = data.rows[i]
+//             var r = []
+//             for(var j in data.columns)
+//             {
+//                 var field = data.columns[j]['field']
+//                 r.push(<td key={uniqueId++}>{row[field]}</td>)
+//             }
+//             rows.push(<tr key={uniqueId++}>{r}</tr>)
+//         }
+//         var header = []
+//         for(var h in data.columns)
+//             header.push(<th key={uniqueId++}>{data.columns[h]['label']}</th>)
+//
+//         return(
+//             <MDBDataTable striped small bordered responsive hover data={data} />
+//         )
+//
+//     }
+// }
 
 
 const FileExplorerPanel = () => {

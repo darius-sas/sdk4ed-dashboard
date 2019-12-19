@@ -10,14 +10,13 @@ import SmellListPage from "./components/pages/SmellListPage";
 class App extends Component {
   
   render() {
-    return (
+      return (
         <div className="flexible-content">
-
-          <SideNavigation/>
-          <main id="content" className="p-5">
-            <SmellListPage/>
-          </main>
-
+            <TopNavigation/>
+            <SideNavigation/>
+            <main id="content" className="p-5">
+                <Routes/>
+            </main>
         </div>
     );
   }

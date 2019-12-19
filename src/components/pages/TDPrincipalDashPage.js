@@ -1,14 +1,14 @@
 import React from 'react';
-import {PagePanel} from '../pages/sections/PagePanel';
+import {PagePanel} from './sections/PagePanel';
 import { MDBCol, MDBRow} from "mdbreact";
-import {CountCard} from '../pages/sections/StatusCards'
+import {CountCard} from './sections/StatusCards'
 import 'whatwg-fetch';
 import { Radar } from 'react-chartjs-2';
-import Loader from '../pages/sections/Loading'
-import FileExplorer from '../pages/sections/FileExplorer';
-import ContentPanel from '../pages/sections/ContentPanel';
-import { MDBCard, MDBCardBody, MDBCardHeader, MDBContainer, MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem, MDBFormInline, } from 'mdbreact';
-import { parseSonarqubeFiles } from '../pages/sections/Tree';
+import Loader from './sections/Loading'
+import FileExplorer from './sections/FileExplorer';
+import ContentPanel from './sections/ContentPanel';
+import { MDBCard, MDBCardBody, MDBCardHeader, MDBContainer, MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem, MDBFormInline, MDBDataTable} from 'mdbreact';
+import { parseSonarqubeFiles } from './sections/Tree';
 
 //============== Import Highcharts ==============//
 import Highcharts from 'highcharts';
@@ -156,12 +156,12 @@ const PrincipalPanel = props => {
            * An object that respects as defined here https://mdbootstrap.com/docs/react/tables/additional/
            * It contains the data that will be visualized in the table
            */
-          data: PropTypes.object,
+          // data: PropTypes.object,
 
           /**
            * The title of the table.
            */
-          title: PropTypes.string
+          // title: PropTypes.string
       }
 
       render(){

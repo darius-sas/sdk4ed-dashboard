@@ -5,19 +5,19 @@ import logo from "../assets/logo.png"
 class TopNavigation extends Component {
     state = {
         collapse: false
-    }
+    };
 
     onClick = () => {
         this.setState({
             collapse: !this.state.collapse,
         });
-    }
+    };
 
     toggle = () => {
         this.setState({
             dropdownOpen: !this.state.dropdownOpen
         });
-    }
+    };
 
     render() {
         return (
@@ -77,16 +77,30 @@ class TopNavigation extends Component {
                                                 Profile
                                     </MDBListGroupItem>
                                         </MDBNavLink>
-                                    </MDBNavItem></MDBCol>
+                                    </MDBNavItem>
+                                </MDBCol>
 
-                                <MDBCol md="3" className="my-1 mx-0"><MDBNavItem >
-                                    <MDBNavLink to="/energy" activeClassName="activeClass">
-                                        <MDBListGroupItem className="h-100">
-                                            <MDBIcon icon="bolt" className="mr-3" />
-                                            Energy
-                                </MDBListGroupItem>
-                                    </MDBNavLink>
-                                </MDBNavItem></MDBCol>
+                                <MDBCol md="3" className="my-1 mx-0">
+                                    <MDBNavItem >
+                                        <MDBNavLink to="/energy" activeClassName="activeClass">
+                                            <MDBListGroupItem className="h-100">
+                                                <MDBIcon icon="bolt" className="mr-3" />
+                                                Energy
+                                            </MDBListGroupItem>
+                                        </MDBNavLink>
+                                    </MDBNavItem>
+                                </MDBCol>
+
+                                <MDBCol md="3" className="my-1 mx-0">
+                                    <MDBNavItem >
+                                        <MDBNavLink to="/astracker" activeClassName="activeClass">
+                                            <MDBListGroupItem className="h-100">
+                                                <MDBIcon icon="search" className="mr-3" />
+                                                Astracker
+                                            </MDBListGroupItem>
+                                        </MDBNavLink>
+                                    </MDBNavItem>
+                                </MDBCol>
 
 
 								<MDBCol md="3" className="my-1 mx-0">
@@ -115,10 +129,10 @@ class TopNavigation extends Component {
 
                                     </MDBNavItem> 
                                     
-                                     </MDBCol>
+                                 </MDBCol>
                                                                                                
                                                                     
-                                    <MDBCol md="3" className="my-1 mx-0">
+                                <MDBCol md="3" className="my-1 mx-0">
                                     <MDBNavItem  activeClassName="activeClass">
                                         <MDBDropdown activeClassName="activeClass">
                                             <MDBListGroupItem activeClassName="activeClass">
@@ -143,9 +157,9 @@ class TopNavigation extends Component {
                                        </MDBNavLink>
                                                     </MDBDropdownItem>
                                                     <MDBDropdownItem>
-                                                        <NavLink to="/atdpage" activeClassName="activeClass">
+                                                        <MDBNavLink to="/atdpage" activeClassName="activeClass">
                                                             ATD Dashboard
-                                        </NavLink>
+                                        </MDBNavLink>
                                                     </MDBDropdownItem>
                                                 </MDBDropdownMenu>
                                             </MDBListGroupItem>

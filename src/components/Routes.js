@@ -1,20 +1,21 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import TDInterestDashPage from './referencematerial/TDInterestDashPage';
-import TDPrincipalDashPage from './referencematerial/TDPrincipalDashPage';
-import TDNewCodeDashPage from './referencematerial/TDNewCodeDashPage';
-import SecurityDashPage from './referencematerial/SecurityDashPage';
-import EnergyDashPage from './referencematerial/EnergyDashPage';
-import ForecastDashPage from './referencematerial/ForecastDashPage';
-import ForecastEnergyDashPage from './referencematerial/ForecastEnergyDashPage';
-import ForecastSecurityDashPage from './referencematerial/ForecastSecurityDashPage';
-import OptimalCheckpoint from './referencematerial/OptimalCheckpointPage';
-
-import MapsPage from './referencematerial/MapsPage';
+import TDInterestDashPage from './pages/TDInterestDashPage';
+import TDPrincipalDashPage from './pages/TDPrincipalDashPage';
+import TDNewCodeDashPage from './pages/TDNewCodeDashPage';
+import SecurityDashPage from './pages/SecurityDashPage';
+import EnergyDashPage from './pages/EnergyDashPage';
+import ForecastDashPage from './pages/ForecastDashPage';
+import ForecastEnergyDashPage from './pages/ForecastEnergyDashPage';
+import ForecastSecurityDashPage from './pages/ForecastSecurityDashPage';
+import OptimalCheckpoint from './pages/OptimalCheckpointPage';
+import HelloMessage from "./pages/ATDPage";
+import MapsPage from './pages/MapsPage';
 import NotFoundPage from './pages/NotFoundPage';
-import DashboardPage from './referencematerial/DashboardPage';
-import ProfilePage from './referencematerial/ProfilePage';
-import TablesPage from './referencematerial/TablesPage';
+import DashboardPage from './pages/DashboardPage';
+import ProfilePage from './pages/ProfilePage';
+import TablesPage from './pages/TablesPage';
+import SmellListPage from "./pages/SmellListPage";
 
 class Routes extends React.Component {
   render() {
@@ -26,8 +27,8 @@ class Routes extends React.Component {
         <Route path='/tdinterest' component={TDInterestDashPage}/>        
         <Route path='/tdprincipal' component={TDPrincipalDashPage}/>
         <Route path='/tdnewcode' component={TDNewCodeDashPage}/>
-		
-		    <Route path='/optimalcheckpoint' component={OptimalCheckpoint}/>
+		<Route path='/astracker' component={SmellListPage}/>
+        <Route path='/optimalcheckpoint' component={OptimalCheckpoint}/>
         <Route path='/security' component={SecurityDashPage} />
         <Route path='/energy' component={EnergyDashPage} />
         <Route path='/tdforecast' component={ForecastDashPage}/>
