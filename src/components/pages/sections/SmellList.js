@@ -51,12 +51,13 @@ class Smell extends Component {
             open: !this.state.open
         });
     }
+
     render() {
         return (
             <React.Fragment>
                 <MDBRow style={{marginTop: 5}}>
                     <MDBCol md="1" style={{backgroundColor: "white"}}>
-                        <button className="btn btn-default" onClick={this.toggle.bind(this)}>
+                        <button className="btn sdk4ed-color" onClick={this.toggle.bind(this)}>
                             Smell viewer
                         </button>
                     </MDBCol>
@@ -71,33 +72,73 @@ class Smell extends Component {
                     <MDBCol className="" md="1" style={{backgroundColor: "white", padding: 5}}>
                         <div className="text-center" style={{backgroundColor: "white", height: "50%"}}><h5>Age: {this.props.age}</h5></div>
                     </MDBCol>
-                    <MDBCol className="" md="2" style={{backgroundColor: "white", padding: 5}}>
+                    <MDBCol className="" md="1" style={{backgroundColor: "white", padding: 5}}>
 
                     </MDBCol>
                 </MDBRow>
-                <div id="demo" className={"collapse" + (this.state.open ? ' in' : '')} style={{marginBottom: 5}}>
-                    <MDBRow>
-                        <MDBCol className="" md="3" style={{backgroundColor: "white", padding: 5}}>
-                            <div className="text-center" style={{backgroundColor: "white", height: "50%"}}><h5>Affected versions, expandable table with characteristics</h5></div>
-                        </MDBCol>
-                        <MDBCol className="" md="4" style={{backgroundColor: "white", padding: 5}}>
-                            <React.Fragment>
-                                {Object.keys(this.props.characteristics).map(item =>
-                                    <MDBRow>
-                                        <MDBCol md="3">
-                                            <h5>Page rank average</h5>
-                                        </MDBCol>
-                                        <MDBCol md="1">
-                                            <h5>{item + this.props.characteristics[item].pageRankAvrg}</h5>
-                                        </MDBCol>
-                                    </MDBRow>
-                                )}
-                            </React.Fragment>
-                        </MDBCol>
-                    </MDBRow>
+                <div id="outer" className={"collapse" + (this.state.open ? ' in' : '')} style={{marginBottom: 5}}>
+                    <React.Fragment>
+                        {Object.keys(this.props.characteristics).map((item, index) => (
+                            <VersionDetails
+                                version = {item}
+                                data = {this.props.characteristics[item]}
+                            />
+                        ))}
+                    </React.Fragment>
                 </div>
             </React.Fragment>
+        );
+    }
+}
 
+class VersionDetails extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            open: false,
+        };
+
+    }
+
+    toggle() {
+        this.setState({
+            open: !this.state.open
+        });
+    }
+
+    render() {
+        return(
+            <React.Fragment>
+                <MDBRow>
+                    <MDBCol md="1" className="light">
+                        <button className="btn sdk4ed-color" onClick={this.toggle.bind(this)} >
+                            Version {this.props.version}
+                        </button>
+                    </MDBCol>
+                </MDBRow>
+                    <div id="inner" className={"collapse" + (this.state.open ? ' in' : '')} style={{marginBottom: 5}}>
+                        <MDBRow>
+                            <MDBCol md="2" className={"lighter"}>
+                                <div className="text-center" style={{height: "50%"}}><h5>Parameter</h5></div>
+                            </MDBCol>
+                            <MDBCol md="2" className={"lighter"}>
+                                <div className="text-center" style={{height: "50%"}}><h5>Value</h5></div>
+                            </MDBCol>
+                        </MDBRow>
+                        <React.Fragment>
+                            {Object.keys(this.props.data).map(item => (
+                                <MDBRow>
+                                    <MDBCol md="2" className={"lighter"} style={{padding: 5}}>
+                                        <div className="text-center" style={{height: "50%"}}><h5>{item}</h5></div>
+                                    </MDBCol>
+                                    <MDBCol className={"lighter"} md="2" style={{padding: 5}}>
+                                        <div className="text-center" style={{height: "50%"}}><h5>{this.props.data[item]}</h5></div>
+                                    </MDBCol>
+                                </MDBRow>
+                            ))}
+                        </React.Fragment>
+                    </div>
+            </React.Fragment>
         );
     }
 }
