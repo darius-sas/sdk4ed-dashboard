@@ -11,6 +11,7 @@ import {
 import {Line} from "react-chartjs-2";
 import debounce from "lodash.debounce";
 
+
 class SmellList extends Component {
     constructor(props) {
         super(props);
@@ -154,6 +155,7 @@ class Smell extends Component {
         this.setState({
             open: !this.state.open
         });
+        console.log("click");
     }
 
     render() {
