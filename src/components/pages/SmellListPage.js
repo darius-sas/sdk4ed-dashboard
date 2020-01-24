@@ -155,7 +155,6 @@ class Smell extends Component {
         this.setState({
             open: !this.state.open
         });
-        console.log("click");
     }
 
     render() {
@@ -204,7 +203,6 @@ class Versions extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            open: false,
             version: this.props.spanningVersions[0]
         };
     }
@@ -243,65 +241,52 @@ class VersionDetails extends Component {
         super(props);
     }
 
+    format(item) {
+        /* if item is a number it rounds with max 4 fraction decimals */
+        if (!isNaN(item)) {
+            return parseFloat(parseFloat(item).toFixed(4));
+        }
+        return item;
+    }
+
     render() {
         return(
-            <React.Fragment>
-                <MDBRow>
-                    <MDBCol md="3" className={"lighter"}>
-                        <MDBRow>
-                            <MDBCol md="12" className={"lighter"}>
-                                <div className="text-center" style={{height: "50%"}}><h5>Parameter</h5></div>
-                            </MDBCol>
-                        </MDBRow>
-                        <React.Fragment>
+            <MDBRow>
+                <MDBCol md="8">
+                    <table className="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">Parameter</th>
+                                <th scope="col">Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
                             {Object.keys(this.props.characteristics).map((item) => (
-                                <MDBRow key={item}>
-                                    <MDBCol md="12" className={"lighter"}>
-                                        <div className="text-center" style={{height: "50%"}}><h5>{item}</h5></div>
-                                    </MDBCol>
-                                </MDBRow>
+                                <tr key={item}>
+                                    <td>{item}</td>
+                                    <td>{this.format(this.props.characteristics[item])}</td>
+                                </tr>
                             ))}
-                        </React.Fragment>
-                    </MDBCol>
-
-                    <MDBCol md="3" className={"lighter"}>
-                        <MDBRow>
-                            <MDBCol md="12" className={"lighter"}>
-                                <div className="text-center" style={{height: "50%"}}><h5>Value</h5></div>
-                            </MDBCol>
-                        </MDBRow>
-                        <React.Fragment>
-                            {Object.keys(this.props.characteristics).map(item => (
-                                <MDBRow key={item}>
-                                    <MDBCol md="12" className={"lighter"}>
-                                        <div className="text-center" style={{height: "50%"}}><h5>{this.props.characteristics[item]}</h5></div>
-                                    </MDBCol>
-                                </MDBRow>
-                            ))}
-                        </React.Fragment>
-                    </MDBCol>
-                    <MDBCol md="3" className={"lighter"}>
-                        <MDBRow>
-                            <MDBCol md="12" className={"lighter"}>
-                                <div className="text-center" style={{height: "50%"}}><h5>Affected Components</h5></div>
-                            </MDBCol>
-                        </MDBRow>
-                        <React.Fragment>
+                        </tbody>
+                    </table>
+                </MDBCol>
+                <MDBCol md="4">
+                    <table className="table table-striped">
+                        <thead>
+                        <tr>
+                            <th scope="col">Affected Components</th>
+                        </tr>
+                        </thead>
+                        <tbody>
                             {this.props.affectedComponents.map(item => (
-                                <MDBRow key={item}>
-                                    <MDBCol md="12" className={"lighter"}>
-                                        <div className="text-center" style={{height: "50%"}}><h5>{item}</h5></div>
-                                    </MDBCol>
-                                </MDBRow>
+                                <tr key={item}>
+                                    <td>{item}</td>
+                                </tr>
                             ))}
-                        </React.Fragment>
-                    </MDBCol>
-                    <MDBCol md="3" className={"lighter"}>
-
-                    </MDBCol>
-                </MDBRow>
-
-            </React.Fragment>
+                        </tbody>
+                    </table>
+                </MDBCol>
+            </MDBRow>
         );
     }
 }
