@@ -11,6 +11,11 @@ import {
 import {Line} from "react-chartjs-2";
 import debounce from "lodash.debounce";
 
+const SERVER_IP = process.env.REACT_APP_ATD_TOOL_SERVER_IP
+// TODO:
+// - add project selection
+// - 
+
 
 class SmellList extends Component {
     constructor(props) {
@@ -21,6 +26,7 @@ class SmellList extends Component {
             isLoading: false,
             modal: false,
             page: 1,
+            project: "",
             smells: []
         };
         window.onscroll = debounce(() => {
@@ -45,8 +51,15 @@ class SmellList extends Component {
         }, 100);
     }
 
+    updatedProject = (project) => {
+        this.setState({project: project});
+        console.log("In updated project")
+        this.loadSmells(1);
+    }
+
     loadSmells(page) {
-        fetch("http://localhost:3001/smells?_page="+page)
+        var url = SERVER_IP + "/smells?system="+this.state.project
+        fetch(url)
             .then(res => res.json())
             .then(smelldata => this.appendSmells(smelldata))
     }
@@ -57,7 +70,7 @@ class SmellList extends Component {
     }
 
     componentDidMount() {
-        this.loadSmells(1)
+        //this.loadSmells(1)
     }
 
     calculateLine() {
@@ -106,10 +119,17 @@ class SmellList extends Component {
         };
         this.calculateLine();
         return (
+            <React.Fragment>
+            <MDBRow style={{marginBottom: 15}}>
+                <MDBCol md="8">
+                    <ProjectSelector onProjectChange={this.updatedProject}></ProjectSelector>
+                </MDBCol>
+            </MDBRow>
+            
             <MDBRow>
                 <MDBCol md="8">
                     <MDBCard>
-                        <MDBCardHeader>Project Name</MDBCardHeader>
+                        <MDBCardHeader>Project: {this.state.project}</MDBCardHeader>
                         <MDBCardBody>
                             <MDBCard style={{marginBottom: 5}}>
                                 <MDBCardHeader>Smells over time</MDBCardHeader>
@@ -138,6 +158,7 @@ class SmellList extends Component {
                     </MDBCard>
                 </MDBCol>
             </MDBRow>
+            </React.Fragment>
         )
     }
 }
@@ -291,5 +312,52 @@ class VersionDetails extends Component {
     }
 }
 
+class ProjectSelector extends Component {
+    constructor(props){
+        super(props)
+        this.state = {
+            selected: "no-project",
+            projects: ["prova", "ciao", "aooo"]
+        }
+        this.handleChange = this.handleChange.bind(this);
+    }
+
+    componentDidMount(){
+        this.getProjectsList();
+    }
+
+    handleChange(event) {
+        this.setState({selected: event.target.value});
+        this.props.onProjectChange(event.target.value);
+        console.log("In handle change");
+    }
+
+    getProjectsList(){
+        var url = SERVER_IP + "/projects"
+        console.log("Requesting projects " + url);
+        fetch(url)
+            .then(res => res.json())
+            .then(projects => this.setState({projects: projects.projects}))
+    }
+
+    render(){
+        return (
+            <React.Fragment>
+                <MDBCard>
+                <MDBCardHeader>Choose an analysed project</MDBCardHeader>
+                <MDBCardBody>
+                    <div>
+                    <select className="browser-default custom-select" value={this.state.selected} onChange={this.handleChange}>
+                        <option value="no-project">Choose your option</option>
+                        {this.state.projects.map((projectItem, index) => (
+                            <option key={index} value={projectItem}>{projectItem}</option>
+                        ))}
+                    </select>
+                    </div>
+                </MDBCardBody>
+                </MDBCard>
+            </React.Fragment>);
+    }
+}
 
 export default SmellList;

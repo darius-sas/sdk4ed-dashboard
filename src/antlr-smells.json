@@ -1,4 +1,4 @@
-[
+{"smells": [
     {
         "spanningVersions": [
             20
@@ -41111,3 +41111,4 @@
         "last": 19
     }
 ]
+}
