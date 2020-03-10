@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Select from 'react-select';
 import {
     MDBCol,
     MDBRow,
@@ -6,15 +7,17 @@ import {
     MDBDropdownItem,
     MDBDropdown,
     MDBDropdownToggle,
-    MDBCardHeader, MDBCardBody, MDBCard
+    MDBCardHeader, MDBCardBody, MDBCard, MDBTable, MDBTableHead, MDBTableBody
 } from 'mdbreact';
 import {Line} from "react-chartjs-2";
-import debounce from "lodash.debounce";
 
 const SERVER_IP = process.env.REACT_APP_ATD_TOOL_SERVER_IP
 // TODO:
-// - add project selection
-// - 
+// - [done] add project selection
+// - [done] fix visualization
+// - [] pagination with table https://mdbootstrap.com/docs/react/tables/pagination/
+// - [] integrate into dashboard
+// - [] add components
 
 
 class SmellList extends Component {
@@ -25,99 +28,77 @@ class SmellList extends Component {
             hasMore: true,
             isLoading: false,
             modal: false,
-            page: 1,
             project: "",
-            smells: []
+            smells: [],
+            versions: {},
+            components: [], 
+            smellTypes: ["Cyclic Dependency", "Unstable Dependency", 
+                        "Hublike Dependency", "God Component"],
+            smellColours: ["rgba(55,43,96,1)", "rgba(235,94,85,1)", "rgba(98,195,112,1)", "rgba(242,220,93,1)"]
         };
-        window.onscroll = debounce(() => {
-            const {
-                loadSmells,
-                state: {
-                    error,
-                    isLoading,
-                    hasMore,
-                },
-            } = this;
-
-            if (error || isLoading || !hasMore) return;
-
-            if (
-                window.innerHeight + document.documentElement.scrollTop
-                === document.documentElement.offsetHeight
-            ) {
-                this.setState({page: this.state.page+1});
-                this.loadSmells(this.state.page);
-            }
-        }, 100);
     }
 
     updatedProject = (project) => {
         this.setState({project: project});
-        console.log("In updated project")
-        this.loadSmells(1);
+        console.log("In updated project: " + project);
+        this.loadData(project);
     }
 
-    loadSmells(page) {
-        var url = SERVER_IP + "/smells?system="+this.state.project
+    loadData(project) {
+        var url = SERVER_IP + "/system?system="+project
+        console.log("Requesting data for " + project + " " + url)
         fetch(url)
             .then(res => res.json())
-            .then(smelldata => this.appendSmells(smelldata))
-    }
-
-    appendSmells(data) {
-        const newSmells = this.state.smells.concat(data);
-        this.setState( {smells: newSmells});
-    }
-
-    componentDidMount() {
-        //this.loadSmells(1)
+            .then(system => {
+                console.log("Data for project: " + project)
+                this.setState( {smells: system.system.smells, versions: system.system.versions, components: system.system.components});
+            });
     }
 
     calculateLine() {
-        const versionCounts = {};
-        for(const [index, value] of this.state.smells.entries()){
-            for(const [index, value] of this.state.smells[index].spanningVersions.entries()) {
-                if (value in versionCounts) {
-                    versionCounts[value]++;
-                } else {
-                    versionCounts[value] = 1;
-                }
+        const smellCount = {};
+        this.state.smellTypes.forEach(t => {
+            smellCount[t] = {}
+            Object.keys(this.state.versions).forEach(v => smellCount[t][v] = 0)
+        });
+        for(const smell of this.state.smells){
+            for(const version of smell.spanningVersions) {
+                smellCount[smell.type][version] += 1;
             }
         }
-        return versionCounts;
+        const dataLine = { labels: Object.keys(this.state.versions), datasets:[]}
+        this.state.smellTypes.forEach((t, index) => {
+            var dataset = {
+                label: t, // series name
+                fill: false,
+                pointStrokeColor: 'rgba(38,84,124,1)',
+                pointHighlightFill: 'rgba(38,84,124,1)',
+                pointHighlightStroke: 'rgba(38,84,124,1)',
+                lineTension: 0.1,
+                backgroundColor: this.state.smellColours[index],
+                borderColor: this.state.smellColours[index],
+                borderCapStyle: 'butt',
+                borderDash: [],
+                borderDashOffset: 0.0,
+                borderJoinStyle: 'miter',
+                pointBorderColor: '#467a39',
+                pointBackgroundColor: '#fff',
+                pointBorderWidth: 1,
+                pointHoverRadius: 5,
+                pointHoverBackgroundColor: this.state.smellColours[index],
+                pointHoverBorderColor: '#121212',
+                pointHoverBorderWidth: 2,
+                pointRadius: 1,
+                pointHitRadius: 10,
+                data: Object.values(smellCount[t]) // series data
+            }
+            dataLine.datasets.push(dataset);
+        })
+        return dataLine;
     }
 
-
-
     render(){
-        const dataobject = this.calculateLine();
-        const dataLine = {
-            labels: Object.keys(dataobject),
-            datasets: [
-                {
-                    label: '# smells',
-                    fill: false,
-                    lineTension: 0.1,
-                    backgroundColor: '#467a39',
-                    borderColor: '#467a39',
-                    borderCapStyle: 'butt',
-                    borderDash: [],
-                    borderDashOffset: 0.0,
-                    borderJoinStyle: 'miter',
-                    pointBorderColor: '#467a39',
-                    pointBackgroundColor: '#fff',
-                    pointBorderWidth: 1,
-                    pointHoverRadius: 5,
-                    pointHoverBackgroundColor: 'rgba(75,192,192,1)',
-                    pointHoverBorderColor: 'rgba(220,220,220,1)',
-                    pointHoverBorderWidth: 2,
-                    pointRadius: 1,
-                    pointHitRadius: 10,
-                    data: Object.values(dataobject)
-                }
-            ]
-        };
-        this.calculateLine();
+        const dataLine = this.calculateLine();
         return (
             <React.Fragment>
             <MDBRow style={{marginBottom: 15}}>
@@ -134,7 +115,7 @@ class SmellList extends Component {
                             <MDBCard style={{marginBottom: 5}}>
                                 <MDBCardHeader>Smells over time</MDBCardHeader>
                                 <MDBCardBody>
-                                    <Line data={dataLine} height={50}  />
+                                    <Line data={dataLine} height={100}  />
                                 </MDBCardBody>
                             </MDBCard>
                             <React.Fragment>
@@ -181,39 +162,44 @@ class Smell extends Component {
     render() {
         return (
             <MDBCard style={{marginBottom: 5}}>
-                <MDBCardBody>
-                    <React.Fragment>
-                        <MDBRow style={{marginTop: 5}}>
-                            <MDBCol md="2" style={{backgroundColor: "white"}}>
-                                <button className="btn sdk4ed-color" onClick={this.toggle.bind(this)}>
-                                    Smell viewer
+                <MDBCardBody className="w-100">
+                        <MDBRow className="w-100" style={{marginTop: 5}}>
+                            <MDBCol className="w-100" style={{backgroundColor: "white", padding: 5}}>
+                                <MDBTable bordered striped>
+                                    <MDBTableHead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Type</th>
+                                            <th>Age</th>
+                                            <th>Affects</th>
+                                            <th>Commit first appeared</th>
+                                            <th>Commit last detected</th>
+                                        </tr>
+                                    </MDBTableHead>
+                                    <MDBTableBody>
+                                        <tr>
+                                            <td className="font-weight-bold">{this.props.id}</td>
+                                            <td>{this.props.type}</td>
+                                            <td>{this.props.age}</td>
+                                            <td>{this.props.characteristics[Object.keys(this.props.characteristics)[0]]['Affected Component Type']}</td>
+                                            <td>{this.props.firstVersionAppeared}</td>
+                                            <td>{this.props.lastVersionDetected}</td>
+                                        </tr>
+                                    </MDBTableBody>
+                                </MDBTable>
+                                <button className="btn sdk4ed-color" 
+                                        onClick={this.toggle.bind(this)}>  
+                                Historical Details
                                 </button>
-                            </MDBCol>
-                            <MDBCol className="" md="1" style={{backgroundColor: "white", padding: 5}}>
-                                <div className="text-center" style={{backgroundColor: "white", height: "50%"}}><h5>ID: {this.props.id}</h5></div>
-                            </MDBCol>
-                            <MDBCol className="" md="2" style={{backgroundColor: "white", padding: 5}}>
-                                <div className="text-center" style={{backgroundColor: "white", height: "50%"}}><h5>Type: {this.props.type}</h5></div>
-                            </MDBCol>
-                            <MDBCol className="" md="1" style={{backgroundColor: "white", padding: 5}}>
-                                <div className="text-center" style={{backgroundColor: "white", height: "50%"}}><h5>Age: {this.props.age}</h5></div>
-                            </MDBCol>
-                            <MDBCol className="" md="3" style={{backgroundColor: "white", padding: 5}}>
-                                <div className="text-center" style={{backgroundColor: "white", height: "50%"}}><h5>First version appeared: {this.props.firstVersionAppeared}</h5></div>
-                            </MDBCol>
-                            <MDBCol className="" md="3" style={{backgroundColor: "white", padding: 5}}>
-                                <div className="text-center" style={{backgroundColor: "white", height: "50%"}}><h5>Last version detected: {this.props.lastVersionDetected}</h5></div>
-                            </MDBCol>
-
+                                </MDBCol>
                         </MDBRow>
                         <div id="outer" className={"collapse" + (this.state.open ? ' in' : '')} style={{marginBottom: 5, paddingBottom: 5}}>
                             {<Versions
-                                spanningVersions = {this.props.spanningVersions}
+                                spanningVersions = {this.props.spanningVersions.reverse()}
                                 characteristics = {this.props.characteristics}
                                 affectedComponents = {this.props.affectedComponents}
                             />}
                         </div>
-                    </React.Fragment>
                 </MDBCardBody>
             </MDBCard>
         );
@@ -240,11 +226,9 @@ class Versions extends Component {
                         Version {this.state.version}
                     </MDBDropdownToggle>
                     <MDBDropdownMenu basic>
-                        <React.Fragment>
                             {this.props.spanningVersions.map((item) => (
                                 <MDBDropdownItem key={item} onClick={() => this.handleClick(item)}>{item}</MDBDropdownItem>
                             ))}
-                        </React.Fragment>
                     </MDBDropdownMenu>
                 </MDBDropdown>
                 <VersionDetails
@@ -274,7 +258,7 @@ class VersionDetails extends Component {
         return(
             <MDBRow>
                 <MDBCol md="8">
-                    <table className="table table-striped">
+                    <table className="table table-striped table-bordered">
                         <thead>
                             <tr>
                                 <th scope="col">Parameter</th>
@@ -292,7 +276,7 @@ class VersionDetails extends Component {
                     </table>
                 </MDBCol>
                 <MDBCol md="4">
-                    <table className="table table-striped">
+                    <table className="table table-striped table-bordered">
                         <thead>
                         <tr>
                             <th scope="col">Affected Components</th>
@@ -317,19 +301,22 @@ class ProjectSelector extends Component {
         super(props)
         this.state = {
             selected: "no-project",
-            projects: ["prova", "ciao", "aooo"]
+            projects: []
         }
         this.handleChange = this.handleChange.bind(this);
     }
 
     componentDidMount(){
         this.getProjectsList();
+        if(this.state.projects.length > 0){
+            this.setState({select: this.state.projects[0]})
+        }
     }
 
-    handleChange(event) {
-        this.setState({selected: event.target.value});
-        this.props.onProjectChange(event.target.value);
-        console.log("In handle change");
+    handleChange(optionSelected){
+        this.setState({selected: optionSelected.value})
+        console.log("Changed state " + this.state.selected + " " + optionSelected.value)
+        this.props.onProjectChange(optionSelected.value);
     }
 
     getProjectsList(){
@@ -337,7 +324,12 @@ class ProjectSelector extends Component {
         console.log("Requesting projects " + url);
         fetch(url)
             .then(res => res.json())
-            .then(projects => this.setState({projects: projects.projects}))
+            .then(projects => {
+                var projOptions = []
+                projects.projects.forEach(e => projOptions.push({value: e, label: e}))
+                console.log(projOptions)
+                this.setState({projects: projOptions})
+            })
     }
 
     render(){
@@ -347,12 +339,12 @@ class ProjectSelector extends Component {
                 <MDBCardHeader>Choose an analysed project</MDBCardHeader>
                 <MDBCardBody>
                     <div>
-                    <select className="browser-default custom-select" value={this.state.selected} onChange={this.handleChange}>
-                        <option value="no-project">Choose your option</option>
-                        {this.state.projects.map((projectItem, index) => (
-                            <option key={index} value={projectItem}>{projectItem}</option>
-                        ))}
-                    </select>
+                        <label>Pick the project to show:
+                        <Select 
+                            value={this.state.selected}
+                            options={this.state.projects} 
+                            onChange={this.handleChange} />
+                        </label>
                     </div>
                 </MDBCardBody>
                 </MDBCard>
