@@ -10,17 +10,20 @@ import {
     MDBCardHeader, MDBCardBody, MDBCard, MDBTable, MDBTableHead, MDBTableBody
 } from 'mdbreact';
 import {Line} from "react-chartjs-2";
+import ReactPaginate from 'react-paginate';
+import PropTypes from 'prop-types';
 
 const SERVER_IP = process.env.REACT_APP_ATD_TOOL_SERVER_IP
 // TODO:
 // - [done] add project selection
 // - [done] fix visualization
-// - [] pagination with table https://mdbootstrap.com/docs/react/tables/pagination/
+// - [done] pagination with table https://mdbootstrap.com/docs/react/tables/pagination/
 // - [] integrate into dashboard
 // - [] add components
 
 
-class SmellList extends Component {
+class SystemViewer extends Component {
+
     constructor(props) {
         super(props);
         this.state = {
@@ -34,28 +37,34 @@ class SmellList extends Component {
             components: [], 
             smellTypes: ["Cyclic Dependency", "Unstable Dependency", 
                         "Hublike Dependency", "God Component"],
-            smellColours: ["rgba(55,43,96,1)", "rgba(235,94,85,1)", "rgba(98,195,112,1)", "rgba(242,220,93,1)"]
+            smellColours: ["rgba(55,43,96,1)", "rgba(235,94,85,1)", 
+                        "rgba(98,195,112,1)", "rgba(242,220,93,1)"],
+            pageOffset: 0,
+            pageCountSmells: 0,
+            perPage: 3
         };
+        this.loadData = this.loadData.bind(this);
     }
 
-    updatedProject = (project) => {
-        this.setState({project: project});
-        console.log("In updated project: " + project);
-        this.loadData(project);
-    }
 
-    loadData(project) {
+    loadData(project){
         var url = SERVER_IP + "/system?system="+project
         console.log("Requesting data for " + project + " " + url)
         fetch(url)
             .then(res => res.json())
             .then(system => {
                 console.log("Data for project: " + project)
-                this.setState( {smells: system.system.smells, versions: system.system.versions, components: system.system.components});
-            });
+                this.setState( {
+                    project: project,
+                    smells: system.system.smells, 
+                    versions: system.system.versions, 
+                    components: system.system.components,
+                    pageCountSmells: system.system.smells.length / 10
+                });
+            }).catch(e => console.log("Error while retrieving data: " + e));
     }
 
-    calculateLine() {
+    createPlots() {
         const smellCount = {};
         this.state.smellTypes.forEach(t => {
             smellCount[t] = {}
@@ -74,7 +83,7 @@ class SmellList extends Component {
                 pointStrokeColor: 'rgba(38,84,124,1)',
                 pointHighlightFill: 'rgba(38,84,124,1)',
                 pointHighlightStroke: 'rgba(38,84,124,1)',
-                lineTension: 0.1,
+                lineTension: 0.3,
                 backgroundColor: this.state.smellColours[index],
                 borderColor: this.state.smellColours[index],
                 borderCapStyle: 'butt',
@@ -97,50 +106,94 @@ class SmellList extends Component {
         return dataLine;
     }
 
+    handlePageClick = data => {
+        let selected = data.selected;
+        let offset = Math.ceil(selected * this.state.perPage);
+        this.setState({ pageOffset: offset });
+    };
+
     render(){
-        const dataLine = this.calculateLine();
         return (
             <React.Fragment>
             <MDBRow style={{marginBottom: 15}}>
                 <MDBCol md="8">
-                    <ProjectSelector onProjectChange={this.updatedProject}></ProjectSelector>
+                    <ProjectSelector onProjectChange={this.loadData}></ProjectSelector>
                 </MDBCol>
             </MDBRow>
-            
             <MDBRow>
                 <MDBCol md="8">
                     <MDBCard>
                         <MDBCardHeader>Project: {this.state.project}</MDBCardHeader>
                         <MDBCardBody>
                             <MDBCard style={{marginBottom: 5}}>
-                                <MDBCardHeader>Smells over time</MDBCardHeader>
+                                <MDBCardHeader>Number of Architectural smells over time by</MDBCardHeader>
                                 <MDBCardBody>
-                                    <Line data={dataLine} height={100}  />
+                                    <Line data={this.createPlots()} height={100}  />
                                 </MDBCardBody>
                             </MDBCard>
-                            <React.Fragment>
-                                {this.state.smells.map((smell, index) => (
-                                    <Smell
-                                        key = {index}
-                                        id={smell.id}
-                                        characteristics={smell.characteristics}
-                                        spanningVersions={smell.spanningVersions}
-                                        age={smell.age}
-                                        firstVersionAppeared={smell.firstVersionAppeared}
-                                        lastVersionDetected={smell.lastVersionDetected}
-                                        affectedComponents={smell.affectedComponents}
-                                        type={smell.type}
-                                        first={smell.first}
-                                        last={smell.last}
-                                    />
-                                ))}
-                            </React.Fragment>
+                            <div>
+                            <SmellList perPage={this.state.perPage} offset={this.state.pageOffset} smells={this.state.smells}/>
+                            <ReactPaginate
+                                previousLabel={'previous'}
+                                nextLabel={'next'}
+                                breakLabel={'...'}
+                                pageCount={this.state.pageCountSmells}
+                                marginPagesDisplayed={2}
+                                pageRangeDisplayed={5}
+                                onPageChange={this.handlePageClick}
+                                subContainerClassName={'pages pagination'}
+                                activeClassName={'active'}
+                                breakClassName={'page-item'}
+                                breakLinkClassName={'page-link'}
+                                containerClassName={'pagination'}
+                                pageClassName={'page-item'}
+                                pageLinkClassName={'page-link'}
+                                previousClassName={'page-item'}
+                                previousLinkClassName={'page-link'}
+                                nextClassName={'page-item'}
+                                nextLinkClassName={'page-link'}
+                                activeClassName={'active'}
+                                />
+                                </div>
                         </MDBCardBody>
                     </MDBCard>
                 </MDBCol>
             </MDBRow>
             </React.Fragment>
         )
+    }
+}
+
+class SmellList extends Component{
+
+    static propTypes = {
+        smells: PropTypes.array.isRequired,
+        offset: PropTypes.number.isRequired,
+        perPage: PropTypes.number.isRequired
+      };
+
+    constructor(props){
+        super(props);
+    }
+
+    render(){
+        let filteredSmells = this.props.smells.filter((s, index) => index >= this.props.offset && index <= this.props.offset + this.props.perPage);
+        let smellNodes = filteredSmells.map((smell, index) => (
+            <Smell
+                key = {index}
+                id={smell.id}
+                characteristics={smell.characteristics}
+                spanningVersions={smell.spanningVersions}
+                age={smell.age}
+                firstVersionAppeared={smell.firstVersionAppeared}
+                lastVersionDetected={smell.lastVersionDetected}
+                affectedComponents={smell.affectedComponents}
+                type={smell.type}
+                first={smell.first}
+                last={smell.last}
+            />
+        ));
+        return (<div id="system-smells" className="smellsList">{smellNodes}</div>)
     }
 }
 
@@ -157,9 +210,11 @@ class Smell extends Component {
         this.setState({
             open: !this.state.open
         });
+        this.forceUpdate()
     }
 
     render() {
+        console.log("In smell render")
         return (
             <MDBCard style={{marginBottom: 5}}>
                 <MDBCardBody className="w-100">
@@ -215,10 +270,16 @@ class Versions extends Component {
     }
 
     handleClick(item) {
+        if(!(item in this.props.spanningVersions)){
+            item = this.props.spanningVersions[0];
+        }
         this.setState({version: item})
     }
 
     render() {
+        console.log("In versions render")
+        console.log(this.state.version)
+        console.log(this.props.characteristics)
         return(
             <React.Fragment>
                 <MDBDropdown>
@@ -254,7 +315,32 @@ class VersionDetails extends Component {
         return item;
     }
 
+    renderCharacteristicsTableRows(){
+        let result = []
+        if(this.props.characteristics != null){
+            result = Object.keys(this.props.characteristics).map((item, index) => (
+                <tr key={index}>
+                    <td>{item}</td>
+                    <td>{this.format(this.props.characteristics[item]).toString()}</td>
+                </tr>));
+        }
+        return result;
+    }
+
+    renderComponentsTableRows(){
+        let result = []
+        if(this.props.affectedComponents != null)
+            result = this.props.affectedComponents.map(item => (
+            <tr key={item}>
+                <td>{item}</td>
+            </tr>
+        ))
+        return result;
+    }
+
     render() {
+        console.log("In version details render")
+        console.log(this.props.characteristics)
         return(
             <MDBRow>
                 <MDBCol md="8">
@@ -264,14 +350,8 @@ class VersionDetails extends Component {
                                 <th scope="col">Parameter</th>
                                 <th scope="col">Value</th>
                             </tr>
-                        </thead>
-                        <tbody>
-                            {Object.keys(this.props.characteristics).map((item) => (
-                                <tr key={item}>
-                                    <td>{item}</td>
-                                    <td>{this.format(this.props.characteristics[item])}</td>
-                                </tr>
-                            ))}
+                        </thead><tbody>
+                            {this.renderCharacteristicsTableRows()}
                         </tbody>
                     </table>
                 </MDBCol>
@@ -283,11 +363,7 @@ class VersionDetails extends Component {
                         </tr>
                         </thead>
                         <tbody>
-                            {this.props.affectedComponents.map(item => (
-                                <tr key={item}>
-                                    <td>{item}</td>
-                                </tr>
-                            ))}
+                            {this.renderComponentsTableRows()}
                         </tbody>
                     </table>
                 </MDBCol>
@@ -352,4 +428,4 @@ class ProjectSelector extends Component {
     }
 }
 
-export default SmellList;
+export default SystemViewer;
